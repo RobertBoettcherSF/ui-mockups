@@ -273,3 +273,13 @@ A generic environmental field-data portal on a plain black background.
 - **Status bar** — home button, scale/projection readout, live clock and small green tool icons.
 
 All data is invented; no real agencies, seals, or logos.
+
+### sdr-console
+
+A generic software-defined-radio status strip on a plain black background.
+
+- **Map card** — white-bordered tall card with a glowing dot-and-line network over a continental US outline (us-atlas TopoJSON + d3-geo, with an offline generated fallback).
+- **SDR Console v3.2 ENCRYPTED** — bright green panel with LCD-style rows: encryption level, secure frequency and three generic stations (A/B/C) whose statuses cycle; the transmitting one blinks.
+- **Spectrum panel** — grey panel with an abstract antenna tile, an animated segmented spectrum display and a row of white tool icons.
+
+All content is invented and neutral; no real agencies, logos, or names.

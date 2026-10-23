@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>SDR Console</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#000;font-family:Arial,Helvetica,sans-serif}
+.strip{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;gap:6px;align-items:stretch;height:300px}
+.map{width:200px;border:5px solid #fff;background:radial-gradient(ellipse at 50% 45%,#3a2466,#1a0f33 70%);position:relative}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.sdr{width:620px;background:#2cf51f;border:3px solid #1bd010;outline:4px solid #000;outline-offset:-9px;padding:14px 26px;box-sizing:border-box}
+.sdr h1{margin:0 0 10px;text-align:center;font-size:27px;font-weight:bold;color:#0b1a0b}
+.row{display:flex;align-items:center;font-family:'VT323',monospace;font-size:34px;line-height:38px;color:#000;letter-spacing:1px}
+.row .l{width:300px;text-transform:uppercase}.row .s{width:24px}
+.row .v{background:#000;color:#fff;padding:0 4px;text-transform:uppercase}
+.row .v.red{color:#e0101a}.blink{animation:b 1s steps(1) infinite}@keyframes b{50%{opacity:.15}}
+.right{width:290px;background:#5a5a5a;position:relative;padding-top:50px;box-sizing:border-box}
+.tile{position:absolute;left:50%;top:0;transform:translateX(-50%);width:44px;height:50px;background:#000}
+.spec{display:block;width:calc(100% - 8px);margin:0 4px;height:160px;border:4px solid #fff;background:#000;box-sizing:border-box}
+.icons{display:flex;justify-content:space-around;padding:10px 4px 0}
+.icons svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style></head><body>
+<div class="strip">
+ <div class="map"><svg id="us" viewBox="0 0 200 290"></svg></div>
+ <div class="sdr"><h1>SDR Console v3.2 ENCRYPTED</h1>
+  <div class="row"><span class="l">Encryption Level</span><span class="s">&gt;</span><span class="v red">Level 5</span></div>
+  <div class="row"><span class="l">Secure Frequency</span><span class="s">&gt;</span><span class="v" id="freq" style="text-transform:none">7.095 MHz</span></div>
+  <div class="row"><span class="l">"Station A"</span><span class="s">:</span><span class="v" id="sA">Listening</span></div>
+  <div class="row"><span class="l">"Station B"</span><span class="s">:</span><span class="v blink" id="sB">Transmitting</span></div>
+  <div class="row"><span class="l">"Station C"</span><span class="s">:</span><span class="v" id="sC">Idle</span></div>
+ </div>
+ <div class="right">
+  <div class="tile"><svg viewBox="0 0 44 50" width="44" height="50" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><line x1="22" y1="8" x2="22" y2="40"/><path d="M14 30 L22 42 L30 30"/><path d="M13 12a12 12 0 0 1 18 0M9 7a18 18 0 0 1 26 0"/></svg></div>
+  <canvas class="spec" id="spec"></canvas>
+  <div class="icons" id="icons"></div>
+ </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/d3-array@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-geo@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script>
+// Icons
+const I={download:'<path d="M12 3v12M7 10l5 5 5-5M4 20h16"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v.5"/>',alert:'<path d="M6 18v-6a6 6 0 0 1 12 0v6M4 20h16M12 2v2M3 8l2 1M21 8l-2 1"/>',settings:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',compass:'<circle cx="12" cy="4" r="2"/><path d="M11 6L6 21M13 6l5 15M8 14h8"/>',back:'<path d="M10 5L4 11l6 6M4 11h10a6 6 0 0 1 6 6v2"/>',plus:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10"/>',home:'<path d="M3 11l9-8 9 8M6 9v11h12V9"/>',user:'<circle cx="10" cy="8" r="4"/><path d="M3 21a7 7 0 0 1 14 0M19 15v4M17 17h4"/>'};
+document.getElementById('icons').innerHTML=Object.values(I).map(p=>`<svg viewBox="0 0 24 24">${p}</svg>`).join('');
+// Map
+const svg=document.getElementById('us'),NS='http://www.w3.org/2000/svg';
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e}
+el('defs',{}).innerHTML='<filter id="g"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+function drawNodes(pts){const g=el('g',{filter:'url(#g)'});
+ pts.forEach((p,i)=>{pts.slice(i+1).forEach(q=>{if(Math.hypot(p[0]-q[0],p[1]-q[1])<22){const l=document.createElementNS(NS,'line');Object.entries({x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:'#b9a6ff','stroke-opacity':.35,'stroke-width':.5}).forEach(([k,v])=>l.setAttribute(k,v));g.appendChild(l)}})});
+ pts.forEach(p=>{const c=document.createElementNS(NS,'circle');c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r',Math.random()<.2?1.6:.9);c.setAttribute('fill','#e8e0ff');c.style.animation=`b ${2+Math.random()*3}s ${Math.random()*3}s infinite`;g.appendChild(c)})}
+function rand(seed){return()=>(seed=(seed*16807)%2147483647)/2147483647}
+function fallback(){ // rough US outline
+ const P=[[18,118],[40,108],[90,110],[118,108],[132,100],[148,104],[170,96],[178,104],[168,118],[160,138],[150,150],[148,170],[140,160],[118,160],[104,176],[96,166],[80,160],[62,160],[40,150],[24,140]];
+ el('path',{d:'M'+P.join('L')+'Z',fill:'none',stroke:'#cdbfff','stroke-width':.8,'stroke-opacity':.8,filter:'url(#g)'});
+ const r=rand(7),pts=[];const inside=(x,y)=>{let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const[a,b]=P[i],[d,e]=P[j];if((b>y)!=(e>y)&&x<(d-a)*(y-b)/(e-b)+a)c=!c}return c};
+ while(pts.length<55){const x=15+r()*170,y=95+r()*85;if(inside(x,y))pts.push([x,y])}drawNodes(pts)}
+(async()=>{try{if(!window.d3||!window.topojson)throw 0;
+ const topo=await(await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')).json();
+ const ex=new Set(['02','15','60','66','69','72','78']);
+ const fc=topojson.feature(topo,topo.objects.states);fc.features=fc.features.filter(f=>!ex.has(f.id));
+ const proj=d3.geoAlbersUsa().fitExtent([[14,90],[186,195]],fc),path=d3.geoPath(proj);
+ const nation=topojson.merge(topo,topo.objects.states.geometries.filter(g=>!ex.has(g.id)));
+ el('path',{d:path(fc),fill:'none',stroke:'#9f8ae6','stroke-width':.25,'stroke-opacity':.5});
+ el('path',{d:path(nation),fill:'none',stroke:'#d8ccff','stroke-width':.8,filter:'url(#g)'});
+ const r=rand(11),pts=[];let n=0;while(pts.length<60&&n++<5000){const x=14+r()*172,y=90+r()*105,ll=proj.invert([x,y]);if(ll&&d3.geoContains(nation,ll))pts.push([x,y])}drawNodes(pts)
+}catch(e){svg.innerHTML='';el('defs',{}).innerHTML='<filter id="g"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';fallback()}})();
+// Spectrum
+const cv=document.getElementById('spec'),cx=cv.getContext('2d');
+function spec(t){const W=cv.width=cv.clientWidth,H=cv.height=cv.clientHeight;cx.fillStyle='#000';cx.fillRect(0,0,W,H);
+ const cols=56,cw=W/cols,seg=4;for(let i=0;i<cols;i++){const u=i/(cols-1),edge=Math.max(Math.pow(1-u*3.2,1),Math.pow(u*3.2-2.2,1),0);
+  let h=0.04+edge*0.62*(0.8+0.25*Math.sin(t/300+i*0.9))+0.03*Math.random();const n=Math.floor(h*H*0.9/seg);
+  cx.fillStyle='#f4f4f4';for(let k=0;k<n;k++)cx.fillRect(i*cw+1,H-10-k*seg,cw-2,seg-1)}requestAnimationFrame(spec)}
+requestAnimationFrame(spec);
+// Status cycling
+const S=['Listening','Transmitting','Idle'],F=['7.095 MHz','7.110 MHz','14.230 MHz','7.095 MHz'];let tick=0;
+setInterval(()=>{tick++;if(tick%3)return;const ids=['sA','sB','sC'],off=(tick/3)%3;ids.forEach((id,i)=>{const e=document.getElementById(id);const s=S[(i+off)%3];e.textContent=s;e.classList.toggle('blink',s==='Transmitting')});document.getElementById('freq').textContent=F[(tick/3)%F.length]},2000);
+</script></body></html>
