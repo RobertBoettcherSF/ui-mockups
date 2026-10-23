@@ -17,7 +17,6 @@ canvas{display:block}
 .blk{position:absolute;width:62px;height:72px;background:linear-gradient(160deg,#1a6bd0,#0a2f6a);border:1px solid #4f9fff;box-shadow:0 0 16px rgba(60,140,255,.7),inset 0 0 18px rgba(140,190,255,.5)}
 #scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.22) 3px,rgba(0,0,0,0) 4px);mix-blend-mode:multiply;animation:fl 5s steps(24) infinite;z-index:40}
 @keyframes fl{0%,100%{opacity:.55}50%{opacity:.7}}
-#glass{position:absolute;left:0;right:0;bottom:0;height:230px;pointer-events:none;z-index:5;opacity:.22}
 .cap{position:absolute;color:#6fd0a0;font-size:11px;letter-spacing:1px}
 </style></head><body>
 <div id="stage">
@@ -27,7 +26,6 @@ canvas{display:block}
 
  <!-- figure -->
  <canvas id="fig" width="320" height="640" style="position:absolute;left:330px;top:120px"></canvas>
- <canvas id="fig2" width="120" height="240" style="position:absolute;left:650px;top:500px"></canvas>
  <div class="cap" style="left:360px;top:95px" id="figcap">THERMAL MAP // SUBJECT 00</div>
 
  <!-- right top -->
@@ -41,7 +39,6 @@ canvas{display:block}
  <div class="cap" style="left:820px;top:470px">SIGNAL TRACE // MULTI-SERIES</div>
  <canvas id="chart" width="720" height="300" style="position:absolute;left:820px;top:490px"></canvas>
 
- <svg id="glass" viewBox="0 0 1600 230" preserveAspectRatio="none"><g stroke="#4f8fbf" stroke-width="1" fill="none" opacity="0.8"><line x1="0" y1="0" x2="1600" y2="0"/></g></svg>
  <div id="scan"></div>
 </div>
 <script>
@@ -112,10 +109,8 @@ function drawChart(){const W=chart.width,H=chart.height;cx.clearRect(0,0,W,H);
  cph+=0.08;requestAnimationFrame(drawChart);}
 drawChart();
 
-// glass perspective grid
-(function(){const svg=document.getElementById('glass');const g=svg.querySelector('g');let h='';for(let i=-20;i<=20;i++){const x=800+i*120;h+='<line x1="800" y1="0" x2="'+x+'" y2="230"/>';}for(let j=1;j<=7;j++){const y=j*33;h+='<line x1="0" y1="'+y+'" x2="1600" y2="'+y+'" opacity="'+(0.6-j*0.07)+'"/>';}g.innerHTML+=h;})();
 
 // animate figures
-let fph=0;function animFig(){fph+=0.03;drawFigure(document.getElementById('fig'),0,0,1,fph);drawFigure(document.getElementById('fig2'),0,0,0.375,fph*1.1);requestAnimationFrame(animFig);}
+let fph=0;function animFig(){fph+=0.03;drawFigure(document.getElementById('fig'),0,0,1,fph);requestAnimationFrame(animFig);}
 animFig();
 </script></body></html>

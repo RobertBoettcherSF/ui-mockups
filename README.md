@@ -249,8 +249,7 @@ readout (no film name anywhere).
 - **Centre** — a simple, neutral mannequin-like human silhouette (union of
   basic SVG/canvas shapes, no anatomical detail) filled with an animated
   rainbow thermal heat-map (canvas value-noise through a blue→green→yellow→red
-  palette that slowly shifts), with a small duplicate figure to its lower
-  right.
+  palette that slowly shifts).
 - **Left** — two tall vertical gauges with tick scales, green upper / red
   lower fill, a drifting marker, and labels/values (*CORE TEMP*, *HEART RATE*).
 - **Right top** — glowing green header lines, a small table of generic
@@ -258,8 +257,7 @@ readout (no film name anywhere).
   response) with values updating, and two glowing blue blocks.
 - **Right bottom** — a live multi-series dotted line chart (pink/yellow/blue/
   white) scrolling continuously.
-- **Overlays** — a subtle scanline flicker, soft glow, and a faint
-  perspective-grid "glass reflection" along the bottom edge.
+- **Overlays** — a subtle scanline flicker and soft glow.
 
 All readings are generic and invented; no real brands, logos, people, or film
 references.
