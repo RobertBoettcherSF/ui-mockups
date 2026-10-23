@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Continental Public Information Network</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#0c0f12;color:#d7dde0;font:13px/1.45 Georgia,"Times New Roman",serif;overflow:hidden}
+/* scrolling filler background */
+#bg{position:absolute;inset:-50% 0;z-index:0;font:11px/1.5 "Courier New",monospace;color:#20262b;letter-spacing:1px;white-space:pre-wrap;word-break:break-all;opacity:.55;animation:drift 60s linear infinite;pointer-events:none}
+@keyframes drift{from{transform:translateY(0)}to{transform:translateY(-33%)}}
+/* scanlines + flicker overlay */
+#scan{position:absolute;inset:0;z-index:50;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.18) 3px,rgba(0,0,0,0) 4px);mix-blend-mode:multiply;animation:flk 5s steps(30) infinite}
+@keyframes flk{0%,100%{opacity:.5}48%{opacity:.62}49%{opacity:.35}50%{opacity:.7}}
+#wrap{position:absolute;inset:0;z-index:10;padding:14px 16px 0;display:grid;grid-template-rows:1fr auto;gap:10px}
+#top{display:grid;grid-template-columns:300px 1fr;gap:16px;min-height:0}
+/* sidebar */
+.side{border:1px solid #39434b;padding:20px 16px;display:flex;flex-direction:column;min-height:0}
+.chan{font-size:30px;line-height:1.05;letter-spacing:1px;color:#f3f6f7;font-weight:bold;text-transform:uppercase}
+.clock{font:bold 26px "Courier New",monospace;color:#eef3f4;margin-top:22px}
+.date{font-size:16px;color:#cfd6da;border-bottom:1px solid #cfd6da;display:inline-block;margin-top:4px;padding-bottom:1px;font-family:Georgia,serif}
+.emblem{margin:26px 0;display:flex;justify-content:center}
+.notice{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-style:italic;font-size:12.5px;color:#c3cace;margin-top:auto}
+.notice .fr{color:#aab2b7}
+/* right */
+.rt{display:flex;flex-direction:column;min-height:0;gap:12px}
+.hdr{border:1px solid #39434b;padding:9px 16px;display:flex;align-items:center;gap:14px}
+.hdr svg{flex:0 0 auto}
+.hdr .ht{font-size:21px;letter-spacing:2px;color:#eef3f4;font-weight:bold}
+.panels{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;min-height:0}
+.panel{border:1px solid #39434b;padding:12px 16px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.panel.news{grid-column:2 / 3;grid-row:1 / span 2}
+.panel .pi{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:8px}
+.panel .pt{text-align:center;letter-spacing:1px;color:#cdd4d8;font-size:12.5px;font-weight:bold;text-transform:uppercase}
+.lines{flex:1;overflow:hidden;display:flex;flex-direction:column;gap:7px;justify-content:center}
+.rl{text-align:center;color:#e8392b;font-family:"Arial Narrow",Arial,sans-serif;font-weight:bold;letter-spacing:1px;font-size:12.5px;text-transform:uppercase;text-shadow:0 0 4px rgba(232,57,43,.5);animation:gl 7s infinite}
+.rl .f{display:block;color:#b53027;font-size:11px;font-weight:normal}
+@keyframes gl{0%,96%,100%{opacity:1;transform:translateX(0)}97%{opacity:.4;transform:translateX(-1px)}98%{opacity:.85;transform:translateX(1px)}}
+/* ticker */
+.ticker{border-top:1px solid #39434b;border-bottom:1px solid #39434b;overflow:hidden;white-space:nowrap;padding:8px 0}
+.ticker span{display:inline-block;padding-left:100%;font-size:26px;letter-spacing:1px;color:#e9eef0;font-family:Georgia,serif;animation:scroll 40s linear infinite;animation-delay:-22s}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+</style></head><body>
+<div id="bg"></div>
+<div id="scan"></div>
+<div id="wrap">
+ <div id="top">
+  <!-- SIDEBAR -->
+  <div class="side">
+   <div class="chan">Continental Public Information Network</div>
+   <div class="clock" id="clock">00:00 LT</div>
+   <div><span class="date" id="date">—</span></div>
+   <div class="emblem">
+    <svg width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="40" fill="none" stroke="#9fb0bb" stroke-width="2"/><circle cx="45" cy="45" r="30" fill="none" stroke="#5f6e78" stroke-width="1"/><g stroke="#d7dde0" stroke-width="2" fill="none"><circle cx="45" cy="45" r="7"/><path d="M45 12v12M45 66v12M12 45h12M66 45h12M23 23l8 8M59 59l8 8M67 23l-8 8M31 59l-8 8"/></g></svg>
+   </div>
+   <div class="notice">
+    <div class="en">This channel is reserved for all future public broadcasts.</div>
+    <div class="fr">Cette chaîne est réservée à toutes les diffusions publiques futures.</div>
+   </div>
+  </div>
+  <!-- RIGHT -->
+  <div class="rt">
+   <div class="hdr">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#cdd4d8" stroke-width="1.6"><rect x="3" y="4" width="20" height="18" rx="1.5"/><path d="M7 9h8M7 13h12M7 17h10"/></svg>
+    <div class="ht">NEWS &amp; INFORMATION | NOUVELLES ET INFORMATIONS</div>
+   </div>
+   <div class="panels">
+    <div class="panel">
+     <div class="pi">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#cdd4d8" stroke-width="1.6"><path d="M12 3a6 6 0 0 0-6 6v4l-2 3h16l-2-3V9a6 6 0 0 0-6-6zM10 20a2 2 0 0 0 4 0"/></svg>
+      <div class="pt">ACTIVE WARNINGS | AVERTISSEMENTS ACTIFS</div>
+     </div>
+     <div class="lines" id="warn"></div>
+    </div>
+    <div class="panel">
+     <div class="pi">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#cdd4d8" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7.5v.01"/></svg>
+      <div class="pt">PUBLIC INFORMATION | INFORMATIONS PUBLIQUES</div>
+     </div>
+     <div class="lines" id="info"></div>
+    </div>
+    <div class="panel news">
+     <div class="pi">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#cdd4d8" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M7 9h6M7 12h6M7 15h4M16 9h2v6h-2z"/></svg>
+      <div class="pt">NEWS | NOUVELLES</div>
+     </div>
+     <div class="lines" id="news"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="ticker"><span id="tick"></span></div>
+</div>
+<script>
+// background filler (neutral monospace gibberish)
+(function(){const words="INFORMATION NOUVELLES PUBLIC RESEAU CONTINENTAL ADVISORY BULLETIN METEO SERVICE NETWORK CHANNEL DIFFUSION SIGNAL RELAY STANDBY NOMINAL ".split(" ");let out="";for(let r=0;r<160;r++){let line="";for(let c=0;c<42;c++)line+=words[(r*7+c*3)%words.length]+" ";out+=line+"\n";}document.getElementById('bg').textContent=out;})();
+
+// clock + date
+function pad(n){return String(n).padStart(2,'0')}
+function tick(){const d=new Date();document.getElementById('clock').textContent=pad(d.getHours())+':'+pad(d.getMinutes())+' LT';
+ const mo=["January","February","March","April","May","June","July","August","September","October","November","December"][d.getMonth()];
+ document.getElementById('date').textContent=mo+' '+d.getDate()+' '+d.getFullYear();}
+tick();setInterval(tick,1000*20);
+
+// content (neutral, bilingual)
+const WARN=[['SEVERE WEATHER ADVISORY IN EFFECT','AVIS DE CONDITIONS MÉTÉO SÉVÈRES EN VIGUEUR'],
+ ['HIGH WIND WARNING — COASTAL ZONES','ALERTE VENTS FORTS — ZONES CÔTIÈRES'],
+ ['HEAT ADVISORY — STAY HYDRATED','AVIS DE CHALEUR — RESTEZ HYDRATÉ'],
+ ['FLOOD WATCH — LOW-LYING AREAS','VIGILANCE CRUE — ZONES BASSES'],
+ ['ROAD WORKS — EXPECT DELAYS','TRAVAUX ROUTIERS — PRÉVOIR DES RETARDS']];
+const INFO=[['LIBRARY HOURS EXTENDED THIS WEEK','HORAIRES DE BIBLIOTHÈQUE PROLONGÉS'],
+ ['RAIL TIMETABLE CHANGE FROM MONDAY','CHANGEMENT D’HORAIRE FERROVIAIRE DÈS LUNDI'],
+ ['COMMUNITY EVENTS AT THE MAIN SQUARE','ÉVÉNEMENTS COMMUNAUTAIRES SUR LA PLACE'],
+ ['RECYCLING COLLECTION RESCHEDULED','COLLECTE DE RECYCLAGE REPORTÉE'],
+ ['PUBLIC POOL REOPENS SATURDAY','LA PISCINE PUBLIQUE ROUVRE SAMEDI']];
+const NEWS=[['REGIONAL TRANSIT RIDERSHIP RISES','LA FRÉQUENTATION DES TRANSPORTS AUGMENTE'],
+ ['NEW PARK OPENS TO THE PUBLIC','UN NOUVEAU PARC OUVRE AU PUBLIC'],
+ ['HARVEST SEASON REPORTED STABLE','SAISON DES RÉCOLTES JUGÉE STABLE'],
+ ['LOCAL MARKETS EXTEND WEEKEND HOURS','LES MARCHÉS PROLONGENT LEURS HORAIRES'],
+ ['BRIDGE MAINTENANCE COMPLETED EARLY','ENTRETIEN DU PONT TERMINÉ EN AVANCE'],
+ ['SCHOOL TERM BEGINS NEXT WEEK','LA RENTRÉE SCOLAIRE A LIEU LA SEMAINE PROCHAINE'],
+ ['WEATHER SERVICE UPGRADES SENSORS','LE SERVICE MÉTÉO MODERNISE SES CAPTEURS']];
+function fill(id,arr){const el=document.getElementById(id);el.innerHTML=arr.map((p,i)=>'<div class="rl" style="animation-delay:'+(i*0.7)+'s">'+p[0]+'<span class="f">'+p[1]+'</span></div>').join('');}
+fill('warn',WARN);fill('info',INFO);fill('news',NEWS);
+
+// ticker bilingual neutral
+const t="THROUGH TIMES OF CHANGE, STAY INFORMED AND CONNECTED  —  POUR RESTER INFORMÉ ET CONNECTÉ EN TOUT TEMPS  —  PUBLIC BROADCASTS CONTINUE AS SCHEDULED  —  LES DIFFUSIONS PUBLIQUES SE POURSUIVENT COMME PRÉVU  —  ";
+document.getElementById('tick').textContent=t+t;
+</script></body></html>

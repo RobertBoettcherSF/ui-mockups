@@ -188,3 +188,28 @@ All invented and neutral apart from the user-approved German flag and
 *BUNDESTAG* label: no other real organisations, agencies, people, seals, or
 film references. Map tiles load from Esri with attribution and a generated
 offline fallback.
+
+### public-broadcast-channel
+
+A public-information broadcast screen inspired by a film's channel layout and
+colour palette, redrawn as an original, fully generic network.
+
+- **Background** — dark charcoal with faint, slowly scrolling grey monospace
+  filler text behind everything, plus a subtle scanline/flicker overlay.
+- **Sidebar** — an invented channel name (*CONTINENTAL PUBLIC INFORMATION
+  NETWORK*) in white serif caps, a live `HH:MM LT` clock, an underlined date,
+  an original abstract emblem (no flag/stars/parliament outline), and a
+  two-column bilingual English/French italic notice.
+- **Header** — a bordered box with a line icon: *NEWS & INFORMATION |
+  NOUVELLES ET INFORMATIONS*.
+- **Panels** — three thin-bordered panels with line icons and bilingual
+  titles: *ACTIVE WARNINGS | AVERTISSEMENTS ACTIFS*, *PUBLIC INFORMATION |
+  INFORMATIONS PUBLIQUES*, and a tall *NEWS | NOUVELLES*. Each shows red,
+  centred, slightly glitchy/flickering uppercase bilingual lines with neutral
+  content (weather/heat/flood advisories, road works, rail timetable change,
+  library hours, community events, local news).
+- **Ticker** — a wide serif marquee scrolling right-to-left with neutral
+  bilingual text.
+
+All invented and neutral: no real organisations, channel logos, flags, seals,
+people, or film references.
