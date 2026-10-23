@@ -4,7 +4,7 @@
 html,body{height:100%}
 body{font:13px/1.4 -apple-system,"Segoe UI",Arial,sans-serif;overflow:hidden;background:#0a1a2a;color:#15202b;user-select:none}
 /* wallpaper scene */
-#scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+#scene{position:absolute;inset:0;width:100%;height:100%;background:linear-gradient(160deg,#ff8a3d,#f26a21)}
 /* voicemail window */
 #vm{position:absolute;left:24px;bottom:58px;width:340px;background:#eef2f6;border:1px solid #c3ccd6;border-radius:6px;box-shadow:0 14px 50px #0008;z-index:20;overflow:hidden}
 #vm .tb{height:26px;background:linear-gradient(#f6f8fb,#dde4ec);border-bottom:1px solid #c3ccd6;display:flex;align-items:center;gap:6px;padding:0 8px;cursor:move;color:#44525f;font-size:11px}
@@ -49,55 +49,7 @@ body{font:13px/1.4 -apple-system,"Segoe UI",Arial,sans-serif;overflow:hidden;bac
 #tray{margin-left:auto;display:flex;gap:16px;align-items:center;padding-right:16px}
 #tray svg{width:17px;height:17px;cursor:pointer}
 </style></head><body>
-<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
- <defs>
-  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6cae"/><stop offset="55%" stop-color="#6ca6db"/><stop offset="100%" stop-color="#b9d6ec"/></linearGradient>
-  <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f1ea"/><stop offset="100%" stop-color="#d7d2c4"/></linearGradient>
-  <linearGradient id="dome" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ece7db"/><stop offset="100%" stop-color="#c7c0ad"/></linearGradient>
-  <radialGradient id="sun" cx="78%" cy="18%" r="30%"><stop offset="0" stop-color="#fffdf2" stop-opacity=".8"/><stop offset="100%" stop-color="#fffdf2" stop-opacity="0"/></radialGradient>
- </defs>
- <rect width="1600" height="900" fill="url(#sky)"/>
- <rect width="1600" height="900" fill="url(#sun)"/>
- <!-- distant soft clouds -->
- <g fill="#ffffff" opacity=".5"><ellipse cx="260" cy="150" rx="120" ry="30"/><ellipse cx="1180" cy="110" rx="160" ry="34"/><ellipse cx="900" cy="200" rx="110" ry="26"/></g>
- <!-- ground -->
- <rect y="760" width="1600" height="140" fill="#9fb27e"/>
- <!-- invented civic building (central, original; not any real capitol) -->
- <g>
-  <!-- main block -->
-  <rect x="520" y="470" width="760" height="300" fill="url(#stone)"/>
-  <!-- stepped base -->
-  <rect x="470" y="740" width="860" height="14" fill="#cfc9ba"/><rect x="450" y="754" width="900" height="14" fill="#c2bcad"/>
-  <!-- colonnade (columns) -->
-  <g fill="#efece2">
-   <rect x="545" y="520" width="24" height="220"/><rect x="600" y="520" width="24" height="220"/><rect x="655" y="520" width="24" height="220"/><rect x="710" y="520" width="24" height="220"/><rect x="765" y="520" width="24" height="220"/>
-   <rect x="1010" y="520" width="24" height="220"/><rect x="1065" y="520" width="24" height="220"/><rect x="1120" y="520" width="24" height="220"/><rect x="1175" y="520" width="24" height="220"/><rect x="1230" y="520" width="24" height="220"/>
-  </g>
-  <rect x="535" y="508" width="270" height="16" fill="#ded8ca"/><rect x="1000" y="508" width="270" height="16" fill="#ded8ca"/>
-  <!-- central portico pediment -->
-  <rect x="820" y="500" width="160" height="240" fill="#f0ede4"/>
-  <g fill="#efece2"><rect x="835" y="520" width="22" height="220"/><rect x="878" y="520" width="22" height="220"/><rect x="921" y="520" width="22" height="220"/><rect x="947" y="520" width="22" height="220"/></g>
-  <polygon points="810,500 900,440 990,500" fill="#e7e1d3"/><polygon points="824,498 900,448 976,498" fill="#d9d2c1"/>
-  <!-- drum under dome -->
-  <rect x="838" y="350" width="124" height="96" fill="#e9e3d5"/>
-  <g fill="#cfc8b7"><rect x="852" y="360" width="14" height="78"/><rect x="884" y="360" width="14" height="78"/><rect x="916" y="360" width="14" height="78"/><rect x="938" y="360" width="10" height="78"/></g>
-  <!-- dome -->
-  <path d="M832 352 Q900 210 968 352 Z" fill="url(#dome)"/>
-  <path d="M858 352 Q900 250 942 352 Z" fill="#d7d0bd" opacity=".6"/>
-  <!-- lantern + finial -->
-  <rect x="888" y="196" width="24" height="26" fill="#e9e3d5"/><path d="M886 196 Q900 172 914 196 Z" fill="#cdb870"/><rect x="897" y="160" width="6" height="16" fill="#cdb870"/><circle cx="900" cy="156" r="6" fill="#d9c47e"/>
-  <!-- windows on wings -->
-  <g fill="#9fb0bf" opacity=".85"><rect x="560" y="560" width="200" height="90" rx="3"/><rect x="1020" y="560" width="200" height="90" rx="3"/></g>
- </g>
- <!-- palm trees (SVG) -->
- <g>
-  <g transform="translate(360,520)"><rect x="-8" y="0" width="16" height="250" fill="#6e5636"/><g stroke="#2f6b35" stroke-width="12" stroke-linecap="round" fill="none"><path d="M0,0 Q-70,-30 -130,10"/><path d="M0,0 Q-50,-70 -90,-120"/><path d="M0,0 Q50,-70 90,-120"/><path d="M0,0 Q70,-30 130,10"/><path d="M0,0 Q0,-80 10,-150"/></g></g>
-  <g transform="translate(1320,540) scale(.9)"><rect x="-8" y="0" width="16" height="240" fill="#6e5636"/><g stroke="#2f6b35" stroke-width="12" stroke-linecap="round" fill="none"><path d="M0,0 Q-70,-30 -130,10"/><path d="M0,0 Q-50,-70 -90,-120"/><path d="M0,0 Q50,-70 90,-120"/><path d="M0,0 Q70,-30 130,10"/><path d="M0,0 Q0,-80 -10,-150"/></g></g>
-  <g transform="translate(700,660) scale(.7)"><rect x="-8" y="0" width="16" height="230" fill="#6e5636"/><g stroke="#357a3c" stroke-width="13" stroke-linecap="round" fill="none"><path d="M0,0 Q-70,-30 -140,15"/><path d="M0,0 Q-55,-75 -95,-130"/><path d="M0,0 Q55,-75 95,-130"/><path d="M0,0 Q70,-30 140,15"/></g></g>
- </g>
- <!-- foreground shrubs -->
- <g fill="#3c6b3a"><ellipse cx="200" cy="820" rx="260" ry="70"/><ellipse cx="1450" cy="815" rx="260" ry="80"/><ellipse cx="820" cy="840" rx="400" ry="60"/></g>
-</svg>
+<div id="scene"></div>
 
 <!-- Voicemail window -->
 <div id="vm">

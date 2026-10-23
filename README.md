@@ -94,10 +94,8 @@ bottom-left fullscreen + lock, bottom-right camera + blue share — all interact
 Preview: `conference-grid/preview.png`
 
 ### voicemail-desktop
-Desktop voicemail scene, fully original and generic (no real agency, place, person, capitol or
-flag). Full-screen SVG/CSS wallpaper of an invented domed civic building with colonnades, a
-central pediment and cupola, palm trees, shrubs and a blue sky with soft clouds — deliberately
-resembling no real capitol, with no flags or stars. Bottom-left floating **Voicemail** window
+Desktop voicemail scene, fully original and generic (no real agency, place or person). A simple
+solid orange background (subtle gradient). Bottom-left floating **Voicemail** window
 (draggable title bar with minimise/close): caller "Health Agency Director", fictional number
 "+1 555-0100", time/duration (5:47 PM // 0:42), a big round blue play/pause button with a
 progress ring over a faint waveform, and Call Back / Delete / More buttons. Interactive:
