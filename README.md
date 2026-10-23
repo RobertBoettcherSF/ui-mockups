@@ -92,3 +92,17 @@ Liaison Officer — Kai Brenner; Council Chair — Network Partners). An active-
 styling: mic mute toggle, red hang-up ("Call ended" overlay), red REC with blinking dot + timer,
 bottom-left fullscreen + lock, bottom-right camera + blue share — all interactive.
 Preview: `conference-grid/preview.png`
+
+### voicemail-desktop
+Desktop voicemail scene, fully original and generic (no real agency, place, person, capitol or
+flag). Full-screen SVG/CSS wallpaper of an invented domed civic building with colonnades, a
+central pediment and cupola, palm trees, shrubs and a blue sky with soft clouds — deliberately
+resembling no real capitol, with no flags or stars. Bottom-left floating **Voicemail** window
+(draggable title bar with minimise/close): caller "Health Agency Director", fictional number
+"+1 555-0100", time/duration (5:47 PM // 0:42), a big round blue play/pause button with a
+progress ring over a faint waveform, and Call Back / Delete / More buttons. Interactive:
+play/pause animates the ring over 42s, Delete dismisses the window with a toast, Call Back shows
+a calling→connected state, More opens a small menu (Transcript / Save / Forward), and the window
+is draggable. Black bottom taskbar with Channel / Comms / Priority dropdown menus (generic
+items), a centred live day+time clock, and a right tray (volume / arrow / wifi icons).
+Preview: `voicemail-desktop/preview.png`
