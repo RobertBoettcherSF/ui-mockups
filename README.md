@@ -4,7 +4,53 @@ Standalone HTML/CSS (+ vanilla JS) mockups inspired by interface layouts seen in
 Each folder is self-contained; open its `index.html` in a browser. The map views attempt to
 use real public map data when online, and fall back gracefully to generated/SVG maps offline.
 
-## Mockups
+## Gallery
+
+| Preview | Mockup | Description |
+|---|---|---|
+| [<img src="farm-weather-console/preview.png" width="240">](farm-weather-console/preview.png) | [`farm-weather-console`](farm-weather-console/index.html) | Farm weather & crop monitoring console with live radar map |
+| [<img src="drone-console/preview.png" width="240">](drone-console/preview.png) | [`drone-console`](drone-console/index.html) | Solar UAV ground-control console with satellite tracking map |
+| [<img src="verdant-os/preview.png" width="240">](verdant-os/preview.png) | [`verdant-os`](verdant-os/index.html) | Farm desktop operating system concept |
+| [<img src="aether-os/preview.png" width="240">](aether-os/preview.png) | [`aether-os`](aether-os/index.html) | Drone desktop operating system concept |
+| [<img src="secure-video-call/preview.png" width="240">](secure-video-call/preview.png) | [`secure-video-call`](secure-video-call/index.html) | Generic secure video-call interface |
+| [<img src="conference-grid/preview.png" width="240">](conference-grid/preview.png) | [`conference-grid`](conference-grid/index.html) | 3×2 video conference grid with active-speaker cycle |
+| [<img src="voicemail-desktop/preview.png" width="240">](voicemail-desktop/preview.png) | [`voicemail-desktop`](voicemail-desktop/index.html) | Desktop with interactive voicemail window |
+| [<img src="ops-centre-europe/preview.png" width="240">](ops-centre-europe/preview.png) | [`ops-centre-europe`](ops-centre-europe/index.html) | Operations-centre dashboard centred on Brussels |
+| [<img src="ops-centre-france/preview.png" width="240">](ops-centre-france/preview.png) | [`ops-centre-france`](ops-centre-france/index.html) | Regional operations dashboard centred on Paris |
+| [<img src="ops-centre-berlin/preview.png" width="240">](ops-centre-berlin/preview.png) | [`ops-centre-berlin`](ops-centre-berlin/index.html) | Air-patrol dashboard around the Bundestag, Berlin |
+| [<img src="public-broadcast-channel/preview.png" width="240">](public-broadcast-channel/preview.png) | [`public-broadcast-channel`](public-broadcast-channel/index.html) | Bilingual public-information broadcast screen |
+| [<img src="self-organizing-system/preview.png" width="240">](self-organizing-system/preview.png) | [`self-organizing-system`](self-organizing-system/index.html) | Code / blueprint two-mode system visualisation |
+| [<img src="biometric-scan/preview.png" width="240">](biometric-scan/preview.png) | [`biometric-scan`](biometric-scan/index.html) | Body-scan visualisation with live readouts |
+| [<img src="field-data-viewer/preview.png" width="240">](field-data-viewer/preview.png) | [`field-data-viewer`](field-data-viewer/index.html) | Field monitoring overview, chart and file viewer |
+| [<img src="sdr-console/preview.png" width="240">](sdr-console/preview.png) | [`sdr-console`](sdr-console/index.html) | Software-defined radio station console |
+| [<img src="secure-comms-portal/preview.png" width="240">](secure-comms-portal/preview.png) | [`secure-comms-portal`](secure-comms-portal/index.html) | Green-on-black secure communications portal |
+| [<img src="global-ops-hub/preview.png" width="240">](global-ops-hub/preview.png) | [`global-ops-hub`](global-ops-hub/index.html) | Global operations hub with world map and feeds |
+| [<img src="coastal-monitor/preview.png" width="240">](coastal-monitor/preview.png) | [`coastal-monitor`](coastal-monitor/index.html) | Retro coastal monitoring terminal with camera views |
+| [<img src="cockpit-flight-display/preview.png" width="240">](cockpit-flight-display/preview.png) | [`cockpit-flight-display`](cockpit-flight-display/index.html) | Twin-screen spacecraft cockpit flight display |
+| [<img src="craft-schematic-display/preview.png" width="240">](craft-schematic-display/preview.png) | [`craft-schematic-display`](craft-schematic-display/index.html) | Interactive spacecraft subsystem schematic |
+
+## How to open
+
+Clone or download the repo and open any folder's `index.html` in a browser. No build step.
+Map views use public map data when online and fall back to generated maps offline.
+
+### URL parameters & keys
+- `drone-console`, `aether-os`: `?speed=50` speeds up the simulated flight.
+- `self-organizing-system`: press **M** to switch between code and blueprint mode; `?mode=` forces a mode.
+- `craft-schematic-display`: **Space** or click a part to highlight a subsystem.
+- `verdant-os`, `aether-os`: type commands in the terminal and press **Enter**.
+
+### Map data attributions
+- Basemap / imagery tiles © Esri; © OpenStreetMap contributors
+- Radar overlay: RainViewer public API
+- Borders: us-atlas and world-atlas TopoJSON (Natural Earth / US Census), rendered with d3-geo and Leaflet
+- `vendor/` bundles Leaflet (BSD-2), d3 (ISC), topojson-client (ISC), world-atlas and us-atlas (ISC) so maps work offline; their licences are included there.
+
+## License
+
+MIT, see [LICENSE](LICENSE). All names, readings and messages are invented.
+
+## Details
 
 ### farm-weather-console
 Dark farm weather & dust-storm / crop monitoring console (inspired by a laptop screen glimpsed

@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>AetherOS</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="../vendor/leaflet/leaflet.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
@@ -51,7 +51,7 @@ table{border-collapse:collapse;width:100%}td,th{padding:2px 5px;text-align:left;
  <div id="tray"><span id="stat">LINK <span class="v">SECURE</span></span><span id="net">NET <span class="v">—</span></span><span id="clk"></span></div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="../vendor/leaflet/leaflet.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const SPEED=Math.max(1,parseFloat(new URLSearchParams(location.search).get('speed'))||1);
@@ -116,7 +116,7 @@ function initMap(){
  function fb(reason){useLive=false;$('leaf').style.display='none';$('fb').style.display='block';attr.textContent='offline — generated terrain ('+reason+')';setNet('OFFLINE');drawTerrain()}
  try{if(typeof L==='undefined')throw new Error('leaflet');
   map=L.map('leaf',{zoomControl:false,attributionControl:true,worldCopyJump:true}).setView(LINCOLN,6);
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:17,attribution:'Tiles &copy; <a href="https://www.esri.com/">Esri</a>, Maxar'}).addTo(map);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:17,attribution:'Tiles &copy; <a href="https://www.esri.com/">Esri</a>, Maxar'}).on('tileload',function(){this._ok=1}).on('tileerror',function(){var t=this;if(t._ok||t._fb)return;clearTimeout(t._tm);t._tm=setTimeout(function(){if(!t._ok&&!t._fb){t._fb=1;fb('no tiles')}},1500)}).addTo(map);
   marker=L.marker(LINCOLN,{icon:L.divIcon({className:'dicon',html:DRONE_SVG,iconSize:[26,26],iconAnchor:[13,13]})}).addTo(map);
   trailLine=L.polyline([LINCOLN],{color:'#aeffd6',weight:2,opacity:.85}).addTo(map);
   useLive=true;attr.innerHTML='Imagery &copy; <a href="https://www.esri.com/">Esri</a>, Maxar';setNet('ONLINE');

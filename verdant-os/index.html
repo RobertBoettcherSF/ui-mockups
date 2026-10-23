@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>VerdantOS</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="../vendor/leaflet/leaflet.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
@@ -56,8 +56,9 @@ body{background:#05080a;color:#7fe3e0;font:12px/1.35 "Courier New",monospace;pos
  <div id="tray"><span>SYS <span class="v">OK</span></span><span id="net">NET <span class="v">—</span></span><span id="clk"></span></div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script src="../vendor/offline-fetch.js"></script><script src="../vendor/data-states-10m.js"></script>
+<script src="../vendor/leaflet/leaflet.js"></script>
+<script src="../vendor/topojson-client.min.js"></script>
 <script>
 const R=(a,b)=>a+Math.random()*(b-a);
 /* ---------- icons ---------- */
