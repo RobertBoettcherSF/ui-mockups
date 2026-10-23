@@ -294,3 +294,7 @@ A generic encrypted-messaging portal on a black background with green text and t
 - **System Dashboard** and **System Tray Alerts** — neutral uplink/storage/sync metrics and routine notifications.
 
 All content is invented and neutral; no real agencies, seals, or names.
+
+## global-ops-hub
+
+A generic operations hub: a silver compass-rose emblem in a hexagon at the centre, linked by thin lines to six green-bordered panels (overview, secure call with animated waveform, task tracker, resource status, multi-region world map, info feed) and a bottom taskbar with a live clock. All content is neutral placeholder text. Map data: [world-atlas](https://github.com/topojson/world-atlas) (Natural Earth), rendered with d3-geo; offline fallback included.

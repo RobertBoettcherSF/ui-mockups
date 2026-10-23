@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Global Ops Hub</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#dfe86a}
+body{background:radial-gradient(ellipse at 50% 45%,#1c3c66 0%,#0b1a30 35%,#03070e 75%,#000 100%)}
+#stage{position:absolute;inset:0 0 6% 0}
+.panel{position:absolute;border:2px solid #4cc94c;background:rgba(6,18,42,.92);padding:1.2vh 1.2vw;font-size:1.55vh}
+.title{display:flex;justify-content:center;align-items:center;gap:.6vw;margin-bottom:1vh}
+.title span{background:#8a0d0d;color:#fff;padding:.2vh .5vw;font-size:1.75vh}
+.title span.plain{background:none}
+.ico{position:absolute;top:1.2vh;width:2vh;height:2vh;fill:#4cc94c}
+.panel p{margin:.9vh 0}
+.green{color:#7fe05a}
+#ov{left:3.5%;top:5%;width:30%;height:26%}
+#call{left:5.5%;top:36%;width:27.5%;height:25%}
+#call .wave{border:2px solid #4cc94c;height:72%;background:#020814}
+#task{left:2.5%;top:67%;width:30%;height:25%}
+#task ol{padding-left:1.6vw}#task li{margin:.9vh 0;padding-left:1vw}
+#res{left:57.5%;top:3%;width:27.5%;height:25%}
+#map{left:68%;top:31%;width:30%;height:32%;padding:.8vh}
+#map svg#mp{width:100%;height:84%}
+#feed{left:61.5%;top:66%;width:35.5%;height:26%}
+#feed li{list-style:none;margin:1.05vh 0;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#feed li::before{content:"";display:inline-block;width:1.1vh;height:1.1vh;border:2px solid #dfe86a;border-radius:50%;margin-right:1.4vw}
+svg#lines{position:absolute;inset:0;width:100%;height:100%}
+#emblem{position:absolute;left:50%;top:47%;width:36vh;height:36vh;transform:translate(-50%,-50%)}
+#bar{position:absolute;left:0;right:0;bottom:0;height:6%;background:#08223f;display:flex;align-items:center;color:#fff;font-size:2.1vh;padding:0 2.4vw}
+#bar .l span{margin-right:3vw}#bar .c{position:absolute;left:50%;transform:translateX(-50%)}
+#bar .r{margin-left:auto;display:flex;gap:1.6vw}#bar .r svg{width:2.4vh;height:2.4vh;stroke:#4cc94c;fill:none;stroke-width:2.2}
+.blink{animation:b 1.6s steps(1) infinite}@keyframes b{50%{opacity:.35}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="lock" viewBox="0 0 24 24"><path d="M7 10V7a5 5 0 0110 0v3h2v12H5V10zm2 0h6V7a3 3 0 00-6 0z"/></symbol>
+<symbol id="eye" viewBox="0 0 24 24"><path d="M12 5C6 5 2 12 2 12s4 7 10 7 10-7 10-7-4-7-10-7zm0 11a4 4 0 110-8 4 4 0 010 8z"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M11 6h2v5h5v2h-5v5h-2v-5H6v-2h5z" fill="#06122a"/></symbol>
+<symbol id="bino" viewBox="0 0 24 24"><path d="M3 18a4 4 0 008 0V8H7zM21 18a4 4 0 01-8 0V8h4zM10 6h4v4h-4z"/></symbol>
+<symbol id="chat" viewBox="0 0 24 24"><path d="M2 3h20v14H8l-5 4v-4H2z"/><path d="M11 6h2v3h3v2h-3v3h-2v-3H8V9h3z" fill="#06122a"/></symbol>
+</defs></svg>
+<div id="stage">
+<svg id="lines" viewBox="0 0 1600 850" preserveAspectRatio="none" stroke="#8b95a3" stroke-width="5">
+<line x1="530" y1="400" x2="610" y2="400"/><line x1="990" y1="400" x2="1080" y2="400"/>
+<line x1="800" y1="160" x2="800" y2="220"/><line x1="800" y1="600" x2="800" y2="660"/></svg>
+<svg id="emblem" viewBox="-100 -100 200 200">
+<defs><linearGradient id="s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f6f8"/><stop offset=".5" stop-color="#9aa3ad"/><stop offset="1" stop-color="#e2e6ea"/></linearGradient></defs>
+<polygon points="0,-92 79.7,-46 79.7,46 0,92 -79.7,46 -79.7,-46" fill="none" stroke="url(#s)" stroke-width="3"/>
+<circle r="70" fill="none" stroke="url(#s)" stroke-width="1.5" stroke-dasharray="200 20"/>
+<circle r="58" fill="none" stroke="#c8ced5" stroke-width=".8"/>
+<g id="rose" fill="none" stroke="url(#s)" stroke-width="1.6"></g>
+<circle r="6" fill="#0b1a30" stroke="url(#s)" stroke-width="2"/>
+</svg>
+<div class="panel" id="ov"><svg class="ico" style="left:1vw"><use href="#eye"/></svg>
+<div class="title"><span>Global Ops | Overview</span></div>
+<p>&gt; Daily synchronisation completed on schedule</p><p>&gt; Regional teams reporting nominal status</p>
+<p>&gt; Routine audit queued for review</p><p>&gt; Field units checked in at all sites</p><p>&gt; Next briefing cycle in preparation</p></div>
+<div class="panel" id="call"><div class="title"><svg style="width:2vh;height:2vh;fill:#4cc94c"><use href="#lock"/></svg><span class="plain green" style="font-size:1.9vh">Secure Call</span></div>
+<div class="wave"><canvas id="wv" style="width:100%;height:100%"></canvas></div></div>
+<div class="panel" id="task"><div class="title"><span>Task Tracker</span></div>
+<ol><li>Review weekly capacity report</li><li>Confirm backup schedule with Site B</li><li>Update shared contact directory</li><li>Prepare agenda for regional sync</li></ol>
+<svg class="ico" style="right:1vw;top:auto;bottom:1vh"><use href="#chat"/></svg></div>
+<div class="panel" id="res"><svg class="ico" style="right:1vw"><use href="#lock"/></svg>
+<div class="title"><span>Resource Status</span></div>
+<p>Network Health:</p><p>&gt; Region A <b id="ra">92%</b> online <span class="green">↑</span></p><p>&gt; Region B <b id="rb">85%</b> online <span class="green">↓</span></p>
+<p>Server load: <span class="green"><span id="sl">64</span>% capacity</span></p><p>Storage: <span class="green">41% used</span></p></div>
+<div class="panel" id="map"><svg class="ico" style="left:.6vw;top:.8vh"><use href="#plus"/></svg><svg class="ico" style="left:2.2vw;top:.8vh"><use href="#bino"/></svg>
+<div class="title" style="margin-bottom:.4vh"><span class="plain green" style="font-size:1.6vh">Multi-Region Map</span></div><svg id="mp" viewBox="0 0 480 240"></svg></div>
+<div class="panel" id="feed"><svg class="ico" style="right:1vw"><use href="#lock"/></svg>
+<div class="title"><span>Info Feed</span></div><ul id="fl"></ul></div>
+</div>
+<div id="bar"><div class="l"><span>Applications ▲</span><span>Messages ▲</span></div><div class="c" id="clk"></div>
+<div class="r"><svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM16 8a5 5 0 010 8"/></svg><svg viewBox="0 0 24 24"><path d="M5 15l7-7 7 7"/></svg><svg viewBox="0 0 24 24"><path d="M2 9a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0"/><circle cx="12" cy="19" r="1" fill="#4cc94c"/></svg></div></div>
+<script>
+// compass rose
+const rose=document.getElementById('rose');let d='';
+for(let i=0;i<8;i++){const a=i*Math.PI/4,L=i%2?40:55,w=9,p=(r,t)=>[r*Math.sin(t),-r*Math.cos(t)].map(v=>v.toFixed(1)).join(',');
+d+=`<path d="M${p(8,a-Math.PI/2.5)}L${p(L,a)}L${p(8,a+Math.PI/2.5)}"/><line x1="0" y1="0" x2="${p(L,a).split(',')[0]}" y2="${p(L,a).split(',')[1]}" stroke-width=".6"/>`;}
+for(let i=0;i<48;i++){const a=i*Math.PI/24,r1=i%6?64:61;d+=`<line x1="${r1*Math.sin(a)}" y1="${-r1*Math.cos(a)}" x2="${67*Math.sin(a)}" y2="${-67*Math.cos(a)}" stroke-width=".7"/>`;}
+rose.innerHTML=d;
+// waveform
+const cv=document.getElementById('wv'),cx=cv.getContext('2d');
+function wave(t){cv.width=cv.clientWidth;cv.height=cv.clientHeight;const W=cv.width,H=cv.height;cx.strokeStyle='#e8f060';cx.lineWidth=3;cx.shadowColor='#e8f060';cx.shadowBlur=8;cx.beginPath();
+for(let x=0;x<W;x++){const k=x/W,amp=H*.12*(.6+.8*k*k);const y=H/2+amp*Math.sin(k*40+t/150)*(1+.2*Math.sin(t/700));x?cx.lineTo(x,y):cx.moveTo(x,y);}cx.stroke();requestAnimationFrame(wave);}
+requestAnimationFrame(wave);
+// feed
+const msgs=["Scheduled maintenance window confirmed for Saturday","Backup link online and verified","Quarterly report draft circulated to teams","Regional sync moved to 14:00","Firmware update rollout at 60 percent","Visitor access list refreshed","Training session recordings now available"];
+let fi=0;function feed(){const ul=document.getElementById('fl');ul.innerHTML='';for(let i=0;i<5;i++)ul.innerHTML+=`<li${i==0?' class="blink"':''}>"${msgs[(fi+i)%msgs.length]}...</li>`;fi++;}
+feed();setInterval(feed,5000);
+// clock + stats
+function clk(){const n=new Date();document.getElementById('clk').textContent=n.toLocaleDateString('en-US',{weekday:'short'})+' '+n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');}clk();setInterval(clk,10000);
+setInterval(()=>{document.getElementById('sl').textContent=60+Math.round(Math.random()*8);document.getElementById('ra').textContent=(90+Math.round(Math.random()*4))+'%';},3000);
+// map
+const svg=d3.select('#mp'),proj=d3.geoEquirectangular().scale(76).translate([240,138]),path=d3.geoPath(proj);
+function overlay(){svg.append('defs').html('<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#fff"/></marker>');
+const pts=[[-95,35,'#e0283a'],[75,40,'#f0d020'],[115,20,'#f0a020']];
+pts.forEach(([lo,la,c],i)=>{const[x,y]=proj([lo,la]);svg.append('circle').attr('cx',x).attr('cy',y).attr("r",30).attr('fill',c).attr('opacity',.6).append('animate').attr('attributeName','r').attr('values','28;34;28').attr('dur',(3+i)+'s').attr('repeatCount','indefinite');});
+[[[-80,40],[20,58]],[[-80,30],[105,20]],[[20,58],[70,45]]].forEach(([a,b])=>{const p=proj(a),q=proj(b);svg.append('line').attr('x1',p[0]).attr('y1',p[1]).attr('x2',q[0]).attr('y2',q[1]).attr('stroke','#fff').attr('stroke-width',1).attr('marker-end','url(#ar)');});}
+function fallback(){const g=svg.append('g').attr('fill','#1d5fd0');[[60,40,160,120],[120,130,70,90],[220,40,240,110],[230,120,70,80],[380,170,60,40]].forEach(r=>g.append('rect').attr('x',r[0]).attr('y',r[1]).attr('width',r[2]).attr('height',r[3]).attr('rx',30));overlay();}
+(async()=>{try{if(!window.d3||!window.topojson)throw 0;const w=await(await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')).json();
+const f=topojson.feature(w,w.objects.countries).features.filter(c=>c.id!=='010');
+svg.selectAll('path').data(f).enter().append('path').attr('d',path).attr('fill',(c,i)=>['#1d5fd0','#2a72e6','#1550b8'][i%3]).attr('stroke','#0a1d40').attr('stroke-width',.4);overlay();}catch(e){fallback();}})();
+</script></body></html>
