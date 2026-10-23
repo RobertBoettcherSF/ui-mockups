@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>UAV Ground Control Console</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#030807;color:#5fe8b0;font:11px/1.3 "Courier New",monospace;height:100vh;overflow:hidden;position:relative}
+#terrain{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+#globe{position:absolute;left:-150px;bottom:-200px;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle at 60% 35%,#1d6b55,#06221b 60%,#020a08);box-shadow:0 0 50px #1fa77a55;overflow:hidden;z-index:1}
+#globe:after{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-linear-gradient(90deg,transparent 0 36px,#5fe8b033 36px 37px),repeating-linear-gradient(0deg,transparent 0 36px,#5fe8b033 36px 37px);animation:spin 24s linear infinite}
+@keyframes spin{to{background-position:370px 0}}
+body:before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,#0000 0 2px,#00000044 2px 3px);pointer-events:none;z-index:99}
+.p{position:absolute;border:1px solid #1f7a5c;background:#04120ecc;padding:8px;z-index:3}
+.h{color:#ff7a3a;letter-spacing:2px;font-size:10px;margin-bottom:6px;text-transform:uppercase}
+header{position:absolute;top:0;left:0;right:0;height:26px;border-bottom:1px solid #1f7a5c;display:flex;justify-content:space-between;align-items:center;padding:0 12px;background:#04120e;letter-spacing:3px;z-index:4;color:#5fe8b0}
+table{border-collapse:collapse;width:100%}td,th{padding:2px 5px;text-align:left;border-bottom:1px solid #0f3a2c;white-space:nowrap}th{color:#ff7a3a;font-weight:normal}
+.ok{color:#5fe8b0}.bad{color:#ff4a3a}.warn{color:#ffb03a}
+/* LEFT: mission map */
+#mapwrap{position:absolute;left:8px;top:32px;width:326px;bottom:150px;z-index:3;border:1px solid #1f7a5c;overflow:hidden;background:#04120e}
+#mmap,#mfallback{position:absolute;inset:0;width:100%;height:100%}
+#mmap{z-index:1;background:#061410}#mfallback{z-index:1;display:none}
+#mfallback canvas{width:100%;height:100%;display:block}
+.leaflet-container{background:#061410}
+.mlabel{position:absolute;top:4px;left:6px;z-index:6;font-size:9px;letter-spacing:1px;color:#ff7a3a}
+#mphase{position:absolute;bottom:4px;left:6px;z-index:6;font-size:9px;color:#5fe8b0;background:#04120ecc;padding:1px 5px}
+.mattr{position:absolute;bottom:4px;right:4px;z-index:6;font-size:8px;color:#4f8a86;background:#04120ecc;padding:1px 4px}.mattr a{color:#6fb3ae}
+/* CENTER dialog */
+#dlg{position:absolute;left:344px;top:96px;width:340px;padding:16px;border:2px solid #5fe8b0;box-shadow:0 0 30px #5fe8b044;z-index:7;background:#03120df2;transition:border-color .3s}
+#dlg.alert{border-color:#ff3a2a;box-shadow:0 0 35px #ff3a2a55}
+#dlg h2{font-size:16px;letter-spacing:1px;margin-bottom:5px;color:#5fe8b0}#dlg.alert h2{color:#ff4a3a}
+#dsub{color:#9bd;font-size:11px;margin-bottom:12px}
+.fld{display:flex;align-items:center;gap:8px;margin:9px 0}.fld label{width:92px;color:#ff7a3a}
+.fld .inp{flex:1;border:1px solid #1f7a5c;padding:5px 8px;letter-spacing:4px;background:#020a08}
+.prog{height:9px;background:#0f2a22;margin:12px 0;border:1px solid #1f7a5c}.prog i{display:block;height:100%;width:0;background:#2fe89a;transition:width .3s,background .3s}
+.dbtn{display:flex;gap:8px;margin-top:12px}.dbtn button{flex:1;background:#0b241c;border:1px solid #5fe8b0;color:#5fe8b0;font:11px monospace;padding:7px;cursor:pointer}.dbtn button.p1{background:#123d2e}
+/* bottom-center menu */
+#menu{left:344px;bottom:8px;width:340px;z-index:5}
+.sl{display:flex;align-items:center;gap:8px;margin:6px 0}.sl label{width:96px;color:#ff7a3a}
+.track{flex:1;height:5px;background:#0f3a2c;position:relative}.track i{position:absolute;top:-3px;width:10px;height:11px;background:#5fe8b0}
+.lists{display:flex;gap:14px;margin-top:8px;color:#8bbfae}.lists ul{list-style:none;font-size:10px}.lists li:before{content:"\25B8 ";color:#1f9a72}
+/* drone outline + airframe top-right */
+#drone{right:8px;top:32px;width:250px;height:214px;z-index:4}
+#drone svg{width:100%;height:92px}
+.eng{width:100%;background:#2a140a;border:1px solid #ff7a3a;color:#ff7a3a;padding:6px;margin-top:4px;cursor:pointer;letter-spacing:2px}
+.dnum{display:flex;justify-content:space-around;margin:4px 0;color:#5fe8b0}.dnum b{color:#fff;font-size:14px;display:block;text-align:center}
+.solar{display:flex;justify-content:space-between;font-size:10px;margin:2px 0;border-bottom:1px solid #0f3a2c;padding-bottom:1px}
+/* telemetry grid */
+#tele{right:8px;top:254px;width:250px;z-index:4}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.grid div{border:1px solid #0f3a2c;padding:3px;text-align:center}.grid b{color:#fff;font-size:14px}
+/* personnel roster */
+#roster{right:264px;top:32px;width:210px;bottom:150px;overflow:auto;z-index:4}
+/* flight details */
+#flight{right:8px;bottom:8px;width:466px;z-index:5}
+#flight select,#flight input{background:#020a08;border:1px solid #1f7a5c;color:#5fe8b0;font:10px monospace;padding:3px}
+.frow{display:flex;gap:8px;align-items:center;margin:5px 0}.frow label{width:84px;color:#ff7a3a}
+.blink{animation:bl 1s steps(2) infinite}@keyframes bl{50%{opacity:.25}}
+.dicon svg{filter:drop-shadow(0 0 4px #5fe8b0)}
+</style></head><body>
+<canvas id="terrain"></canvas><div id="globe"></div>
+<header><span>UAV GROUND CONTROL · STATION DELTA-9</span><span id="stat" class="warn">LINK: SECURE</span><span id="clk"></span></header>
+
+<div id="mapwrap">
+ <div class="mlabel">MISSION MAP · SOLAR HALE TRACK</div>
+ <div id="mmap"></div>
+ <div id="mfallback"><canvas id="fc"></canvas></div>
+ <div id="mphase">PHASE —</div>
+ <div class="mattr" id="mattr">terrain (offline)</div>
+</div>
+
+<div id="dlg">
+ <h2 id="title">Login Successful</h2>
+ <div id="dsub">Secure login accepted - transferring data...</div>
+ <div class="fld"><label>Security code</label><div class="inp" id="code">&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;</div></div>
+ <div class="prog"><i id="pbar"></i></div>
+ <div class="dbtn"><button id="cancel">Cancel</button><button class="p1" id="login">Login</button></div>
+</div>
+
+<div class="p" id="drone"><div class="h">Airframe · SOLARIS HALE "Garuda"</div>
+ <svg viewBox="0 0 250 92"><g stroke="#5fe8b0" fill="none" stroke-width="1.4">
+ <ellipse cx="80" cy="46" rx="11" ry="24"/><line x1="80" y1="22" x2="80" y2="8"/>
+ <line x1="69" y1="40" x2="15" y2="56"/><line x1="91" y1="40" x2="145" y2="56"/>
+ <line x1="73" y1="68" x2="58" y2="82"/><line x1="87" y1="68" x2="102" y2="82"/>
+ <circle cx="80" cy="46" r="3" fill="#ff7a3a"/>
+ <g transform="translate(172,28)" stroke-width="1"><path d="M0,16 L55,16 L70,10 L55,4 L0,4 Z"/><line x1="20" y1="4" x2="28" y2="-8"/></g>
+ <text x="162" y="12" fill="#1f7a5c" font-size="7">SIDE</text><text x="10" y="12" fill="#1f7a5c" font-size="7">TOP</text>
+ </g></svg>
+ <div class="dnum"><span>HEADING<b id="hdg">134</b></span><span>ALT m<b id="alt">1552</b></span><span>SPD<b id="spd">148</b></span></div>
+ <div class="solar"><span>Solar array</span><span class="warn" id="sol">0.0 kW</span></div>
+ <div class="solar"><span>Battery</span><span class="ok" id="bat">85%</span></div>
+ <div class="solar"><span>Charge rate</span><span id="chg">+0.0 kW</span></div>
+ <div class="solar"><span>Endurance</span><span id="end">—</span></div>
+ <button class="eng">&#9656; NAVIGATION</button>
+</div>
+
+<div class="p" id="tele"><div class="h">Telemetry Grid</div>
+ <div class="grid"><div>PITCH<b id="v1">2.0</b></div><div>ROLL<b id="v2">7.0</b></div><div>YAW<b id="v3">42.5</b></div><div>GPS<b class="ok">NRM</b></div><div>SOLAR %<b id="solp">0</b></div><div>BAT %<b id="batp">85</b></div></div>
+</div>
+
+<div class="p" id="roster"><div class="h">Personnel Roster</div>
+ <table><tr><th>Name</th><th>Rank</th><th>Status</th></tr>
+ <tr><td>Raghuraj</td><td>Cmdr</td><td class="ok">ON DUTY</td></tr>
+ <tr><td>Madhavan</td><td>Capt</td><td class="ok">ON DUTY</td></tr>
+ <tr><td>Aravind</td><td>Lt</td><td class="warn">STANDBY</td></tr>
+ <tr><td>Bhaskar</td><td>Sgt</td><td class="ok">ON DUTY</td></tr>
+ <tr><td>Devraj</td><td>Capt</td><td class="bad">OFFLINE</td></tr>
+ <tr><td>Iyer</td><td>Lt</td><td class="ok">ON DUTY</td></tr>
+ <tr><td>Nandan</td><td>Sgt</td><td class="ok">ON DUTY</td></tr>
+ <tr><td>Prakash</td><td>Cpl</td><td class="warn">STANDBY</td></tr>
+ <tr><td>Shekhar</td><td>Lt</td><td class="ok">ON DUTY</td></tr>
+ <tr><td>Varma</td><td>Capt</td><td class="ok">ON DUTY</td></tr>
+ <tr><td>Chandran</td><td>Sgt</td><td class="bad">OFFLINE</td></tr>
+ <tr><td>Gopal</td><td>Cpl</td><td class="ok">ON DUTY</td></tr>
+ <tr><td>Keshav</td><td>Lt</td><td class="warn">STANDBY</td></tr>
+ <tr><td>Ramesh</td><td>Sgt</td><td class="ok">ON DUTY</td></tr></table>
+</div>
+
+<div class="p" id="menu"><div class="h">Sensor &amp; Payload Menu</div>
+ <div class="sl"><label>Gimbal zoom</label><div class="track"><i style="left:62%"></i></div><span>6.2x</span></div>
+ <div class="sl"><label>IR gain</label><div class="track"><i style="left:40%"></i></div><span>40</span></div>
+ <div class="sl"><label>Signal power</label><div class="track"><i style="left:78%"></i></div><span>78</span></div>
+ <div class="sl"><label>Camera tilt</label><div class="track"><i style="left:33%"></i></div><span>-18&#176;</span></div>
+ <div class="lists"><ul><li>Thermal feed</li><li>Laser range</li><li>Jammer idle</li></ul><ul><li>Datalink AES</li><li>Beacon off</li><li>Payload armed</li></ul></div>
+</div>
+
+<div class="p" id="flight"><div class="h">Flight Details</div>
+ <div class="frow"><label>Mission</label><select><option>HALE Transit</option><option>Perimeter Patrol</option><option>Target Track</option></select>
+ <label>Alt band</label><select><option>Low 500m</option><option>Mid 1500m</option><option selected>Strat 21km</option></select>
+ <label>Waypoints</label><input value="12" size="3"></div>
+ <div class="frow"><label>Return fuel %</label><input value="25" size="3"><label>Options</label><input type="checkbox" checked> Auto-RTB <input type="checkbox" checked> Thermal <input type="checkbox"> Silent <input type="checkbox" checked> Encrypt</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const SPEED=Math.max(1,parseFloat(new URLSearchParams(location.search).get('speed'))||1);
+const LINCOLN=[40.81,-96.70], DELHI=[28.61,77.21];
+const DRONE_SVG='<svg width="26" height="26" viewBox="0 0 26 26"><g stroke="#aeffd6" stroke-width="1.4" fill="none"><ellipse cx="13" cy="13" rx="3" ry="7"/><line x1="13" y1="6" x2="13" y2="2"/><line x1="10" y1="11" x2="1" y2="14"/><line x1="16" y1="11" x2="25" y2="14"/><line x1="11" y1="19" x2="8" y2="24"/><line x1="15" y1="19" x2="18" y2="24"/><circle cx="13" cy="13" r="1.5" fill="#ff7a3a"/></g></svg>';
+
+/* ---- great-circle interpolation ---- */
+const d2r=Math.PI/180,r2d=180/Math.PI;
+function toVec(ll){const la=ll[0]*d2r,lo=ll[1]*d2r;return [Math.cos(la)*Math.cos(lo),Math.cos(la)*Math.sin(lo),Math.sin(la)]}
+function toLL(v){return [Math.asin(v[2])*r2d, Math.atan2(v[1],v[0])*r2d]}
+function slerp(a,b,t){const A=toVec(a),B=toVec(b);let dot=A[0]*B[0]+A[1]*B[1]+A[2]*B[2];dot=Math.max(-1,Math.min(1,dot));const o=Math.acos(dot),so=Math.sin(o);if(so<1e-6)return a;const s1=Math.sin((1-t)*o)/so,s2=Math.sin(t*o)/so;return toLL([A[0]*s1+B[0]*s2,A[1]*s1+B[1]*s2,A[2]*s1+B[2]*s2])}
+function bearing(a,b){const y=Math.sin((b[1]-a[1])*d2r)*Math.cos(b[0]*d2r);const x=Math.cos(a[0]*d2r)*Math.sin(b[0]*d2r)-Math.sin(a[0]*d2r)*Math.cos(b[0]*d2r)*Math.cos((b[1]-a[1])*d2r);return (Math.atan2(y,x)*r2d+360)%360}
+
+/* ---- solar model: output depends on local solar time at drone longitude ---- */
+let simMs=Date.UTC(2026,5,21,13,0,0); // start near local noon-ish UTC
+function solarFactor(lat,lon){
+ const d=new Date(simMs);const utcH=d.getUTCHours()+d.getUTCMinutes()/60;
+ const lst=(utcH+lon/15+24)%24; // local solar time
+ const day=Math.max(0,Math.sin((lst-6)/12*Math.PI)); // 0 at 6/18, 1 at noon
+ const seasonal=0.9+0.1*Math.cos(lat*d2r);
+ return day*seasonal;
+}
+
+/* ---- mission state ---- */
+const MAX_PANEL=9.5; // kW peak array
+const LOAD=3.2;       // kW cruise consumption
+const CAP=160;        // kWh usable battery
+let battery=0.85*CAP; // kWh
+const PHASE1=12*60;   // sim seconds loitering (~12 min)
+const CLIMB=18*60;    // sim seconds of transit climb+route segment handled by progress
+let elapsed=0;        // sim seconds
+let pos=LINCOLN.slice(), hdg=90, alt=1500, trail=[];
+
+let map=null,marker=null,trailLine=null,useLive=false;
+
+function stepSim(dtSim){
+ elapsed+=dtSim; simMs+=dtSim*1000;
+ let phase,target=alt;
+ if(elapsed<PHASE1){ // loiter loops near Lincoln
+   phase=1;const t=elapsed/PHASE1;const ang=elapsed/40*Math.PI; // slow loops
+   const rLat=0.18,rLon=0.24;
+   pos=[LINCOLN[0]+Math.sin(ang)*rLat, LINCOLN[1]+Math.cos(ang)*rLon];
+   hdg=(bearing(trail.length?trail[trail.length-1]:pos,pos)||90);
+   target=1500;
+ } else { // phase 2: climb + great-circle east to India, phase 3: cruise over India
+   const prog=Math.min(1,(elapsed-PHASE1)/CLIMB);
+   pos=slerp(LINCOLN,DELHI,prog);
+   hdg=bearing(pos,DELHI);
+   target=1500+(21000-1500)*Math.min(1,prog/0.25); // climb within first quarter
+   phase=prog>=1?3:2;
+ }
+ alt+=(target-alt)*0.05;
+ // solar + battery
+ const sf=solarFactor(pos[0],pos[1]);
+ const panel=MAX_PANEL*sf;
+ const net=panel-LOAD; // kW
+ battery=Math.max(0,Math.min(CAP, battery+net*(dtSim/3600)));
+ const batPct=battery/CAP*100;
+ const spd=phase===1?148:(phase===2?velDisp():612);
+ // telemetry linkage
+ $('hdg').textContent=hdg.toFixed(0);
+ $('alt').textContent=Math.round(alt).toLocaleString();
+ $('spd').textContent=spd.toFixed(0);
+ $('sol').textContent=panel.toFixed(1)+' kW';$('sol').className=sf>0.05?'ok':'warn';
+ $('bat').textContent=batPct.toFixed(0)+'%';$('bat').className=batPct>30?'ok':'bad';
+ $('chg').textContent=(net>=0?'+':'')+net.toFixed(1)+' kW';$('chg').className=net>=0?'ok':'warn';
+ $('end').textContent= net>=0 ? 'solar-sustained' : (battery/-net).toFixed(1)+' h';
+ $('solp').textContent=(sf*100).toFixed(0);$('batp').textContent=batPct.toFixed(0);
+ $('v1').textContent=(phase===2?-(alt-($('_pa')?0:alt))*0+3.5:2+Math.sin(elapsed)*1.5).toFixed(1);
+ $('v2').textContent=(Math.sin(elapsed/3)*6).toFixed(1);
+ $('v3').textContent=((hdg)%90).toFixed(1);
+ $('mphase').textContent='PHASE '+phase+' · '+(phase===1?'LOITER · Lincoln NE cornfields':(phase===2?'TRANSIT CLIMB → India':'STRAT CRUISE · India'))+' · T+'+fmt(elapsed);
+ // map update
+ trail.push(pos.slice());if(trail.length>4000)trail.shift();
+ if(useLive&&map){marker.setLatLng(pos);marker.setRotationAngle&&marker.setRotationAngle(hdg);const el=marker.getElement&&marker.getElement();if(el)el.style.transform=el.style.transform.replace(/ rotate\([^)]*\)/,'')+' rotate('+hdg+'deg)';trailLine.setLatLngs(trail);if(elapsed%6<dtSim)map.panTo(pos,{animate:true});}
+}
+let _vel=160;function velDisp(){_vel+=(612-_vel)*0.02;return _vel}
+function fmt(s){s=Math.round(s);return (s/60|0)+'m'+(s%60).toString().padStart(2,'0')+'s'}
+
+/* ---- fallback terrain canvas ---- */
+function drawFallbackTerrain(){const cv=$('fc'),g=cv.getContext('2d');cv.width=cv.clientWidth;cv.height=cv.clientHeight;const W=cv.width,H=cv.height;
+ g.fillStyle='#0c1c14';g.fillRect(0,0,W,H);
+ for(let i=0;i<700;i++){g.fillStyle=`rgba(${60+Math.random()*60|0},${90+Math.random()*60|0},${50+Math.random()*40|0},.5)`;g.fillRect(Math.random()*W,Math.random()*H,2,2)}
+ g.strokeStyle='#5fe8b0';g.lineWidth=1.3;g.beginPath();let yy=H*.6;for(let px=0;px<=W;px+=16){yy+=(Math.random()-.5)*20;yy=Math.max(H*.3,Math.min(H*.85,yy));g.lineTo(px,yy)}g.stroke();}
+function fallbackLoop(){const cv=$('fc'),g=cv.getContext('2d');const W=cv.width,H=cv.height;
+ // redraw trail as normalized track
+ drawFallbackTerrain();
+ if(trail.length>1){g.strokeStyle='#aeffd6';g.lineWidth=1.5;g.beginPath();
+  const lons=trail.map(p=>p[1]),lats=trail.map(p=>p[0]);const mnx=Math.min(...lons,-100),mxx=Math.max(...lons,80),mny=Math.min(...lats,25),mxy=Math.max(...lats,45);
+  trail.forEach((p,i)=>{const x=(p[1]-mnx)/(mxx-mnx+1e-6)*W,y=H-(p[0]-mny)/(mxy-mny+1e-6)*H;i?g.lineTo(x,y):g.moveTo(x,y)});g.stroke();
+  const p=trail[trail.length-1];const x=(p[1]-mnx)/(mxx-mnx+1e-6)*W,y=H-(p[0]-mny)/(mxy-mny+1e-6)*H;g.fillStyle='#ff7a3a';g.beginPath();g.arc(x,y,4,0,7);g.fill();}
+}
+
+/* ---- init map (Esri World Imagery) with fallback ---- */
+function initMap(){
+ if(typeof L==='undefined')throw new Error('leaflet-cdn');
+ map=L.map('mmap',{zoomControl:false,attributionControl:true,worldCopyJump:true}).setView(LINCOLN,6);
+ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
+   maxZoom:17,attribution:'Tiles &copy; <a href="https://www.esri.com/">Esri</a>, Maxar, Earthstar Geographics'
+ }).addTo(map);
+ marker=L.marker(LINCOLN,{icon:L.divIcon({className:'dicon',html:DRONE_SVG,iconSize:[26,26],iconAnchor:[13,13]})}).addTo(map);
+ trailLine=L.polyline([LINCOLN],{color:'#aeffd6',weight:2,opacity:.85}).addTo(map);
+ useLive=true;$('mattr').innerHTML='Imagery &copy; <a href="https://www.esri.com/">Esri</a>, Maxar';
+ setTimeout(()=>map.invalidateSize(),300);
+}
+function goFallback(reason){useLive=false;$('mmap').style.display='none';$('mfallback').style.display='block';$('mattr').textContent='offline — generated terrain ('+reason+')';drawFallbackTerrain();}
+(function(){let done=false;const guard=setTimeout(()=>{if(!done){done=true;goFallback('timeout')}},3500);
+ try{initMap();done=true;clearTimeout(guard);
+ }catch(e){if(!done){done=true;clearTimeout(guard);goFallback(e.message)}}
+})();
+
+/* ---- sim ticker ---- */
+let last=performance.now();
+function tick(now){const dtReal=(now-last)/1000;last=now;const dtSim=Math.min(2,dtReal)*SPEED;stepSim(dtSim);if(!useLive)fallbackLoop();requestAnimationFrame(tick)}
+requestAnimationFrame(tick);
+
+/* ---- terrain backdrop + clock ---- */
+const T=$('terrain'),x=T.getContext('2d');function fitT(){T.width=innerWidth;T.height=innerHeight}fitT();onresize=()=>{fitT();if(useLive&&map)map.invalidateSize()};
+(function(){x.fillStyle='#0a1510';x.fillRect(0,0,T.width,T.height);for(let i=0;i<60;i++){x.strokeStyle='#2a3a2055';x.beginPath();let y=Math.random()*T.height;x.moveTo(0,y);for(let px=0;px<T.width;px+=28)x.lineTo(px,y+Math.sin(px*.01+i)*20);x.stroke()}})();
+setInterval(()=>{$('clk').textContent=new Date(simMs).toUTCString().slice(17,25)+'Z'},500);
+
+/* ---- login state cycle ---- */
+const dlg=$('dlg'),title=$('title'),sub=$('dsub'),pbar=$('pbar'),stat=$('stat');let step=0;
+function run(){
+ if(step===0){dlg.classList.remove('alert');title.textContent='Login Successful';sub.textContent='Secure login accepted - transferring data...';pbar.style.background='#2fe89a';pbar.style.width='0';stat.className='ok';stat.textContent='LINK: SECURE';let p=0;const iv=setInterval(()=>{p+=4;pbar.style.width=p+'%';if(p>=100){clearInterval(iv);step=1;setTimeout(run,1200)}},90);}
+ else if(step===1){sub.textContent='Data stream synchronised. Verifying credentials...';pbar.style.background='#ffb03a';let p=100;const iv=setInterval(()=>{p-=3;pbar.style.width=p+'%';if(p<=15){clearInterval(iv);step=2;setTimeout(run,600)}},80);}
+ else{dlg.classList.add('alert');title.textContent='Unauthorized Access';sub.textContent='Access attempt detected - further attempts not permitted!!';pbar.style.background='#ff3a2a';pbar.style.width='100%';stat.className='bad';stat.textContent='LINK: BREACH';title.classList.add('blink');setTimeout(()=>{title.classList.remove('blink');step=0;run()},3500);}
+}
+run();$('cancel').onclick=()=>{step=0;run()};$('login').onclick=()=>{step=0;run()};
+</script></body></html>

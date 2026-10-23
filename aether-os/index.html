@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>AetherOS</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:#030807;color:#5fe8b0;font:12px/1.35 "Courier New",monospace;position:relative;user-select:none}
+#desk{position:absolute;inset:0;background:radial-gradient(1100px 600px at 25% 85%,#0a241c,#030807 70%)}
+#desk:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,#0000 0 2px,#00000044 2px 3px);pointer-events:none}
+#globe{position:absolute;left:-160px;bottom:-210px;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle at 60% 35%,#1d6b55,#06221b 60%,#020a08);box-shadow:0 0 50px #1fa77a44;overflow:hidden}
+#globe:after{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-linear-gradient(90deg,transparent 0 36px,#5fe8b033 36px 37px),repeating-linear-gradient(0deg,transparent 0 36px,#5fe8b033 36px 37px);animation:spin 24s linear infinite}
+@keyframes spin{to{background-position:370px 0}}
+.deskicons{position:absolute;top:16px;left:16px;display:flex;flex-direction:column;gap:14px}
+.di{width:80px;text-align:center;cursor:pointer;color:#8bd8bd}.di:hover{color:#ff7a3a}.di svg{width:34px;height:34px}.di span{display:block;font-size:10px;margin-top:3px}
+.win{position:absolute;min-width:220px;min-height:130px;background:#04120eee;border:1px solid #1f7a5c;box-shadow:0 10px 40px #000a;display:flex;flex-direction:column;z-index:10}
+.win.active{border-color:#2fe89a;box-shadow:0 12px 50px #000c,0 0 14px #2fe89a44}
+.win.alert{border-color:#ff3a2a;box-shadow:0 0 20px #ff3a2a55}
+.tb{height:26px;background:linear-gradient(#0c261d,#06160f);border-bottom:1px solid #1f7a5c;display:flex;align-items:center;gap:6px;padding:0 6px;cursor:move;letter-spacing:1px;color:#5fe8b0;font-size:11px}
+.tb .ico{width:14px;height:14px;color:#2fe89a}.tb .sp{flex:1}
+.tb button{width:16px;height:14px;border:1px solid #1f7a5c;background:#07160f;color:#5fe8b0;font:9px monospace;cursor:pointer;line-height:1}.tb button:hover{background:#1f7a5c;color:#000}
+.wc{flex:1;overflow:auto;position:relative}.pad{padding:10px}
+.row{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px dotted #0f3a2c}.v{color:#fff}
+.ok{color:#5fe8b0}.bad{color:#ff4a3a}.warn{color:#ffb03a}
+table{border-collapse:collapse;width:100%}td,th{padding:2px 5px;text-align:left;border-bottom:1px solid #0f3a2c;white-space:nowrap}th{color:#ff7a3a;font-weight:normal}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:8px}.grid div{border:1px solid #0f3a2c;padding:4px;text-align:center}.grid b{color:#fff;font-size:15px;display:block}
+.solar{display:flex;justify-content:space-between;padding:3px 10px;border-bottom:1px solid #0f3a2c;font-size:11px}
+/* map */
+.maproot{position:absolute;inset:0}.maproot .leaf{position:absolute;inset:0;background:#061410}.maproot .fb{position:absolute;inset:0;display:none}.maproot .fb canvas{width:100%;height:100%;display:block}
+.leaflet-container{background:#061410}.dicon svg{filter:drop-shadow(0 0 4px #5fe8b0)}
+.flag{position:absolute;top:4px;left:6px;z-index:6;font-size:9px;color:#ff7a3a}.phase{position:absolute;bottom:4px;left:6px;z-index:6;font-size:9px;color:#5fe8b0;background:#04120ecc;padding:1px 5px}
+.attr{position:absolute;bottom:4px;right:4px;z-index:6;font-size:8px;color:#4f8a86;background:#04120ecc;padding:1px 4px}.attr a{color:#6fb3ae}
+/* login */
+.loginwc{padding:14px}.loginwc h2{font-size:15px;letter-spacing:1px;color:#5fe8b0;margin-bottom:4px}.loginwc.alert h2{color:#ff4a3a}
+.sub{color:#9bd;font-size:11px;margin-bottom:10px}.fld{display:flex;align-items:center;gap:8px;margin:8px 0}.fld label{width:92px;color:#ff7a3a}
+.fld .inp{flex:1;border:1px solid #1f7a5c;padding:5px 8px;letter-spacing:4px;background:#020a08}
+.prog{height:9px;background:#0f2a22;margin:10px 0;border:1px solid #1f7a5c}.prog i{display:block;height:100%;width:0;background:#2fe89a;transition:width .3s,background .3s}
+.dbtn{display:flex;gap:8px}.dbtn button{flex:1;background:#0b241c;border:1px solid #5fe8b0;color:#5fe8b0;font:11px monospace;padding:7px;cursor:pointer}.dbtn button.p1{background:#123d2e}
+/* menu sliders */
+.menuwc{padding:10px}.sl{display:flex;align-items:center;gap:8px;margin:7px 0}.sl label{width:96px;color:#ff7a3a}.track{flex:1;height:5px;background:#0f3a2c;position:relative}.track i{position:absolute;top:-3px;width:10px;height:11px;background:#5fe8b0}
+/* taskbar */
+#bar{position:absolute;left:0;right:0;bottom:0;height:40px;background:#05140edd;border-top:1px solid #1f7a5c;display:flex;align-items:center;gap:8px;padding:0 10px;z-index:1000;backdrop-filter:blur(3px)}
+#start{display:flex;align-items:center;gap:6px;color:#2fe89a;letter-spacing:2px;font-weight:bold;cursor:pointer;padding:0 8px}#start svg{width:20px;height:20px}
+.dock{flex:1;display:flex;gap:6px}.dock .app{display:flex;align-items:center;gap:5px;background:#07160f;border:1px solid #1f7a5c;padding:4px 9px;cursor:pointer;color:#8bd8bd;font-size:11px}.dock .app.open{border-color:#2fe89a;color:#2fe89a}.dock .app svg{width:15px;height:15px}
+#tray{display:flex;gap:12px;align-items:center;color:#8bd8bd;font-size:11px}#tray .v{color:#2fe89a}
+.eng{width:calc(100% - 20px);margin:6px 10px;background:#2a140a;border:1px solid #ff7a3a;color:#ff7a3a;padding:6px;cursor:pointer;letter-spacing:2px}
+.blink{animation:b 1s steps(2) infinite}@keyframes b{50%{opacity:.25}}
+</style></head><body>
+<div id="desk"><div id="globe"></div><div class="deskicons" id="deskicons"></div></div>
+<div id="bar">
+ <div id="start"><svg viewBox="0 0 24 24" fill="none" stroke="#2fe89a" stroke-width="2"><path d="M12 3l9 6-9 4-9-4z"/><path d="M3 9v6l9 4 9-4V9"/></svg>AETHER</div>
+ <div class="dock" id="dock"></div>
+ <div id="tray"><span id="stat">LINK <span class="v">SECURE</span></span><span id="net">NET <span class="v">—</span></span><span id="clk"></span></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const SPEED=Math.max(1,parseFloat(new URLSearchParams(location.search).get('speed'))||1);
+const IC={
+ map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4L3 7v13l6-3 6 3 6-3V4l-6 3z"/><path d="M9 4v13M15 7v13"/></svg>',
+ login:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="16" height="10"/><path d="M8 10V7a4 4 0 018 0v3"/><circle cx="12" cy="15" r="1.5"/></svg>',
+ tele:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l2-6 3 12 2-8 2 4h5"/></svg>',
+ roster:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5"/><path d="M15 7h6M15 11h6M15 15h4"/></svg>',
+ air:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="12" rx="3" ry="7"/><path d="M12 5V2M9 10L2 13M15 10l7 3M10 18l-2 4M14 18l2 4"/></svg>',
+ menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2" fill="#030807"/><circle cx="15" cy="12" r="2" fill="#030807"/><circle cx="8" cy="17" r="2" fill="#030807"/></svg>',
+ flight:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3h14v18H5z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>',
+ term:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16"/><path d="M7 9l3 3-3 3M13 15h4"/></svg>'
+};
+
+/* ---------- window manager ---------- */
+let zTop=10;const WINS={};
+function focusWin(w){zTop++;w.style.zIndex=zTop;document.querySelectorAll('.win').forEach(x=>x.classList.remove('active'));w.classList.add('active')}
+function makeWin(app){
+ if(WINS[app.id]){const w=WINS[app.id];w.style.display='flex';focusWin(w);markOpen();return w}
+ const w=document.createElement('div');w.className='win active';w.style.left=app.x+'px';w.style.top=app.y+'px';w.style.width=app.w+'px';w.style.height=app.h+'px';w.dataset.id=app.id;
+ w.innerHTML=`<div class="tb"><span class="ico">${IC[app.icon]}</span>${app.title}<span class="sp"></span><button data-a="min">_</button><button data-a="close">x</button></div><div class="wc">${app.html}</div>`;
+ document.body.appendChild(w);WINS[app.id]=w;
+ const tb=w.querySelector('.tb');let dx,dy,drag=false;
+ tb.addEventListener('mousedown',e=>{if(e.target.tagName==='BUTTON')return;drag=true;dx=e.clientX-w.offsetLeft;dy=e.clientY-w.offsetTop;focusWin(w)});
+ addEventListener('mousemove',e=>{if(!drag)return;w.style.left=Math.max(0,Math.min(innerWidth-60,e.clientX-dx))+'px';w.style.top=Math.max(0,Math.min(innerHeight-70,e.clientY-dy))+'px'});
+ addEventListener('mouseup',()=>drag=false);w.addEventListener('mousedown',()=>focusWin(w));
+ tb.querySelector('[data-a="min"]').onclick=()=>{w.style.display='none';markOpen()};
+ tb.querySelector('[data-a="close"]').onclick=()=>{w.remove();delete WINS[app.id];markOpen()};
+ focusWin(w);markOpen();if(app.onOpen)setTimeout(()=>app.onOpen(w),30);return w;
+}
+function markOpen(){document.querySelectorAll('#dock .app').forEach(a=>{const id=a.dataset.id;a.classList.toggle('open',!!WINS[id]&&WINS[id].style.display!=='none')})}
+
+/* ================= SOLAR DRONE SIM (shared state) ================= */
+const LINCOLN=[40.81,-96.70],DELHI=[28.61,77.21];
+const DRONE_SVG='<svg width="26" height="26" viewBox="0 0 26 26"><g stroke="#aeffd6" stroke-width="1.4" fill="none"><ellipse cx="13" cy="13" rx="3" ry="7"/><line x1="13" y1="6" x2="13" y2="2"/><line x1="10" y1="11" x2="1" y2="14"/><line x1="16" y1="11" x2="25" y2="14"/><line x1="11" y1="19" x2="8" y2="24"/><line x1="15" y1="19" x2="18" y2="24"/><circle cx="13" cy="13" r="1.5" fill="#ff7a3a"/></g></svg>';
+const d2r=Math.PI/180,r2d=180/Math.PI;
+const toVec=ll=>{const la=ll[0]*d2r,lo=ll[1]*d2r;return[Math.cos(la)*Math.cos(lo),Math.cos(la)*Math.sin(lo),Math.sin(la)]};
+const toLL=v=>[Math.asin(v[2])*r2d,Math.atan2(v[1],v[0])*r2d];
+function slerp(a,b,t){const A=toVec(a),B=toVec(b);let d=A[0]*B[0]+A[1]*B[1]+A[2]*B[2];d=Math.max(-1,Math.min(1,d));const o=Math.acos(d),so=Math.sin(o);if(so<1e-6)return a;const s1=Math.sin((1-t)*o)/so,s2=Math.sin(t*o)/so;return toLL([A[0]*s1+B[0]*s2,A[1]*s1+B[1]*s2,A[2]*s1+B[2]*s2])}
+function bearing(a,b){const y=Math.sin((b[1]-a[1])*d2r)*Math.cos(b[0]*d2r);const x=Math.cos(a[0]*d2r)*Math.sin(b[0]*d2r)-Math.sin(a[0]*d2r)*Math.cos(b[0]*d2r)*Math.cos((b[1]-a[1])*d2r);return(Math.atan2(y,x)*r2d+360)%360}
+let simMs=Date.UTC(2026,5,21,13,0,0);
+function solarFactor(lat,lon){const d=new Date(simMs);const utcH=d.getUTCHours()+d.getUTCMinutes()/60;const lst=(utcH+lon/15+24)%24;const day=Math.max(0,Math.sin((lst-6)/12*Math.PI));return day*(0.9+0.1*Math.cos(lat*d2r))}
+const MAX_PANEL=9.5,LOAD=3.2,CAP=160,PHASE1=12*60,CLIMB=18*60;
+const SIM={elapsed:0,pos:LINCOLN.slice(),hdg:90,alt:1500,battery:0.85*CAP,trail:[],phase:1,panel:0,net:0,spd:148};
+let _vel=160;
+function stepSim(dt){const S=SIM;S.elapsed+=dt;simMs+=dt*1000;let target=S.alt;
+ if(S.elapsed<PHASE1){S.phase=1;const ang=S.elapsed/40*Math.PI;S.pos=[LINCOLN[0]+Math.sin(ang)*0.18,LINCOLN[1]+Math.cos(ang)*0.24];S.hdg=bearing(S.trail.length?S.trail[S.trail.length-1]:S.pos,S.pos)||90;target=1500;S.spd=148}
+ else{const prog=Math.min(1,(S.elapsed-PHASE1)/CLIMB);S.pos=slerp(LINCOLN,DELHI,prog);S.hdg=bearing(S.pos,DELHI);target=1500+(21000-1500)*Math.min(1,prog/0.25);S.phase=prog>=1?3:2;_vel+=(612-_vel)*0.02;S.spd=S.phase===2?_vel:612}
+ S.alt+=(target-S.alt)*0.05;
+ const sf=solarFactor(S.pos[0],S.pos[1]);S.panel=MAX_PANEL*sf;S.net=S.panel-LOAD;S.battery=Math.max(0,Math.min(CAP,S.battery+S.net*(dt/3600)));S.sf=sf;
+ S.trail.push(S.pos.slice());if(S.trail.length>4000)S.trail.shift();
+}
+let last=performance.now();
+function tick(now){const dr=(now-last)/1000;last=now;stepSim(Math.min(2,dr)*SPEED);updateMap();updateTele();requestAnimationFrame(tick)}
+requestAnimationFrame(tick);
+
+/* ---------- Mission Map window ---------- */
+let map=null,marker=null,trailLine=null,useLive=false;
+function mapHTML(){return `<div class="maproot"><div class="flag" id="rflag">MISSION MAP · SOLAR HALE</div><div class="leaf" id="leaf"></div><div class="fb" id="fb"><canvas id="fc"></canvas></div><div class="phase" id="phase">PHASE —</div><div class="attr" id="attr">init</div></div>`}
+function initMap(){
+ const attr=$('attr');
+ function fb(reason){useLive=false;$('leaf').style.display='none';$('fb').style.display='block';attr.textContent='offline — generated terrain ('+reason+')';setNet('OFFLINE');drawTerrain()}
+ try{if(typeof L==='undefined')throw new Error('leaflet');
+  map=L.map('leaf',{zoomControl:false,attributionControl:true,worldCopyJump:true}).setView(LINCOLN,6);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:17,attribution:'Tiles &copy; <a href="https://www.esri.com/">Esri</a>, Maxar'}).addTo(map);
+  marker=L.marker(LINCOLN,{icon:L.divIcon({className:'dicon',html:DRONE_SVG,iconSize:[26,26],iconAnchor:[13,13]})}).addTo(map);
+  trailLine=L.polyline([LINCOLN],{color:'#aeffd6',weight:2,opacity:.85}).addTo(map);
+  useLive=true;attr.innerHTML='Imagery &copy; <a href="https://www.esri.com/">Esri</a>, Maxar';setNet('ONLINE');
+  setTimeout(()=>map.invalidateSize(),250);
+ }catch(e){fb(e.message)}
+ setTimeout(()=>{if(!useLive)return;},10);
+}
+function drawTerrain(){const cv=$('fc');if(!cv)return;const g=cv.getContext('2d');cv.width=cv.clientWidth;cv.height=cv.clientHeight;const W=cv.width,H=cv.height;g.fillStyle='#0c1c14';g.fillRect(0,0,W,H);for(let i=0;i<700;i++){g.fillStyle=`rgba(${60+Math.random()*60|0},${90+Math.random()*60|0},${50+Math.random()*40|0},.5)`;g.fillRect(Math.random()*W,Math.random()*H,2,2)}}
+function updateMap(){
+ const ph=$('phase');if(ph)ph.textContent='PHASE '+SIM.phase+' · '+(SIM.phase===1?'LOITER · Lincoln NE cornfields':(SIM.phase===2?'TRANSIT CLIMB → India':'STRAT CRUISE · India'))+' · T+'+fmt(SIM.elapsed);
+ if(useLive&&map&&marker){marker.setLatLng(SIM.pos);const el=marker.getElement();if(el)el.style.transform=el.style.transform.replace(/ rotate\([^)]*\)/,'')+' rotate('+SIM.hdg+'deg)';trailLine.setLatLngs(SIM.trail);if(SIM.elapsed%6<0.5)map.panTo(SIM.pos,{animate:true})}
+ else if($('fb')&&$('fb').style.display==='block'){const cv=$('fc'),g=cv.getContext('2d');const W=cv.width,H=cv.height;drawTerrain();if(SIM.trail.length>1){g.strokeStyle='#aeffd6';g.lineWidth=1.5;g.beginPath();const lons=SIM.trail.map(p=>p[1]),lats=SIM.trail.map(p=>p[0]);const mnx=Math.min(...lons,-100),mxx=Math.max(...lons,80),mny=Math.min(...lats,25),mxy=Math.max(...lats,45);SIM.trail.forEach((p,i)=>{const x=(p[1]-mnx)/(mxx-mnx+1e-6)*W,y=H-(p[0]-mny)/(mxy-mny+1e-6)*H;i?g.lineTo(x,y):g.moveTo(x,y)});g.stroke();const p=SIM.trail[SIM.trail.length-1],x=(p[1]-mnx)/(mxx-mnx+1e-6)*W,y=H-(p[0]-mny)/(mxy-mny+1e-6)*H;g.fillStyle='#ff7a3a';g.beginPath();g.arc(x,y,4,0,7);g.fill()}}
+}
+function fmt(s){s=Math.round(s);return(s/60|0)+'m'+(s%60).toString().padStart(2,'0')+'s'}
+
+/* ---------- Telemetry + Airframe (solar) ---------- */
+function teleHTML(){return `<div class="grid"><div>PITCH<b id="v1">2.0</b></div><div>ROLL<b id="v2">7.0</b></div><div>YAW<b id="v3">42</b></div><div>GPS<b class="ok">NRM</b></div><div>SOLAR%<b id="solp">0</b></div><div>BAT%<b id="batp">85</b></div></div>`}
+function airHTML(){return `<div class="grid"><div>HEADING<b id="hdg">90</b></div><div>ALT m<b id="alt">1500</b></div><div>SPD<b id="spd">148</b></div></div>
+ <div class="solar"><span>Solar array</span><span id="sol" class="warn">0.0 kW</span></div>
+ <div class="solar"><span>Battery charge</span><span id="bat" class="ok">85%</span></div>
+ <div class="solar"><span>Charge rate</span><span id="chg">+0.0 kW</span></div>
+ <div class="solar"><span>Endurance</span><span id="end">—</span></div>
+ <button class="eng">&#9656; NAVIGATION</button>`}
+function updateTele(){const S=SIM;const set=(id,v)=>{const e=$(id);if(e)e.textContent=v};
+ set('hdg',S.hdg.toFixed(0));set('alt',Math.round(S.alt).toLocaleString());set('spd',S.spd.toFixed(0));
+ set('v1',(2+Math.sin(S.elapsed)*1.5).toFixed(1));set('v2',(Math.sin(S.elapsed/3)*6).toFixed(1));set('v3',((S.hdg)%90).toFixed(0));
+ set('solp',(S.sf*100).toFixed(0));set('batp',(S.battery/CAP*100).toFixed(0));
+ const sol=$('sol');if(sol){sol.textContent=S.panel.toFixed(1)+' kW';sol.className=S.sf>0.05?'ok':'warn'}
+ const bat=$('bat');if(bat){const bp=S.battery/CAP*100;bat.textContent=bp.toFixed(0)+'%';bat.className=bp>30?'ok':'bad'}
+ const chg=$('chg');if(chg){chg.textContent=(S.net>=0?'+':'')+S.net.toFixed(1)+' kW';chg.className=S.net>=0?'ok':'warn'}
+ const end=$('end');if(end)end.textContent=S.net>=0?'solar-sustained':(S.battery/-S.net).toFixed(1)+' h';
+}
+
+/* ---------- Secure Login window (state cycle) ---------- */
+function loginHTML(){return `<div class="loginwc" id="lwc"><h2 id="ltitle">Login Successful</h2><div class="sub" id="lsub">Secure login accepted - transferring data...</div><div class="fld"><label>Security code</label><div class="inp">&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;</div></div><div class="prog"><i id="lbar"></i></div><div class="dbtn"><button id="lcancel">Cancel</button><button class="p1" id="llogin">Login</button></div></div>`}
+function initLogin(win){const wc=$('lwc'),title=$('ltitle'),sub=$('lsub'),bar=$('lbar');let step=0;
+ function run(){
+  if(step===0){wc.classList.remove('alert');win.classList.remove('alert');title.textContent='Login Successful';sub.textContent='Secure login accepted - transferring data...';bar.style.background='#2fe89a';bar.style.width='0';setLink('SECURE','v');let p=0;const iv=setInterval(()=>{p+=4;bar.style.width=p+'%';if(p>=100){clearInterval(iv);step=1;setTimeout(run,1200)}},90)}
+  else if(step===1){sub.textContent='Data stream synchronised. Verifying credentials...';bar.style.background='#ffb03a';let p=100;const iv=setInterval(()=>{p-=3;bar.style.width=p+'%';if(p<=15){clearInterval(iv);step=2;setTimeout(run,600)}},80)}
+  else{wc.classList.add('alert');win.classList.add('alert');title.textContent='Unauthorized Access';sub.textContent='Access attempt detected - further attempts not permitted!!';bar.style.background='#ff3a2a';bar.style.width='100%';setLink('BREACH','bad');title.classList.add('blink');setTimeout(()=>{title.classList.remove('blink');step=0;run()},3500)}
+ }
+ run();$('lcancel').onclick=()=>{step=0;run()};$('llogin').onclick=()=>{step=0;run()};
+}
+function setLink(t,c){const s=$('stat');s.innerHTML='LINK <span class="'+(c==='bad'?'bad':'v')+'">'+t+'</span>'}
+
+/* ---------- roster / menu / flight / terminal ---------- */
+function rosterHTML(){const rows=[['Raghuraj','Cmdr','ON DUTY','ok'],['Madhavan','Capt','ON DUTY','ok'],['Aravind','Lt','STANDBY','warn'],['Bhaskar','Sgt','ON DUTY','ok'],['Devraj','Capt','OFFLINE','bad'],['Iyer','Lt','ON DUTY','ok'],['Nandan','Sgt','ON DUTY','ok'],['Prakash','Cpl','STANDBY','warn'],['Shekhar','Lt','ON DUTY','ok'],['Varma','Capt','ON DUTY','ok'],['Chandran','Sgt','OFFLINE','bad'],['Gopal','Cpl','ON DUTY','ok'],['Keshav','Lt','STANDBY','warn'],['Ramesh','Sgt','ON DUTY','ok']];return `<table><tr><th>Name</th><th>Rank</th><th>Status</th></tr>${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="${r[3]}">${r[2]}</td></tr>`).join('')}</table>`}
+function menuHTML(){return `<div class="menuwc"><div class="sl"><label>Gimbal zoom</label><div class="track"><i style="left:62%"></i></div><span>6.2x</span></div><div class="sl"><label>IR gain</label><div class="track"><i style="left:40%"></i></div><span>40</span></div><div class="sl"><label>Signal power</label><div class="track"><i style="left:78%"></i></div><span>78</span></div><div class="sl"><label>Camera tilt</label><div class="track"><i style="left:33%"></i></div><span>-18&#176;</span></div></div>`}
+function flightHTML(){return `<div class="pad"><div class="row">Mission<span class="v">HALE Transit</span></div><div class="row">Alt band<span class="v">Strat 21 km</span></div><div class="row">Route<span class="v">Lincoln NE &#8594; Delhi IN</span></div><div class="row">Waypoints<span class="v">12</span></div><div class="row">Auto-RTB<span class="v">&#10003;</span></div><div class="row">Thermal<span class="v">&#10003;</span></div><div class="row">Encrypt AES<span class="v">&#10003;</span></div></div>`}
+function termHTML(){return `<div class="term" id="term" style="background:#030806;color:#8dffc0;font:12px/1.4 monospace;height:100%;padding:8px;overflow:auto"><div>AetherOS shell v1.8 — type 'help'</div><div id="tout"></div><div style="display:flex"><span style="color:#2fe89a;margin-right:6px">op@aether:~$</span><input id="tin" style="flex:1;background:none;border:none;color:#8dffc0;font:inherit;outline:none" autofocus></div></div>`}
+function initTerm(){const out=$('tout'),inp=$('tin');const cmds={help:()=>'commands: help, status, drone, solar, route, roster, clear',status:()=>'link SECURE · mission HALE Transit · phase '+SIM.phase,drone:()=>'alt '+Math.round(SIM.alt)+'m · hdg '+SIM.hdg.toFixed(0)+' · spd '+SIM.spd.toFixed(0)+'kt',solar:()=>'array '+SIM.panel.toFixed(1)+'kW · batt '+(SIM.battery/CAP*100).toFixed(0)+'% · net '+SIM.net.toFixed(1)+'kW',route:()=>'Lincoln NE (loiter) -> great-circle -> Delhi IN (strat cruise)',roster:()=>'14 personnel · 10 on duty · 2 standby · 2 offline'};
+ function run(c){c=c.trim();if(!c)return;if(c==='clear'){out.innerHTML='';return}const f=cmds[c];out.insertAdjacentHTML('beforeend',`<div><span style="color:#2fe89a">op@aether:~$</span> ${c}</div><div>${f?f():'command not found: '+c}</div>`);out.scrollTop=1e6}
+ inp.addEventListener('keydown',e=>{if(e.key==='Enter'){run(inp.value);inp.value=''}});$('term').addEventListener('click',()=>inp.focus());
+}
+
+/* ---------- registry ---------- */
+const APPS=[
+ {id:'map',title:'Mission Map',icon:'map',x:300,y:60,w:560,h:420,html:mapHTML(),onOpen:initMap},
+ {id:'login',title:'Secure Login',icon:'login',x:300,y:300,w:360,h:230,html:loginHTML(),onOpen:initLogin},
+ {id:'air',title:'Airframe · Garuda',icon:'air',x:880,y:60,w:320,h:250,html:airHTML()},
+ {id:'tele',title:'Telemetry',icon:'tele',x:880,y:330,w:320,h:150,html:teleHTML()},
+ {id:'roster',title:'Personnel Roster',icon:'roster',x:1220,y:60,w:220,h:430,html:rosterHTML()},
+ {id:'menu',title:'Sensor Menu',icon:'menu',x:40,y:440,w:300,h:190,html:menuHTML()},
+ {id:'flight',title:'Flight Details',icon:'flight',x:300,y:548,w:300,h:220,html:flightHTML()},
+ {id:'term',title:'Terminal',icon:'term',x:640,y:548,w:380,h:220,html:termHTML(),onOpen:initTerm}
+];
+const dock=$('dock'),deskicons=$('deskicons');
+APPS.forEach(a=>{dock.insertAdjacentHTML('beforeend',`<div class="app" data-id="${a.id}">${IC[a.icon]}${a.title}</div>`);deskicons.insertAdjacentHTML('beforeend',`<div class="di" data-id="${a.id}">${IC[a.icon]}<span>${a.title}</span></div>`)});
+document.querySelectorAll('#dock .app, .di').forEach(el=>el.addEventListener('click',()=>makeWin(APPS.find(a=>a.id===el.dataset.id))));
+function setNet(s){$('net').innerHTML='NET <span class="v">'+s+'</span>'}
+setInterval(()=>$('clk').textContent=new Date(simMs).toUTCString().slice(17,25)+'Z',500);
+// autostart several windows
+['map','login','air','tele','roster'].forEach(id=>makeWin(APPS.find(a=>a.id===id)));
+</script></body></html>
