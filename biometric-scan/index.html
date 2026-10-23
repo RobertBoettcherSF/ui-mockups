@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Biometric Scan</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#000;color:#7fe0a0;font:12px/1.3 "Courier New",monospace;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform:translate(-50%,-50%);background:#000;overflow:hidden}
+canvas{display:block}
+.gauge{position:absolute;width:70px}
+.gauge .lab{writing-mode:vertical-rl;transform:rotate(180deg);color:#8fd0b0;font-size:11px;letter-spacing:2px;position:absolute;left:-16px;top:40px;white-space:nowrap}
+.gauge .val{position:absolute;left:4px;font:bold 12px "Courier New";color:#eaffe0;background:#0a1a10;padding:1px 2px}
+.ghdr{position:absolute;color:#3fe07a;font-size:13px;letter-spacing:1px}
+.ghdr i{display:block;height:2px;background:linear-gradient(90deg,#1f8f4a,#3fe07a,#1f8f4a);margin-top:3px;opacity:.8}
+.tbl{position:absolute;font-size:12px}
+.tbl .r{display:flex;justify-content:space-between;gap:16px;margin:3px 0;color:#9fd8b8;width:300px}
+.tbl .r b{color:#eaffe0;font-weight:bold}
+.tbl .r .k{color:#5fbf8a;letter-spacing:1px}
+.blk{position:absolute;width:62px;height:72px;background:linear-gradient(160deg,#1a6bd0,#0a2f6a);border:1px solid #4f9fff;box-shadow:0 0 16px rgba(60,140,255,.7),inset 0 0 18px rgba(140,190,255,.5)}
+#scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.22) 3px,rgba(0,0,0,0) 4px);mix-blend-mode:multiply;animation:fl 5s steps(24) infinite;z-index:40}
+@keyframes fl{0%,100%{opacity:.55}50%{opacity:.7}}
+#glass{position:absolute;left:0;right:0;bottom:0;height:230px;pointer-events:none;z-index:5;opacity:.22}
+.cap{position:absolute;color:#6fd0a0;font-size:11px;letter-spacing:1px}
+</style></head><body>
+<div id="stage">
+ <!-- gauges -->
+ <div class="gauge" style="left:70px;top:150px;height:560px"><div class="lab">CORE TEMP</div><canvas id="g1" width="40" height="560"></canvas><div class="val" id="g1v" style="top:300px">36.9 C</div></div>
+ <div class="gauge" style="left:150px;top:150px;height:560px"><div class="lab">HEART RATE</div><canvas id="g2" width="40" height="560"></canvas><div class="val" id="g2v" style="top:360px">72 bpm</div></div>
+
+ <!-- figure -->
+ <canvas id="fig" width="320" height="640" style="position:absolute;left:330px;top:120px"></canvas>
+ <canvas id="fig2" width="120" height="240" style="position:absolute;left:650px;top:500px"></canvas>
+ <div class="cap" style="left:360px;top:95px" id="figcap">THERMAL MAP // SUBJECT 00</div>
+
+ <!-- right top -->
+ <div class="ghdr" style="left:820px;top:100px;width:430px">BIOMETRIC TELEMETRY // LIVE<i></i></div>
+ <div class="ghdr" style="left:820px;top:130px;width:430px">SENSOR ARRAY SYNC NOMINAL<i></i></div>
+ <div class="tbl" id="tbl" style="left:820px;top:185px"></div>
+ <div class="blk" style="left:1180px;top:170px"></div>
+ <div class="blk" style="left:1255px;top:170px"></div>
+
+ <!-- right bottom chart -->
+ <div class="cap" style="left:820px;top:470px">SIGNAL TRACE // MULTI-SERIES</div>
+ <canvas id="chart" width="720" height="300" style="position:absolute;left:820px;top:490px"></canvas>
+
+ <svg id="glass" viewBox="0 0 1600 230" preserveAspectRatio="none"><g stroke="#4f8fbf" stroke-width="1" fill="none" opacity="0.8"><line x1="0" y1="0" x2="1600" y2="0"/></g></svg>
+ <div id="scan"></div>
+</div>
+<script>
+const RND=(a,b)=>a+Math.random()*(b-a);
+// ---- mannequin silhouette path (union of simple shapes, no anatomical detail) ----
+function mannequin(ctx,sx,sy,sc){
+ const P=new Path2D();
+ const X=v=>sx+v*sc, Y=v=>sy+v*sc;
+ P.arc(X(110),Y(46),32*sc,0,7);                        // head
+ P.rect(X(99),Y(72),22*sc,20*sc);                      // neck
+ P.moveTo(X(68),Y(90));P.lineTo(X(152),Y(90));P.lineTo(X(140),Y(250));P.lineTo(X(80),Y(250));P.closePath(); // torso
+ P.rect(X(42),Y(96),24*sc,150*sc);                     // left arm
+ P.rect(X(154),Y(96),24*sc,150*sc);                    // right arm
+ P.rect(X(76),Y(246),68*sc,42*sc);                     // pelvis
+ P.rect(X(80),Y(284),26*sc,214*sc);                    // left leg
+ P.rect(X(114),Y(284),26*sc,214*sc);                   // right leg
+ return P;
+}
+// thermal palette
+function thermal(v){ // 0..1
+ v=Math.max(0,Math.min(1,v));
+ const stops=[[0,10,40,90],[0.25,10,120,200],[0.45,20,200,120],[0.65,220,220,40],[0.82,230,120,20],[1,220,30,30]];
+ for(let i=0;i<stops.length-1;i++){if(v>=stops[i][0]&&v<=stops[i+1][0]){const t=(v-stops[i][0])/(stops[i+1][0]-stops[i][0]);const a=stops[i],b=stops[i+1];return 'rgb('+Math.round(a[1]+(b[1]-a[1])*t)+','+Math.round(a[2]+(b[2]-a[2])*t)+','+Math.round(a[3]+(b[3]-a[3])*t)+')';}}
+ return 'rgb(220,30,30)';
+}
+function drawFigure(cv,sx,sy,sc,phase){
+ const ctx=cv.getContext('2d');const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+ ctx.save();const P=mannequin(ctx,sx,sy,sc);ctx.clip(P);
+ const cell=7;
+ for(let y=0;y<H;y+=cell)for(let x=0;x<W;x+=cell){
+  const v=0.5+0.5*Math.sin(x*0.05+phase)*Math.cos(y*0.045-phase*0.7)+0.35*Math.sin((x+y)*0.03+phase*1.3);
+  ctx.fillStyle=thermal((v+0.3)%1);ctx.fillRect(x,y,cell,cell);
+ }
+ ctx.restore();
+ // faint outline glow
+ ctx.lineWidth=1.4;ctx.strokeStyle='rgba(160,220,255,.5)';ctx.stroke(mannequin(ctx,sx,sy,sc));
+}
+// gauges
+function drawGauge(cv,greenFrac,markFrac){
+ const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+ const gH=H*greenFrac;
+ ctx.fillStyle='#1f9a4a';ctx.fillRect(10,0,18,gH);
+ ctx.fillStyle='#c0301f';ctx.fillRect(10,gH,18,H-gH);
+ // ticks
+ ctx.strokeStyle='#5fbf8a';ctx.lineWidth=1;for(let y=0;y<H;y+=12){const long=(y%48===0);ctx.beginPath();ctx.moveTo(30,y);ctx.lineTo(30+(long?9:5),y);ctx.stroke();}
+ // marker
+ ctx.fillStyle='#eaffe0';ctx.fillRect(4,H*markFrac-1,30,2);
+}
+let gp=0;setInterval(()=>{gp+=0.05;
+ drawGauge(document.getElementById('g1'),0.55+0.03*Math.sin(gp),0.46+0.02*Math.sin(gp*1.3));
+ drawGauge(document.getElementById('g2'),0.62+0.04*Math.sin(gp*0.8),0.6+0.03*Math.cos(gp));
+ document.getElementById('g1v').textContent=(36.6+0.5*Math.abs(Math.sin(gp))).toFixed(1)+' C';
+ document.getElementById('g2v').textContent=Math.round(68+8*Math.abs(Math.sin(gp*1.2)))+' bpm';
+},200);
+
+// biometric table
+const FIELDS=[['RESP RATE','/min',14,4],['SPO2','%',97,3],['SYS BP','mmHg',118,10],['DIA BP','mmHg',76,8],['GLUCOSE','mg/dL',92,12],['HYDRATION','%',63,6],['SKIN TEMP','C',33.1,1.2],['GALV RESP','uS',4.2,1.5]];
+function renderTbl(){const el=document.getElementById('tbl');el.innerHTML=FIELDS.map(f=>{const v=(typeof f[2]==='number'&&f[3]<2)?(f[2]+RND(-f[3],f[3])).toFixed(1):Math.round(f[2]+RND(-f[3],f[3]));return '<div class="r"><span class="k">'+f[0]+'</span><b>'+v+' '+f[1]+'</b></div>';}).join('');}
+renderTbl();setInterval(renderTbl,900);
+
+// scrolling multi-series dotted chart
+const chart=document.getElementById('chart'),cx=chart.getContext('2d');
+const SERIES=[{c:'#ff6fae',ph:0,amp:40,base:150},{c:'#ffe25a',ph:1.3,amp:55,base:150},{c:'#5fa8ff',ph:2.6,amp:35,base:150},{c:'#eaffe0',ph:4.0,amp:48,base:150}];
+let cph=0;
+function drawChart(){const W=chart.width,H=chart.height;cx.clearRect(0,0,W,H);
+ cx.strokeStyle='rgba(40,90,70,.4)';cx.lineWidth=1;for(let y=0;y<H;y+=30){cx.beginPath();cx.moveTo(0,y);cx.lineTo(W,y);cx.stroke();}
+ SERIES.forEach(s=>{cx.fillStyle=s.c;for(let x=0;x<W;x+=7){const y=s.base+s.amp*Math.sin(x*0.018+cph+s.ph)+s.amp*0.4*Math.sin(x*0.05-cph*1.5+s.ph);cx.beginPath();cx.arc(x,y,1.6,0,7);cx.fill();}});
+ cph+=0.08;requestAnimationFrame(drawChart);}
+drawChart();
+
+// glass perspective grid
+(function(){const svg=document.getElementById('glass');const g=svg.querySelector('g');let h='';for(let i=-20;i<=20;i++){const x=800+i*120;h+='<line x1="800" y1="0" x2="'+x+'" y2="230"/>';}for(let j=1;j<=7;j++){const y=j*33;h+='<line x1="0" y1="'+y+'" x2="1600" y2="'+y+'" opacity="'+(0.6-j*0.07)+'"/>';}g.innerHTML+=h;})();
+
+// animate figures
+let fph=0;function animFig(){fph+=0.03;drawFigure(document.getElementById('fig'),0,0,1,fph);drawFigure(document.getElementById('fig2'),0,0,0.375,fph*1.1);requestAnimationFrame(animFig);}
+animFig();
+</script></body></html>
