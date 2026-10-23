@@ -104,3 +104,30 @@ a calling→connected state, More opens a small menu (Transcript / Save / Forwar
 is draggable. Black bottom taskbar with Channel / Comms / Priority dropdown menus (generic
 items), a centred live day+time clock, and a right tray (volume / arrow / wifi icons).
 Preview: `voicemail-desktop/preview.png`
+
+### ops-centre-europe
+
+A dark continental operations-centre dashboard inspired by a film control-room
+layout, redrawn as an original, fully generic coordination desk centred on
+Europe (Brussels).
+
+- **Header** — abstract geometric emblem (no real seal/flag), spaced-letter
+  title *CONTINENTAL OPERATIONS CENTRE / JOINT COORDINATION DESK*, dotted rule,
+  and a *RESTRICTED // CENTRAL DESK* marker.
+- **Intercept Data Projection** — a slowly rotating orthographic globe
+  (d3-geo, world-atlas TopoJSON via CDN) centred on Brussels, with graticule,
+  generic circular node markers across European cities plus a spread-out
+  offshore cluster in the North Sea, and a red triangle at the centre.
+- **Satellite Worldwide Projection** — a Natural Earth world map (d3-geo)
+  rotated to a European central meridian, with English ocean labels and the
+  red centre marker.
+- **Recorded Communication** — two animated audio-waveform channels
+  (Regional Desk / Central Desk) over a generic secure-relay source line.
+- **Command Status / Operation Status** — bordered panels with a live
+  "network link" strength bar and flickering status fields for a neutral
+  logistics-coordination exercise (*NORTHERN BRIDGE*, status HOLD).
+
+Everything is invented and neutral: no real organisations, governments,
+agencies, nations, flags, official seals, or film references. Map data is
+loaded from public CDNs (world-atlas / d3-geo) with a generated offline
+fallback for both projections.
