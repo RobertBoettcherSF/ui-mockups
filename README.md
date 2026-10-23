@@ -131,3 +131,26 @@ Everything is invented and neutral: no real organisations, governments,
 agencies, nations, flags, official seals, or film references. Map data is
 loaded from public CDNs (world-atlas / d3-geo) with a generated offline
 fallback for both projections.
+
+### ops-centre-france
+
+A regional variant of `ops-centre-europe`, inspired by a film control-room
+layout but redrawn as an original, fully generic coordination desk zoomed in
+on France (Paris).
+
+- **Header / status / audio panels** — same neutral layout as
+  `ops-centre-europe` (abstract emblem, *REGIONAL OPERATIONS CENTRE / JOINT
+  COORDINATION DESK*, recorded-communication waveforms, and Command/Operation
+  status panels for the neutral exercise *WESTERN ANCHOR*).
+- **Intercept Data Projection** — a zoomed-in regional map (~1300 km wide,
+  d3-geo orthographic centred on Paris) with coastlines, borders and a fine
+  graticule over a dark satellite-style ocean; a red triangle at the centre
+  plus two more at other locations, and several generic circular node markers
+  scattered within the surrounding territory (west of the Rhine).
+- **Satellite Worldwide Projection** — the same Natural Earth world map with
+  matching red triangles at the three locations.
+
+All invented and neutral: no real organisations, governments, agencies,
+nations, flags, official seals, people, or film references. Map data loads from
+public CDNs (world-atlas / d3-geo) with a generated offline fallback for both
+projections.
