@@ -154,3 +154,37 @@ All invented and neutral: no real organisations, governments, agencies,
 nations, flags, official seals, people, or film references. Map data loads from
 public CDNs (world-atlas / d3-geo) with a generated offline fallback for both
 projections.
+
+### ops-centre-berlin
+
+A routine air-security patrol dashboard inspired by a film control-room
+layout, redrawn as an original, fully generic coordination desk focused on the
+Bundestag in Berlin.
+
+- **Header / theme** — abstract emblem, *REGIONAL OPERATIONS CENTRE / JOINT
+  COORDINATION DESK*, and a top-right *RESTRICTED // CENTRAL DESK* marker.
+  Neutral routine-patrol wording throughout (no attack/outbreak/coup
+  narrative).
+- **Berlin Spatial Satellite Projection Map** — a Leaflet map on Esri World
+  Imagery (attributed) centred on the Bundestag (52.5186N, 13.3762E) at zoom
+  16, with a generated offline fallback. The centre marker is a round badge
+  with a German flag and a *BUNDESTAG* label. Two original top-down helicopter
+  SVG markers continuously circle the building on a ~250 m orbit at offset
+  phases, rotating to their heading.
+- **Event Log / Standing Notice** (left) — green highlighted headings and
+  sub-headings, dotted dividers, `> ` log lines and bulleted notice items.
+- **Related Active Files / Notes & Remarks** (right) — file codes with
+  alternating green/navy highlighted tags and CET-timestamped routine notes.
+- **Live Audio Call** — a locked, authorised-personnel box with animated bars
+  below the map.
+- **Ticker** — a bottom red marquee of generic link/telemetry status messages
+  scrolling right-to-left with `///` separators.
+- **System alert** — a periodic generic overlay (every ~25 s, ~8 s on screen,
+  also triggered by clicking the header): a bordered black box titled
+  *// SYSTEM ALERT //* with three dark-red highlighted lines and blinking
+  keywords; the ticker shows a matching message while it is active.
+
+All invented and neutral apart from the user-approved German flag and
+*BUNDESTAG* label: no other real organisations, agencies, people, seals, or
+film references. Map tiles load from Esri with attribution and a generated
+offline fallback.

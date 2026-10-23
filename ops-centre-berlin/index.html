@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Regional Operations Centre — Berlin</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#000;color:#cfe0d6;font:12px/1.4 "Courier New",monospace;overflow:hidden}
+#wrap{position:absolute;inset:0;overflow:hidden;padding:12px 18px 0;display:grid;grid-template-rows:auto 1fr auto;gap:10px}
+header{display:flex;align-items:flex-start;gap:16px}
+header .em{width:58px;height:58px;flex-shrink:0}
+header .ttl{flex:1;min-width:0;overflow:hidden}
+.h1{font-size:19px;letter-spacing:8px;color:#eaf3ee;font-weight:bold}
+.h2{font-size:11px;letter-spacing:6px;color:#9fc2ad;margin-top:3px}
+.dots{border-top:1px dotted #2f6b3f;height:0;margin-top:8px;margin-right:12px}
+.restr{color:#7fae8c;letter-spacing:5px;font-size:11px;margin-top:4px;white-space:nowrap;text-align:right}
+#main{display:grid;grid-template-columns:230px 1fr 230px;gap:14px;min-height:0}
+.col{display:flex;flex-direction:column;gap:12px;min-height:0;min-width:0}
+.pbar{background:#9fe0a8;color:#05280d;text-align:center;letter-spacing:3px;font-weight:bold;font-size:10px;padding:3px}
+.box{border:1px solid #25512f;background:#030806;padding:8px 10px;min-width:0}
+.box h4{display:inline-block;background:#9fe0a8;color:#05280d;letter-spacing:2px;font-size:10px;padding:2px 8px;margin-bottom:7px}
+.box.notes h4,.box.files h4{background:#7d7bde;color:#07061f}
+.ln{font-size:11px;margin:4px 0;color:#bcd3c4}
+.ln b{color:#8fe0a0}
+.hl{background:#9fe0a8;color:#05280d;padding:0 3px}
+.hlp{background:#7d7bde;color:#fff;padding:0 3px}
+.tm{color:#9fc2ad}
+.dd{border-top:1px dotted #2f6b3f;margin:7px 2px}
+/* centre */
+.center{display:flex;flex-direction:column;min-height:0;min-width:0;gap:10px}
+#mapwrap{flex:1;position:relative;border:1px solid #16351f;min-height:0}
+#map{position:absolute;inset:0;background:#0a1a12}
+.leaflet-container{background:#0a1a12}
+.mapflag{position:absolute;bottom:2px;right:4px;z-index:600;font-size:8px;color:#bfe8c9;background:rgba(0,0,0,.4);padding:0 3px}
+/* badge + heli icons */
+.badge{width:46px;height:46px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px #05280d,0 0 8px rgba(0,0,0,.8);overflow:hidden;position:relative}
+.badge .fl{position:absolute;inset:0}
+.badge .fl i{display:block;height:33.33%}
+.badge .lbl{position:absolute;left:50%;top:115%;transform:translateX(-50%);white-space:nowrap;background:#000;color:#ffd84a;border:1px solid #ffd84a;font:bold 9px "Courier New";letter-spacing:1px;padding:1px 4px}
+.heli{filter:drop-shadow(0 0 3px rgba(0,0,0,.9))}
+/* audio */
+.audio{border:1px solid #d9c24a;background:#05060a;padding:7px 10px;text-align:center}
+.audio .t{color:#ffe780;letter-spacing:2px;font-size:11px;display:flex;align-items:center;justify-content:center;gap:6px}
+.audio .s{color:#b9a94a;font-size:9px;letter-spacing:1px;margin-bottom:5px}
+.audio canvas{width:100%;height:46px;display:block}
+.lock{width:11px;height:11px;display:inline-block}
+/* ticker */
+.alert{position:absolute;z-index:700;left:50%;top:14px;transform:translateX(-50%);background:#000;border:1px solid #6b1410;padding:10px 16px;min-width:320px;text-align:center;display:none;box-shadow:0 0 14px rgba(0,0,0,.8)}
+.alert.on{display:block}
+.alert .at{color:#ff5b4a;letter-spacing:4px;font-size:12px;font-weight:bold;margin-bottom:8px}
+.alert .al{margin:5px 0;font-size:11px;letter-spacing:1px}
+.alert .al b{background:#5c0f0b;color:#ffd0c9;padding:1px 6px;font-weight:normal}
+.blink{background:#5c0f0b;color:#ffd0c9;padding:1px 5px}
+.blink.inv{background:#ffd0c9;color:#5c0f0b}
+.ticker{background:#b11810;color:#ffe1dd;white-space:nowrap;overflow:hidden;font-size:12px;letter-spacing:1px;padding:4px 0}
+.ticker span{display:inline-block;padding-left:100%;animation:scroll 26s linear infinite}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+</style></head><body>
+<div id="wrap">
+ <header>
+  <svg class="em" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="none" stroke="#9fc2ad" stroke-width="2"/><circle cx="32" cy="32" r="23" fill="none" stroke="#4f7a5c" stroke-width="1"/><g stroke="#cfe0d6" stroke-width="2" fill="none"><polygon points="32,15 45,46 19,46"/><path d="M32 23l8 20H24z"/><circle cx="32" cy="38" r="4"/><path d="M32 15v-6M14 46l-5 3M50 46l5 3"/></g></svg>
+  <div class="ttl">
+   <div class="h1">REGIONAL OPERATIONS CENTRE</div>
+   <div class="h2">JOINT COORDINATION DESK</div>
+   <div class="dots"></div>
+  </div>
+  <div class="restr">RESTRICTED // CENTRAL DESK</div>
+ </header>
+
+ <div id="main">
+  <!-- LEFT -->
+  <div class="col">
+   <div class="box">
+    <h4>EVENT LOG</h4>
+    <div class="dd"></div>
+    <div class="ln"><span class="hl">PATROL ROTATION</span></div>
+    <div class="ln">&gt; AIR PATROL 1 — on station</div>
+    <div class="ln">&gt; AIR PATROL 2 — on station</div>
+    <div class="dd"></div>
+    <div class="ln"><span class="hl">ROUTINE CHECKS</span></div>
+    <div class="ln">&gt; Perimeter check complete</div>
+    <div class="ln">&gt; Airspace clear — nominal</div>
+    <div class="ln">&gt; Relay link verified</div>
+    <div class="ln">&gt; Crew handover logged</div>
+   </div>
+   <div class="box">
+    <h4>STANDING NOTICE</h4>
+    <div class="dd"></div>
+    <div class="ln">• Maintain holding orbit at set altitude</div>
+    <div class="ln">• Keep continuous relay with central desk</div>
+    <div class="ln">• Report any traffic entering the ring</div>
+   </div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center">
+   <div class="pbar">BERLIN SPATIAL SATELLITE PROJECTION MAP</div>
+   <div id="mapwrap"><div id="map"></div><div class="mapflag" id="mflag">loading…</div>
+    <div class="alert" id="alert">
+     <div class="at">// SYSTEM ALERT //</div>
+     <div class="al"><b>TELEMETRY SIGNAL LOST: <span class="blink" id="bk1">AIR PATROL 2</span></b> ///</div>
+     <div class="al"><b>TRANSPONDER STATUS: <span class="blink" id="bk2">UNKNOWN</span></b> ///</div>
+     <div class="al"><b>LINK <span class="blink" id="bk3">RE-ESTABLISHING</span> ///</b></div>
+    </div></div>
+   <div class="audio">
+    <div class="t"><svg class="lock" viewBox="0 0 24 24" fill="none" stroke="#ffe780" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> LIVE AUDIO CALL</div>
+    <div class="s">AUTHORISED PERSONNEL ONLY</div>
+    <canvas id="aud"></canvas>
+   </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="col">
+   <div class="box files">
+    <h4>RELATED ACTIVE FILES</h4>
+    <div class="dd"></div>
+    <div class="ln">A-101: <span class="hl">ROUTE SURVEY</span></div>
+    <div class="ln">A-102: <span class="hl">AIRSPACE NOTICE</span></div>
+    <div class="ln">A-103: <span class="hlp">PATROL SCHEDULE</span></div>
+    <div class="ln">A-104: <span class="hl">RELAY PLAN</span></div>
+    <div class="ln">A-105: <span class="hlp">WEATHER BRIEF</span></div>
+   </div>
+   <div class="box notes">
+    <h4>NOTES / REMARKS</h4>
+    <div class="dd"></div>
+    <div class="ln"><span class="tm">22:04 CET</span> — Patrol orbit established</div>
+    <div class="ln"><span class="tm">22:09 CET</span> — Relay link nominal</div>
+    <div class="ln"><span class="tm">22:15 CET</span> — Perimeter sweep logged</div>
+    <div class="ln"><span class="tm">22:21 CET</span> — Crew check complete</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="ticker"><span id="tick"></span></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const BUNDESTAG=[52.5186,13.3762];
+const tickText="LINK STATUS: STABLE  ///  SECURE RELAY NODE 03: ONLINE  ///  AIR PATROL 1: ON STATION  ///  AIR PATROL 2: ON STATION  ///  ENCRYPTION: ACTIVE  ///  SATELLITE TELEMETRY: NOMINAL  ///  AIRSPACE: CLEAR  ///  ";
+document.getElementById('tick').textContent=tickText+tickText;
+
+/* audio bars */
+(function(){const cv=document.getElementById('aud');function fit(){cv.width=cv.clientWidth;cv.height=cv.clientHeight}fit();const ctx=cv.getContext('2d');
+ (function loop(){const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);const n=46,bw=W/n;for(let i=0;i<n;i++){const env=Math.sin(i/n*Math.PI);const h=3+Math.random()*env*H*.85;ctx.fillStyle='#ffe780';ctx.fillRect(i*bw+1,H-h,bw-1.5,h)}requestAnimationFrame(loop)})();})();
+
+/* helicopter divIcon (original top-down icon) */
+function heliSVG(){return '<svg class="heli" width="34" height="34" viewBox="0 0 34 34">'
+ +'<g transform="translate(17,17)">'
+ +'<line x1="0" y1="0" x2="0" y2="14" stroke="#eafff0" stroke-width="2"/>'  // tail boom
+ +'<line x1="-4" y1="14" x2="4" y2="14" stroke="#eafff0" stroke-width="2"/>' // tail rotor
+ +'<ellipse cx="0" cy="-1" rx="4.5" ry="7" fill="#1a3324" stroke="#9fe0a8" stroke-width="1.5"/>' // body
+ +'<g stroke="#bfe8c9" stroke-width="1.6" opacity="0.9"><line x1="-13" y1="-1" x2="13" y2="-1"/><line x1="-1" y1="-13" x2="-1" y2="12"/></g>' // main rotor
+ +'<circle cx="0" cy="-1" r="1.6" fill="#ffe780"/>'
+ +'</g></svg>';}
+
+let map=null,fellBack=false;
+function offlineFallback(){
+ if(fellBack)return;fellBack=true;
+ const mw=document.getElementById('mapwrap');document.getElementById('map').style.display='none';
+ const cv=document.createElement('canvas');cv.style.cssText='position:absolute;inset:0;width:100%;height:100%';mw.insertBefore(cv,mw.firstChild);
+ const W=cv.width=mw.clientWidth,H=cv.height=mw.clientHeight,ctx=cv.getContext('2d');
+ ctx.fillStyle='#14241a';ctx.fillRect(0,0,W,H);
+ // river
+ ctx.strokeStyle='#24435c';ctx.lineWidth=26;ctx.beginPath();ctx.moveTo(-20,H*.62);ctx.bezierCurveTo(W*.3,H*.5,W*.4,H*.78,W*.7,H*.6);ctx.lineTo(W+20,H*.5);ctx.stroke();
+ // blocks
+ ctx.strokeStyle='rgba(150,180,150,.12)';for(let x=0;x<W;x+=46){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let y=0;y<H;y+=42){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+ ctx.fillStyle='rgba(120,150,120,.18)';for(let i=0;i<120;i++)ctx.fillRect(Math.random()*W,Math.random()*H,16+Math.random()*26,14+Math.random()*22);
+ document.getElementById('mflag').textContent='offline · generated';
+ // static badge + two helis
+ const cx=W/2,cy=H/2;
+ const b=document.createElement('div');b.innerHTML=badgeHTML();b.style.cssText='position:absolute;z-index:5;transform:translate(-50%,-50%);left:'+cx+'px;top:'+cy+'px';mw.appendChild(b);
+ const h1=document.createElement('div'),h2=document.createElement('div');
+ [h1,h2].forEach(h=>{h.style.cssText='position:absolute;z-index:6;transform:translate(-50%,-50%)';mw.appendChild(h)});
+ let t=0;(function sp(){t+=0.02;const R=Math.min(W,H)*.28;
+  place(h1,cx+R*Math.cos(t),cy+R*Math.sin(t),t);
+  place(h2,cx+R*Math.cos(t+Math.PI),cy+R*Math.sin(t+Math.PI),t+Math.PI);
+  requestAnimationFrame(sp)})();
+ function place(el,x,y,ang){el.style.left=x+'px';el.style.top=y+'px';el.innerHTML='<div style="transform:rotate('+(ang*180/Math.PI+90)+'deg)">'+heliSVG()+'</div>'}
+}
+function badgeHTML(){return '<div class="badge"><div class="fl"><i style="background:#000"></i><i style="background:#d00"></i><i style="background:#ffce00"></i></div><div class="lbl">BUNDESTAG</div></div>';}
+
+function init(){
+ if(typeof L==='undefined'){offlineFallback();return;}
+ try{
+  map=L.map('map',{zoomControl:false,attributionControl:true}).setView(BUNDESTAG,16);
+  const layer=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Imagery &copy; Esri, Maxar, Earthstar Geographics'});
+  layer.on('tileerror',()=>{if(!tilesOK)offlineFallback()});
+  let tilesOK=false;layer.on('tileload',()=>{tilesOK=true});
+  layer.addTo(map);
+  // centre badge
+  const badge=L.marker(BUNDESTAG,{icon:L.divIcon({className:'',html:badgeHTML(),iconSize:[46,46],iconAnchor:[23,23]}),interactive:false,zIndexOffset:500}).addTo(map);
+  // helicopters
+  function mkHeli(){return L.marker(BUNDESTAG,{icon:L.divIcon({className:'',html:heliSVG(),iconSize:[34,34],iconAnchor:[17,17]}),interactive:false,zIndexOffset:600}).addTo(map)}
+  const hA=mkHeli(),hB=mkHeli();
+  const Rlat=0.00225, Rlng=0.0037; // ~250 m
+  let t=0;
+  function orbit(){t+=0.015;
+   function set(m,ph){const lat=BUNDESTAG[0]+Rlat*Math.sin(t+ph);const lng=BUNDESTAG[1]+Rlng*Math.cos(t+ph);m.setLatLng([lat,lng]);
+    const head=(t+ph)*180/Math.PI; // tangent heading
+    const el=m.getElement();if(el){const s=el.querySelector('svg');if(s)s.style.transform='rotate('+(head)+'deg)';}}
+   set(hA,0);set(hB,Math.PI);
+   requestAnimationFrame(orbit)}
+  orbit();
+  setTimeout(()=>{if(!tilesOK)offlineFallback();},4000);
+  map.whenReady(()=>{document.getElementById('mflag').textContent='Esri World Imagery';});
+ }catch(e){offlineFallback();}
+}
+
+/* ---- system alert overlay ---- */
+const alertBox=document.getElementById('alert');
+const tickEl=document.getElementById('tick');
+const normalTick=tickText+tickText;
+const alertTick="// SYSTEM ALERT //  ///  TELEMETRY SIGNAL LOST: AIR PATROL 2  ///  TRANSPONDER STATUS: UNKNOWN  ///  LINK RE-ESTABLISHING  ///  ";
+let alertOn=false, blinkT=null;
+function showAlert(){ if(alertOn) return; alertOn=true; alertBox.classList.add('on');
+ tickEl.textContent=alertTick+alertTick+alertTick;
+ const blinks=[document.getElementById('bk1'),document.getElementById('bk2'),document.getElementById('bk3')];
+ let f=false; blinkT=setInterval(()=>{f=!f; blinks.forEach(b=>b&&b.classList.toggle('inv',f));},600);
+ setTimeout(hideAlert,8000);
+}
+function hideAlert(){ alertOn=false; alertBox.classList.remove('on'); if(blinkT)clearInterval(blinkT); tickEl.textContent=normalTick; }
+setInterval(()=>{ if(!alertOn) showAlert(); }, 25000);
+document.querySelector('header').style.cursor='pointer';
+document.querySelector('header').addEventListener('click',showAlert);
+
+window.addEventListener('load',init);
+</script></body></html>
