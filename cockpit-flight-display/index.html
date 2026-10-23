@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Cockpit Flight Display</title>
+<style>
+*{box-sizing:border-box}body{margin:0;height:100vh;background:#020a12;display:flex;gap:24px;padding:24px;font-family:"Eurostile","Arial Narrow",Arial,sans-serif;color:#5ff2ff;font-variant:small-caps;letter-spacing:.08em}
+.scr{background:radial-gradient(ellipse at 50% 40%,#08303d,#041a26 70%);border:1px solid #0e5566;border-radius:6px;box-shadow:inset 0 0 40px #0008,0 0 18px #0ff2;position:relative;overflow:hidden}
+#L{flex:0 0 520px}#R{flex:1}svg{position:absolute;inset:0;width:100%;height:100%}
+text{fill:#6ff4ff;font-size:13px;font-family:inherit}.g{filter:drop-shadow(0 0 3px #3ef)}
+.rowbox{position:absolute;left:30px;right:30px;font-size:14px}
+.row{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;padding:4px 8px;border-bottom:1px solid #0d4a58}
+.hl{background:#1fb8cc;color:#032029;text-shadow:none;font-weight:bold}
+.warn{color:#ff4a4a;font-size:12px}
+</style></head><body>
+<div class="scr" id="L"><svg viewBox="0 0 520 852" class="g" id="ls"></svg></div>
+<div class="scr" id="R"><svg viewBox="0 0 1008 852" preserveAspectRatio="none" class="g" id="rs"></svg>
+<div class="rowbox" style="top:470px" id="t1"></div><div class="rowbox" style="top:680px" id="t2"></div></div>
+<script>
+const NS="http://www.w3.org/2000/svg";
+function el(p,t,a,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;p.appendChild(e);return e}
+const S={stroke:"#4ef0ff",fill:"none","stroke-width":1.5};
+const ls=document.getElementById("ls");
+// side ticks
+for(let y=60;y<800;y+=26){el(ls,"line",{...S,x1:8,y1:y,x2:y%52?16:22,y2:y});el(ls,"line",{...S,x1:512,y1:y,x2:y%52?504:498,y2:y})}
+el(ls,"text",{x:30,y:36},"sys 04 · nav primary");el(ls,"text",{x:400,y:36},"mode auto");
+// arc gauge
+const cx=260,cy=230,r=150;
+el(ls,"path",{...S,d:`M${cx-r} ${cy} A${r} ${r} 0 0 1 ${cx+r} ${cy}`,"stroke-width":3});
+for(let i=0;i<=40;i++){const a=Math.PI*(1-i/40),l=i%5?10:20;el(ls,"line",{...S,x1:cx+Math.cos(a)*r,y1:cy-Math.sin(a)*r,x2:cx+Math.cos(a)*(r-l),y2:cy-Math.sin(a)*(r-l)});if(i%10==0)el(ls,"text",{x:cx+Math.cos(a)*(r-40)-10,y:cy-Math.sin(a)*(r-40)+5},i*25)}
+const needle=el(ls,"line",{stroke:"#bfffff","stroke-width":3,x1:cx,y1:cy,x2:cx,y2:cy-r+25});
+el(ls,"circle",{...S,cx,cy,r:6,fill:"#4ef0ff"});
+el(ls,"text",{x:cx-38,y:cy+30},"airspeed");const asv=el(ls,"text",{x:cx-22,y:cy+52,"font-size":18},"0");
+// tick strip
+for(let i=0;i<30;i++)el(ls,"line",{...S,x1:130+i*9,y1:300,x2:130+i*9,y2:i%5?312:320});
+// altitude slider
+el(ls,"text",{x:cx-38,y:370},"altitude");el(ls,"rect",{...S,x:120,y:385,width:280,height:22});
+for(let i=0;i<=14;i++)el(ls,"line",{...S,x1:120+i*20,y1:407,x2:120+i*20,y2:415});
+const alt=el(ls,"rect",{x:120,y:385,width:140,height:22,fill:"#1fb8cc55"});const altm=el(ls,"rect",{x:256,y:380,width:8,height:32,fill:"#bfffff"});
+const altv=el(ls,"text",{x:410,y:401},"0");
+// thrust
+el(ls,"text",{x:110,y:470},"thrust");el(ls,"rect",{...S,x:350,y:455,width:60,height:22});const thv=el(ls,"text",{x:358,y:471},"0");
+for(let i=0;i<=24;i++){el(ls,"line",{...S,x1:120+i*12,y1:540,x2:120+i*12,y2:540-(i%4?14:28)})}
+el(ls,"line",{...S,x1:120,y1:540,x2:408,y2:540});
+const th=el(ls,"rect",{x:120,y:546,width:150,height:10,fill:"#4ef0ff"});
+el(ls,"text",{x:120,y:580},"min");el(ls,"text",{x:380,y:580},"max");
+el(ls,"rect",{...S,x:210,y:600,width:100,height:24});el(ls,"text",{x:225,y:617},"lim 92%");
+// dials
+const dials=[];["pitch","roll","yaw","trim"].forEach((n,i)=>{const x=95+i*110,y=710;el(ls,"ellipse",{...S,cx:x,cy:y,rx:42,ry:34,"stroke-width":2});el(ls,"line",{...S,x1:x,y1:y-34,x2:x,y2:y+34});
+const a=el(ls,"path",{...S,d:"","stroke-width":2.5}),b=el(ls,"path",{...S,d:"","stroke-width":2.5});dials.push([x,y,a,b]);el(ls,"text",{x:x-20,y:768},n)});
+el(ls,"text",{x:200,y:800},"attitude ref");
+["menu","data","sys"].forEach((n,i)=>{el(ls,"rect",{...S,x:40+i*160,y:815,width:120,height:24});el(ls,"text",{x:70+i*160,y:832},n)});
+// right
+const rs=document.getElementById("rs");el(rs,"text",{x:30,y:30},"engine & reaction control · bus a");
+const bars=[];for(let i=0;i<14;i++){const x=40+i*68;el(rs,"rect",{...S,x,y:45,width:26,height:120});bars.push(el(rs,"rect",{x:x+3,y:100,width:20,height:62,fill:"#4ef0ff"}));el(rs,"text",{x:x-2,y:182,"font-size":11},"c"+(i+1))}
+el(rs,"rect",{...S,x:30,y:200,width:948,height:250});
+for(let x=30;x<978;x+=79)el(rs,"line",{stroke:"#0f5666",x1:x,y1:200,x2:x,y2:450});for(let y=200;y<450;y+=50)el(rs,"line",{stroke:"#0f5666",x1:30,y1:y,x2:978,y2:y});
+el(rs,"path",{...S,d:"M30 430 Q300 420 500 300 T978 230","stroke-dasharray":"6 5"});
+const curve=el(rs,"path",{...S,d:"","stroke-width":2.5});
+const craft=el(rs,"g",{});el(craft,"path",{fill:"#4ef0ff55",stroke:"#bfffff","stroke-width":1.5,d:"M0 -40 L10 -10 L34 22 L12 18 L8 30 L-8 30 L-12 18 L-34 22 L-10 -10 Z"});
+el(rs,"text",{x:40,y:222},"trajectory / attitude");el(rs,"text",{x:820,y:222},"scale 1:400");
+el(rs,"text",{x:40,y:440,fill:"#ff4a4a","font-size":12},"▲ crossrange dev 0.4°");
+// tables
+const t1=document.getElementById("t1"),t2=document.getElementById("t2");
+function tab(e,h,rows){e.innerHTML=`<div class="row" style="opacity:.7">${h.map(x=>`<span>${x}</span>`).join("")}</div>`+rows.map((r,i)=>`<div class="row ${i==1?"hl":""}">${r.map(x=>`<span>${x}</span>`).join("")}</div>`).join("")}
+let t=0;
+function upd(){t+=.03;const v=.55+.25*Math.sin(t*.7)+.05*Math.sin(t*3);const a=Math.PI*(1-v);
+needle.setAttribute("x2",cx+Math.cos(a)*(r-25));needle.setAttribute("y2",cy-Math.sin(a)*(r-25));asv.textContent=Math.round(v*1000);
+const al=.5+.3*Math.sin(t*.4);alt.setAttribute("width",280*al);altm.setAttribute("x",116+280*al);altv.textContent=Math.round(al*42000);
+const tv=.6+.2*Math.sin(t*.9);th.setAttribute("width",288*tv);thv.textContent=Math.round(tv*100)+"%";
+dials.forEach(([x,y,A,B],i)=>{const o=10*Math.sin(t+i);A.setAttribute("d",`M${x-30} ${y+o} Q${x-15} ${y-12+o} ${x-4} ${y+o}`);B.setAttribute("d",`M${x+4} ${y-o} Q${x+15} ${y+12-o} ${x+30} ${y-o}`)});
+bars.forEach((b,i)=>{const h=30+50*(.5+.5*Math.sin(t*1.3+i*.8));b.setAttribute("height",h);b.setAttribute("y",162-h)});
+const px=30+((t*40)%948);let d="M30 440";for(let x=30;x<=px;x+=12)d+=` L${x} ${440-((x-30)/948)*190-15*Math.sin(x/90)}`;curve.setAttribute("d",d);
+craft.setAttribute("transform",`translate(${px} ${440-((px-30)/948)*190-15*Math.sin(px/90)}) rotate(${50+8*Math.sin(t)})`);}
+function upt(){const f=(b,s)=>(b+Math.random()*s).toFixed(1);
+tab(t1,["parameter","cmd","act","delta"],[["main bus v",f(28,.4),f(27.8,.4),f(0,.2)],["fuel flow",f(4.1,.3),f(4,.3),f(0,.2)],["cabin p",f(101,.5),f(100.8,.5),f(0,.3)],["rcs temp",f(18,2),f(18,2),f(0,.5)]]);
+tab(t2,["waypoint","range","eta","status"],[["wp-01",f(120,5)+" km","00:"+(10+Math.floor(Math.random()*40)),"done"],["wp-02",f(340,5)+" km","00:"+(10+Math.floor(Math.random()*40)),"active"],["wp-03",f(610,5)+" km","01:"+(10+Math.floor(Math.random()*40)),"queued"]])}
+upt();setInterval(upt,2000);upd();setInterval(upd,50);
+</script></body></html>

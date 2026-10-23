@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Craft Schematic Display</title>
+<style>body{margin:0;height:100vh;background:#010810;display:flex;align-items:center;justify-content:center;font-family:"Arial Narrow",Arial,sans-serif;font-variant:small-caps;letter-spacing:.08em}
+#s{width:560px;height:860px;background:#29d8f0;border-radius:6px;box-shadow:0 0 40px #2ad8f055;padding:14px;display:flex;flex-direction:column;gap:10px}
+.bp{flex:1;background:#06257a;position:relative;border:2px solid #9ff6ff}svg{width:100%;height:100%;display:block}
+text{fill:#bff7ff;font-size:12px}.part{stroke:#7fe9ff;fill:#0a3a9a55;stroke-width:1.3;cursor:pointer;transition:.3s}.part.on{fill:#7fffff;stroke:#fff;filter:drop-shadow(0 0 6px #fff)}
+.bot{display:flex;gap:10px;height:200px}.pn{background:#06257a;border:2px solid #9ff6ff;flex:0 0 240px;color:#bff7ff;font-size:12px;padding:8px}
+.br{display:flex;align-items:center;gap:6px;margin:5px 0}.br i{display:block;height:9px;background:#7fe9ff;transition:width 1s}
+.info{flex:1;color:#04304a;font-size:13px;padding:6px}
+</style></head><body><div id="s">
+<div class="bp"><svg viewBox="0 0 532 600" id="sv"></svg></div>
+<div class="bot"><div class="pn"><div>fuel cells</div><div id="fc"></div></div><div class="pn" style="flex:0 0 160px"><div>power bus</div><div id="pb"></div></div>
+<div class="info"><b>subsystem</b><div id="nm" style="font-size:20px;margin:6px 0"></div><div id="ds"></div><p style="font-size:11px">click a part or press space to cycle</p></div></div></div>
+<script>
+const NS="http://www.w3.org/2000/svg",sv=document.getElementById("sv");
+function el(t,a,p=sv){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e}
+for(let x=0;x<=532;x+=19)el("line",{x1:x,y1:0,x2:x,y2:600,stroke:"#1a46a0","stroke-width":.6});for(let y=0;y<=600;y+=19)el("line",{x1:0,y1:y,x2:532,y2:y,stroke:"#1a46a0","stroke-width":.6});
+el("path",{d:"M266 30 L330 140 L360 400 L420 470 L410 560 L122 560 L112 470 L172 400 L202 140 Z",fill:"none",stroke:"#cff",
+"stroke-width":2.5});
+el("path",{d:"M266 50 L316 145 M266 50 L216 145",stroke:"#7fe9ff",fill:"none"});
+const parts={cockpit:{n:"flight deck",d:"two-seat cabin, avionics bay",s:[["path",{d:"M266 55 L306 140 L226 140 Z"}]]},
+avionics:{n:"avionics",d:"nav, comms & data units",s:[["rect",{x:236,y:150,width:60,height:40}]]},
+modules:{n:"internal modules",d:"payload & life support racks",s:[0,1,2,3,4,5].map(i=>["rect",{x:226+(i%2)*44,y:200+Math.floor(i/2)*44,width:36,height:36}])},
+tanks:{n:"propellant tanks",d:"twin cryo tanks, cross-feed",s:[["rect",{x:186,y:200,width:32,height:150,rx:14}],["rect",{x:314,y:200,width:32,height:150,rx:14}]]},
+power:{n:"power system",d:"fuel cells + battery bus",s:[["rect",{x:216,y:340,width:100,height:40}]]},
+rcs:{n:"reaction control",d:"8 thruster quads",s:[[180,410],[352,410],[240,40+60],[292,100]].map(([x,y])=>["circle",{cx:x,cy:y,r:8}])},
+engines:{n:"main engine bays",d:"3 bays, gimbal ±6°",s:[150,236,322].map(x=>["rect",{x,y:440,width:60,height:110,rx:6}])}};
+const keys=Object.keys(parts);let cur=0;
+keys.forEach((k,i)=>parts[k].el=parts[k].s.map(([t,a])=>{const e=el(t,{...a,class:"part"});e.onclick=()=>sel(i);return e}));
+[170,286,372].forEach(y=>el("line",{x1:20,y1:y,x2:120,y2:y,stroke:"#7fe9ff","stroke-dasharray":"3 3"}));
+el("text",{x:14,y:20}).textContent="schematic · top view · rev 3";el("text",{x:420,y:590}).textContent="scale 1:50";
+function sel(i){cur=i;keys.forEach((k,j)=>parts[k].el.forEach(e=>e.classList.toggle("on",j==i)));nm.textContent=parts[keys[i]].n;ds.textContent=parts[keys[i]].d}
+document.onkeydown=e=>{if(e.code=="Space")sel((cur+1)%keys.length)};setInterval(()=>sel((cur+1)%keys.length),4000);sel(0);
+function bars(){fc.innerHTML=["fc-1","fc-2","fc-3","fc-4","fc-5","fc-6","fc-7"].map(n=>{const v=50+Math.random()*45|0;return`<div class="br"><span style="width:34px">${n}</span><i style="width:${v*1.4}px"></i>${v}%</div>`}).join("");
+pb.innerHTML=["bus a","bus b","ess","aux","bat"].map(n=>`<div class="br"><span style="width:40px">${n}</span>${(27+Math.random()*1.5).toFixed(1)} v</div>`).join("")}
+bars();setInterval(bars,2500);
+</script></body></html>

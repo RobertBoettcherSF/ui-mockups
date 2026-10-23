@@ -302,3 +302,11 @@ A generic operations hub: a silver compass-rose emblem in a hexagon at the centr
 ## coastal-monitor
 
 A generic coastal observation console with a retro look on a flat dark background. Top bar with a live date/time and a boxed gradient-outline "OCEANA" wordmark; mint-green labelled views of a calm ocean sunset and a palm beach (drawn locally on canvas, gently animated); monospace Tide & Wave Log, Buoy Telemetry Feed and a slowly appending Command & Data Log with routine entries. All content is invented and neutral.
+
+## cockpit-flight-display
+
+A generic two-screen flight display with glowing cyan line graphics on dark navy. The tall left screen has an airspeed arc gauge with a moving needle, an altitude slider, a thrust tick scale with a bar, and four attitude dials (pitch, roll, yaw, trim). The wider right screen has a row of animated bar meters, a trajectory/attitude plot with a moving craft silhouette, and data tables with cyan highlight rows. All values are invented.
+
+## craft-schematic-display
+
+A generic blueprint-style portrait display: a top-down wireframe schematic of an original small spacecraft design on a navy grid inside a bright cyan frame, with fuel cell and power bus panels below. Subsystems highlight in turn. Click a part or press Space to select one. All labels are generic.
