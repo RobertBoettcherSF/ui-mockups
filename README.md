@@ -68,3 +68,14 @@ Preview: `aether-os/preview.png`
 
 Shared sim state drives every aether-os window, so the map, airframe, telemetry and terminal
 all stay in sync. All third-party map data is loaded via public CDNs/APIs and attributed in-app.
+
+### secure-video-call
+Secure two-party video-call interface on a black background, made fully generic: no real nation, government, agency, flag or official seal.
+Top-centre flag-free "SECURE LINK" badge; two 16:9 video panels with thin white borders, each
+with a centred abstract geometric emblem and a lower-left caption ("Remote Office A — Harbourton",
+"Executive Office B — Chief of Staff Aide"); the left panel shows a CSS/SVG-generated, dimmed
+park/building scene. Bottom-centre control cluster (mic mute toggle, red hang-up, red REC with
+blinking dot + live timer); bottom-left fullscreen (Fullscreen API) and lock toggle; bottom-right
+camera toggle and blue share button. Hang-up shows a "Call ended" overlay with Rejoin.
+All emblems are original abstract SVG; nothing resembles any real government insignia.
+Preview: `secure-video-call/preview.png`
