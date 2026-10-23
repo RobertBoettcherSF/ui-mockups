@@ -1,11 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Coastal Monitor</title>
 <style>
 html,body{margin:0;height:100%;background:#1b1c1a;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#cfe9da}
-body{background:radial-gradient(ellipse at center,#262825 0%,#151614 75%,#0c0d0c 100%)}
-#grain{position:fixed;inset:0;pointer-events:none;opacity:.10;z-index:5}
-.scan{position:fixed;inset:0;pointer-events:none;z-index:6;background:repeating-linear-gradient(to bottom,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}
-.vig{position:fixed;inset:0;pointer-events:none;z-index:7;box-shadow:inset 0 0 180px rgba(0,0,0,.85)}
-.ab{text-shadow:-1px 0 rgba(255,60,80,.45),1px 0 rgba(60,200,255,.45)}
+body{background:#161716}
 #top{position:absolute;left:0;right:0;top:0;height:19vh;border-bottom:1px solid #8fa79b}
 #top .vl{position:absolute;top:0;bottom:0;border-left:1px solid #8fa79b}
 #clock{position:absolute;left:2%;bottom:1.2vh;font-size:1.6vh;color:#d8e8de}
@@ -17,15 +13,15 @@ canvas.view{display:block;width:100%;border:1px solid #c4f0cf;filter:contrast(1.
 .log{font-family:"Courier New",monospace;font-size:1.55vh;line-height:1.35;color:#d6ece0;padding:.8vh .5vw;white-space:pre-wrap;overflow:hidden}
 </style></head><body>
 <div id="top"><div class="vl" style="left:39%"></div><div class="vl" style="left:59.5%"></div>
-<div id="clock" class="ab"></div>
+<div id="clock"></div>
 <svg id="logo" width="300" height="70" viewBox="0 0 300 70"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#7fe3c9"/><stop offset=".5" stop-color="#f3f7d0"/><stop offset="1" stop-color="#78c8e8"/></linearGradient></defs>
 <text x="150" y="52" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="bold" font-size="54" letter-spacing="6" fill="none" stroke="url(#g)" stroke-width="3">OCEANA</text></svg></div>
-<div class="panel" style="left:2%;top:25vh;width:45%"><div class="lbl ab">PACIFIC COASTAL WEBCAM</div><canvas id="wide" class="view" width="720" height="330"></canvas></div>
-<div class="panel" style="left:51%;top:27vh;width:18%"><div class="lbl ab">NORTH ATLANTIC CAM</div><canvas id="tall" class="view" width="290" height="500"></canvas></div>
-<div class="panel small" style="left:4%;top:78vh;width:26%"><div class="lbl">Buoy Telemetry Feed</div><div class="log ab" id="buoy"></div></div>
-<div class="panel small" style="left:73%;top:33vh;width:25%"><div class="lbl">Tide &amp; Wave Log</div><div class="log ab" id="tide"></div></div>
-<div class="panel small" style="left:73%;top:58vh;width:25%"><div class="lbl">Command &amp; Data Log</div><div class="log ab" id="cmd" style="height:28vh"></div></div>
-<canvas id="grain"></canvas><div class="scan"></div><div class="vig"></div>
+<div class="panel" style="left:2%;top:25vh;width:45%"><div class="lbl">PACIFIC COASTAL WEBCAM</div><canvas id="wide" class="view" width="720" height="330"></canvas></div>
+<div class="panel" style="left:51%;top:27vh;width:18%"><div class="lbl">NORTH ATLANTIC CAM</div><canvas id="tall" class="view" width="290" height="500"></canvas></div>
+<div class="panel small" style="left:4%;top:78vh;width:26%"><div class="lbl">Buoy Telemetry Feed</div><div class="log" id="buoy"></div></div>
+<div class="panel small" style="left:73%;top:33vh;width:25%"><div class="lbl">Tide &amp; Wave Log</div><div class="log" id="tide"></div></div>
+<div class="panel small" style="left:73%;top:58vh;width:25%"><div class="lbl">Command &amp; Data Log</div><div class="log" id="cmd" style="height:28vh"></div></div>
+
 <script>
 const p=n=>String(n).padStart(2,'0');
 function clk(){const d=new Date();document.getElementById('clock').textContent=`${d.getMonth()+1}/${d.getDate()} ${p(d.getHours())}:${p(d.getMinutes())}`}clk();setInterval(clk,1000);
@@ -48,6 +44,4 @@ for(let c=0;c<3;c++){const x=((c*140+f*.2)%420)-60;T.fillStyle='rgba(255,255,255
 T.fillStyle='#5f8ea6';T.fillRect(0,330,w,40);T.strokeStyle='rgba(255,255,255,.6)';T.beginPath();for(let x=0;x<=w;x+=6)T.lineTo(x,368+Math.sin(x*.05+f*.06)*3);T.stroke();
 T.fillStyle='#d9b98a';T.fillRect(0,370,w,130);palm(200,500,330,-25);palm(70,500,230,20);palm(250,500,190,15)}
 let f=0;(function loop(){wide(f);tall(f);f++;requestAnimationFrame(loop)})();
-const G=document.getElementById('grain'),gc=G.getContext('2d');G.width=400;G.height=225;G.style.width='100%';G.style.height='100%';
-function grain(){const id=gc.createImageData(400,225);for(let i=0;i<id.data.length;i+=4){const v=Math.random()*255;id.data[i]=id.data[i+1]=id.data[i+2]=v;id.data[i+3]=255}gc.putImageData(id,0,0)}grain();setInterval(grain,90);
 </script></body></html>

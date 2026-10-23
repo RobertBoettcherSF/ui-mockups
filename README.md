@@ -301,4 +301,4 @@ A generic operations hub: a silver compass-rose emblem in a hexagon at the centr
 
 ## coastal-monitor
 
-A generic coastal observation console with a retro CRT look (subtle scanlines, light grain, slight chromatic text offset) on a dark textured background. Top bar with a live date/time and a boxed gradient-outline "OCEANA" wordmark; mint-green labelled views of a calm ocean sunset and a palm beach (drawn locally on canvas, gently animated); monospace Tide & Wave Log, Buoy Telemetry Feed and a slowly appending Command & Data Log with routine entries. All content is invented and neutral.
+A generic coastal observation console with a retro look on a flat dark background. Top bar with a live date/time and a boxed gradient-outline "OCEANA" wordmark; mint-green labelled views of a calm ocean sunset and a palm beach (drawn locally on canvas, gently animated); monospace Tide & Wave Log, Buoy Telemetry Feed and a slowly appending Command & Data Log with routine entries. All content is invented and neutral.
