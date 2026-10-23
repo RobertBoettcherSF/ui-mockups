@@ -261,3 +261,15 @@ readout (no film name anywhere).
 
 All readings are generic and invented; no real brands, logos, people, or film
 references.
+
+### field-data-viewer
+
+A generic environmental field-data portal on a plain black background.
+
+- **Header** — text-only title (*Field Monitoring Service / Data Portal*) with a simple abstract emblem.
+- **Data Overview** — green header bar with key/value details for the selected sample site.
+- **Data Chart** — green-ruled table (SITE / TIME / NTU / Temp °C / Remarks) for sites SP-01…SP-04; the row above threshold is shown in red, followed by a placeholder `--` row. Click a row to update the overview and viewer.
+- **File Viewer** — a procedurally drawn aerial sample image (fields, river, tree line) with a site marker.
+- **Status bar** — home button, scale/projection readout, live clock and small green tool icons.
+
+All data is invented; no real agencies, seals, or logos.
