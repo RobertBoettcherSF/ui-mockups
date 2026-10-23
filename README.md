@@ -213,3 +213,30 @@ colour palette, redrawn as an original, fully generic network.
 
 All invented and neutral: no real organisations, channel logos, flags, seals,
 people, or film references.
+
+### self-organizing-system
+
+An original two-mode "self-organizing system" animation inspired by the mood of
+some sci-fi interface shots (no film name or branding anywhere).
+
+- **Mode A — code reorganisation** — a black desktop of many overlapping
+  terminal windows (thin pale-blue title bars with tiny File/Edit/View items,
+  a blue left scrollbar, thin borders). Windows hold green monospace
+  process/module tables, dense white hex log columns, small tables with yellow
+  and blue highlighted rows, and mostly-empty consoles printing
+  `Loading module... COMPLETE`. Windows spawn, move, resize, reorder and close
+  themselves while text streams, as if a system is rewriting its own code. All
+  data is procedurally generated (invented module names, hex addresses,
+  percentages).
+- **Mode B — design synthesis** — a dark blueprint workspace with a thin white
+  frame. A large left panel draws an original white wireframe radial component
+  (a ring of modules around a central pin-grid chip) stroke-by-stroke via SVG
+  `stroke-dashoffset`, alongside a pin-grid chip/package outline, a long
+  side-view assembly strip and a small data strip; a narrow middle column of
+  tiny spec text; and a right panel exploded view with a glowing stacked disc,
+  a ring top view and a stacked layer column (soft-glow filter). Components
+  fade between drafts.
+
+The two modes auto-cycle; press **M** (or see the on-screen hint) to toggle
+manually. `?mode=a` / `?mode=b` force a single mode (used for the two preview
+images). No real brands, logos, or film references.
