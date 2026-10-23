@@ -283,3 +283,14 @@ A generic software-defined-radio status strip on a plain black background.
 - **Spectrum panel** — grey panel with an abstract antenna tile, an animated segmented spectrum display and a row of white tool icons.
 
 All content is invented and neutral; no real agencies, logos, or names.
+
+### secure-comms-portal
+
+A generic encrypted-messaging portal on a black background with green text and thin green-bordered panels.
+
+- **Header** — abstract geometric emblem, letter-spaced title and dotted-leader user/program/menu lines.
+- **Team Call** — channel, frequency and a live date/time; **#Ops-Channel** lists highlighted participant role chips.
+- **Live Audio Call** — padlock icon and animated dotted level bars; **Network Load Meter** with slowly fluctuating node loads.
+- **System Dashboard** and **System Tray Alerts** — neutral uplink/storage/sync metrics and routine notifications.
+
+All content is invented and neutral; no real agencies, seals, or names.

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Secure Communications Portal</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;color:#5cff7a;font-family:Arial,Helvetica,sans-serif}
+body{background:radial-gradient(ellipse at 50% 40%,#031a06 0%,#000 70%);min-height:100vh;position:relative;padding:40px 60px}
+.head{display:flex;align-items:center;gap:36px}
+.title{letter-spacing:.55em;color:#e8ffe8;font-size:26px}
+.sub{letter-spacing:.55em;color:#cfe;font-size:17px;margin-top:14px}
+.lead{margin-top:40px;font-size:18px;line-height:34px;width:520px}
+.lead div{display:flex}.lead .d{flex:1;border-bottom:2px dotted #5cff7a;margin:0 8px 10px}
+.grid{display:grid;grid-template-columns:420px 400px 360px;justify-content:space-between;gap:30px 0;margin-top:24px}
+.p{border:2px solid #3fbf55;padding:14px 22px;box-shadow:0 0 12px #0a3a12 inset}
+.p h3{font-weight:normal;text-align:center;font-size:19px;margin-bottom:10px;color:#8fff9f}
+ul{list-style:none}li{font-size:17px;line-height:33px}li:before{content:"•";margin-right:22px}
+.chips{text-align:center;line-height:36px;font-size:17px}.chips span{background:#0c2a5a;color:#9fd4ff;padding:4px 6px;margin:2px;display:inline-block}
+.audio{position:relative;height:170px}
+.audio .lock{position:absolute;left:20px;top:10px}
+.audio h3{margin:6px 0 2px}.audio small{display:block;text-align:center;font-size:11px;letter-spacing:.05em}
+.bars{position:absolute;bottom:12px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:flex-end;height:70px}
+.bars i{width:5px;background:repeating-linear-gradient(#3fff5c 0 3px,transparent 3px 6px);transition:height .25s}
+.dash{font-size:15px;line-height:28px}
+footer{position:absolute;bottom:14px;left:60px;font-size:13px;color:#7c9}
+.col{display:flex;flex-direction:column;gap:30px}
+</style></head><body>
+<div class="head">
+<svg width="110" height="110" viewBox="0 0 100 100"><g fill="none" stroke="#c9b26a" stroke-width="3"><polygon points="50,6 90,28 90,72 50,94 10,72 10,28"/><polygon points="50,24 72,37 72,63 50,76 28,63 28,37"/><circle cx="50" cy="50" r="9" fill="#c9b26a"/><path d="M50 6V24M90 28L72 37M90 72L72 63M50 94V76M10 72L28 63M10 28L28 37"/></g></svg>
+<div><div class="title">SECURE COMMUNICATIONS PORTAL</div><div class="sub">ENCRYPTED MESSAGING SOFTWARE</div></div></div>
+<div class="lead"><div>User<span class="d"></span>ADMIN*00001</div><div>Program<span class="d"></span>3ID0218D1</div><div>Menu<span class="d"></span>Unlocked</div></div>
+<div class="grid">
+<div class="col"><div class="p"><h3>Team Call – 20:30</h3><ul><li>CHANNEL ID: OPS-CH5</li><li>FREQUENCY: 156.800 MHz</li><li id="date">DATE:</li><li id="time">TIME:</li></ul></div>
+<div class="p"><h3>#Ops-Channel</h3><div class="chips">PARTICIPANTS:<br><span>Lead,</span><span>Coordinator,</span><br><span>Analyst,</span><span>Support,</span><br><span>Observer</span></div></div></div>
+<div class="col"><div class="p audio"><svg class="lock" width="34" height="42" viewBox="0 0 34 42" fill="none" stroke="#5cff7a" stroke-width="2.5"><path d="M8 18V11a9 9 0 0 1 18 0v7"/><rect x="3" y="18" width="28" height="21" rx="3"/><circle cx="17" cy="28" r="3"/></svg><h3>LIVE AUDIO CALL</h3><small>AUTHORIZED PERSONNEL ONLY</small><div class="bars" id="bars"></div></div>
+<div class="p"><h3>Network Load Meter</h3><ul id="load"></ul></div></div>
+<div class="col" style="padding-top:20px"><div class="p dash"><h3>System Dashboard</h3><div id="up"></div><div>Storage: 40%</div><div id="sync"></div></div>
+<div class="p"><h3>System Tray Alerts</h3><ul><li>Software Update Available</li><li>Secure Channel Active</li><li>Backup Completed</li></ul></div></div>
+</div>
+<footer>(C) 2025 Example Systems</footer>
+<script>
+const b=document.getElementById('bars');for(let i=0;i<20;i++)b.appendChild(document.createElement('i'));
+function bars(){[...b.children].forEach(e=>e.style.height=(15+Math.random()*85)+'%')}bars();setInterval(bars,300);
+const nodes=[['Node North',72],['Node East',64],['Node South',58],['Node West',66],['Node Central',61]];
+function load(){document.getElementById('load').innerHTML=nodes.map(n=>{n[1]=Math.max(40,Math.min(90,n[1]+Math.round((Math.random()-.5)*4)));return `<li>${n[0]} ${n[1]}%</li>`}).join('')}load();setInterval(load,2500);
+let up=58,sync=72;function dash(){up=Math.max(52,Math.min(64,up+Math.round((Math.random()-.5)*2)));document.getElementById('up').textContent=`Uplink: 60% → ${up}%`;document.getElementById('sync').textContent=`Next sync: ${sync} min`}dash();setInterval(dash,3000);setInterval(()=>{sync=sync>1?sync-1:72;dash()},60000);
+function clock(){const d=new Date();document.getElementById('date').textContent='DATE: '+d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});document.getElementById('time').textContent='TIME: '+d.toLocaleTimeString('en-GB')}clock();setInterval(clock,1000);
+</script></body></html>
