@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Coastal Monitor</title>
+<style>
+html,body{margin:0;height:100%;background:#1b1c1a;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#cfe9da}
+body{background:radial-gradient(ellipse at center,#262825 0%,#151614 75%,#0c0d0c 100%)}
+#grain{position:fixed;inset:0;pointer-events:none;opacity:.10;z-index:5}
+.scan{position:fixed;inset:0;pointer-events:none;z-index:6;background:repeating-linear-gradient(to bottom,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}
+.vig{position:fixed;inset:0;pointer-events:none;z-index:7;box-shadow:inset 0 0 180px rgba(0,0,0,.85)}
+.ab{text-shadow:-1px 0 rgba(255,60,80,.45),1px 0 rgba(60,200,255,.45)}
+#top{position:absolute;left:0;right:0;top:0;height:19vh;border-bottom:1px solid #8fa79b}
+#top .vl{position:absolute;top:0;bottom:0;border-left:1px solid #8fa79b}
+#clock{position:absolute;left:2%;bottom:1.2vh;font-size:1.6vh;color:#d8e8de}
+#logo{position:absolute;left:50%;top:2.5vh;transform:translateX(-50%);border:1px solid #8fa79b;padding:1.5vh 3vw}
+.panel{position:absolute}
+.lbl{background:#c4f0cf;color:#132018;text-align:center;font-size:1.9vh;padding:.4vh 0;border:1px solid #e8fff0;box-shadow:0 0 8px rgba(196,240,207,.35)}
+.small .lbl{font-size:1.5vh;font-weight:bold}
+canvas.view{display:block;width:100%;border:1px solid #c4f0cf;filter:contrast(1.05) saturate(.85) sepia(.12)}
+.log{font-family:"Courier New",monospace;font-size:1.55vh;line-height:1.35;color:#d6ece0;padding:.8vh .5vw;white-space:pre-wrap;overflow:hidden}
+</style></head><body>
+<div id="top"><div class="vl" style="left:39%"></div><div class="vl" style="left:59.5%"></div>
+<div id="clock" class="ab"></div>
+<svg id="logo" width="300" height="70" viewBox="0 0 300 70"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#7fe3c9"/><stop offset=".5" stop-color="#f3f7d0"/><stop offset="1" stop-color="#78c8e8"/></linearGradient></defs>
+<text x="150" y="52" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="bold" font-size="54" letter-spacing="6" fill="none" stroke="url(#g)" stroke-width="3">OCEANA</text></svg></div>
+<div class="panel" style="left:2%;top:25vh;width:45%"><div class="lbl ab">PACIFIC COASTAL WEBCAM</div><canvas id="wide" class="view" width="720" height="330"></canvas></div>
+<div class="panel" style="left:51%;top:27vh;width:18%"><div class="lbl ab">NORTH ATLANTIC CAM</div><canvas id="tall" class="view" width="290" height="500"></canvas></div>
+<div class="panel small" style="left:4%;top:78vh;width:26%"><div class="lbl">Buoy Telemetry Feed</div><div class="log ab" id="buoy"></div></div>
+<div class="panel small" style="left:73%;top:33vh;width:25%"><div class="lbl">Tide &amp; Wave Log</div><div class="log ab" id="tide"></div></div>
+<div class="panel small" style="left:73%;top:58vh;width:25%"><div class="lbl">Command &amp; Data Log</div><div class="log ab" id="cmd" style="height:28vh"></div></div>
+<canvas id="grain"></canvas><div class="scan"></div><div class="vig"></div>
+<script>
+const p=n=>String(n).padStart(2,'0');
+function clk(){const d=new Date();document.getElementById('clock').textContent=`${d.getMonth()+1}/${d.getDate()} ${p(d.getHours())}:${p(d.getMinutes())}`}clk();setInterval(clk,1000);
+document.getElementById('tide').textContent="Station A   1.2 m  15:00 UTC\nStation B   0.8 m  15:00 UTC\nStation C   1.5 m  15:10 UTC";
+document.getElementById('buoy').textContent="Buoy 47205 (Pacific):  water temp 18.4 C\nBuoy 51320 (Atlantic): wave ht 0.9 m\nBuoy 45023 (Indian):   wind 12 kt NE";
+const lines=["EVENT: Scheduled calibration complete","INFO: All buoys reporting","DISPATCH: Daily summary generated","NOTE: Systems nominal","INFO: Webcam feeds refreshed","EVENT: Tide gauge sync complete","NOTE: Next maintenance window 02:00 UTC","INFO: Data archive backup finished"];
+let t=15*3600,li=0;const cmd=document.getElementById('cmd');
+function addLine(){const s=`[${p(Math.floor(t/3600)%24)}:${p(Math.floor(t/60)%60)}:${p(t%60)}] ${lines[li++%lines.length]}\n`;cmd.textContent+=s;t+=7+Math.floor(Math.random()*20);let ls=cmd.textContent.split('\n');if(ls.length>11)cmd.textContent=ls.slice(-11).join('\n')}
+for(let i=0;i<4;i++)addLine();setInterval(addLine,3500);
+const W=document.getElementById('wide').getContext('2d'),T=document.getElementById('tall').getContext('2d');
+function wide(f){const w=720,h=330,hz=200;let g=W.createLinearGradient(0,0,0,hz);g.addColorStop(0,'#3b4d78');g.addColorStop(.55,'#e2876a');g.addColorStop(1,'#f6c27a');W.fillStyle=g;W.fillRect(0,0,w,hz);
+W.fillStyle='rgba(255,236,190,.95)';W.beginPath();W.arc(360,hz-10,34,0,7);W.fill();
+for(let c=0;c<4;c++){const x=((c*230+f*.15)%900)-120;W.fillStyle='rgba(255,210,190,.35)';W.beginPath();W.ellipse(x,50+c*25,70,10,0,0,7);W.fill()}
+g=W.createLinearGradient(0,hz,0,h);g.addColorStop(0,'#c47a60');g.addColorStop(1,'#1d2a40');W.fillStyle=g;W.fillRect(0,hz,w,h-hz);
+W.fillStyle='rgba(255,220,160,.5)';for(let i=0;i<14;i++){const y=hz+6+i*9;W.fillRect(360-(40-i*2)+Math.sin(f*.05+i)*6,y,80-i*4,2)}
+W.strokeStyle='rgba(255,230,200,.25)';for(let r=0;r<10;r++){const y=hz+10+r*13;W.beginPath();for(let x=0;x<=w;x+=10)W.lineTo(x,y+Math.sin(x*.03+f*.04+r)*2);W.stroke()}}
+function palm(x,y,hh,lean){T.strokeStyle='#111';T.lineWidth=5;T.beginPath();T.moveTo(x,y);T.quadraticCurveTo(x+lean,y-hh/2,x+lean*1.5,y-hh);T.stroke();T.fillStyle='#111';const tx=x+lean*1.5,ty=y-hh;for(let a=0;a<8;a++){const an=a/8*Math.PI*2;T.beginPath();T.moveTo(tx,ty);T.quadraticCurveTo(tx+Math.cos(an)*30,ty+Math.sin(an)*12-12,tx+Math.cos(an)*55,ty+Math.sin(an)*20+10);T.quadraticCurveTo(tx+Math.cos(an)*30,ty+Math.sin(an)*12-4,tx,ty);T.fill()}}
+function tall(f){const w=290,h=500;let g=T.createLinearGradient(0,0,0,h);g.addColorStop(0,'#9fc3d8');g.addColorStop(.6,'#f1dcc0');g.addColorStop(1,'#e8c99a');T.fillStyle=g;T.fillRect(0,0,w,h);
+for(let c=0;c<3;c++){const x=((c*140+f*.2)%420)-60;T.fillStyle='rgba(255,255,255,.55)';T.beginPath();T.ellipse(x,60+c*45,45,12,0,0,7);T.fill()}
+T.fillStyle='#5f8ea6';T.fillRect(0,330,w,40);T.strokeStyle='rgba(255,255,255,.6)';T.beginPath();for(let x=0;x<=w;x+=6)T.lineTo(x,368+Math.sin(x*.05+f*.06)*3);T.stroke();
+T.fillStyle='#d9b98a';T.fillRect(0,370,w,130);palm(200,500,330,-25);palm(70,500,230,20);palm(250,500,190,15)}
+let f=0;(function loop(){wide(f);tall(f);f++;requestAnimationFrame(loop)})();
+const G=document.getElementById('grain'),gc=G.getContext('2d');G.width=400;G.height=225;G.style.width='100%';G.style.height='100%';
+function grain(){const id=gc.createImageData(400,225);for(let i=0;i<id.data.length;i+=4){const v=Math.random()*255;id.data[i]=id.data[i+1]=id.data[i+2]=v;id.data[i+3]=255}gc.putImageData(id,0,0)}grain();setInterval(grain,90);
+</script></body></html>

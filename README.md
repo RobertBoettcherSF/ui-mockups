@@ -298,3 +298,7 @@ All content is invented and neutral; no real agencies, seals, or names.
 ## global-ops-hub
 
 A generic operations hub: a silver compass-rose emblem in a hexagon at the centre, linked by thin lines to six green-bordered panels (overview, secure call with animated waveform, task tracker, resource status, multi-region world map, info feed) and a bottom taskbar with a live clock. All content is neutral placeholder text. Map data: [world-atlas](https://github.com/topojson/world-atlas) (Natural Earth), rendered with d3-geo; offline fallback included.
+
+## coastal-monitor
+
+A generic coastal observation console with a retro CRT look (subtle scanlines, light grain, slight chromatic text offset) on a dark textured background. Top bar with a live date/time and a boxed gradient-outline "OCEANA" wordmark; mint-green labelled views of a calm ocean sunset and a palm beach (drawn locally on canvas, gently animated); monospace Tide & Wave Log, Buoy Telemetry Feed and a slowly appending Command & Data Log with routine entries. All content is invented and neutral.
