@@ -79,3 +79,16 @@ blinking dot + live timer); bottom-left fullscreen (Fullscreen API) and lock tog
 camera toggle and blue share button. Hang-up shows a "Call ended" overlay with Rejoin.
 All emblems are original abstract SVG; nothing resembles any real government insignia.
 Preview: `secure-video-call/preview.png`
+
+### conference-grid
+Multi-party conference grid on a black background, fully generic (no real names, places,
+governments, official seals or org logos). Top-centre shows a generic abstract building-outline
+icon (resembling no real building) and a live HH:MM:SS call timer. A 3×2 grid of black tiles
+with thin white borders, each carrying a distinct original abstract geometric emblem and a
+lower-left caption with invented names and generic roles (Coordinator — Mara Venn; Regional
+Lead North — Tobias Ekker; Regional Lead East — Ines Corral; Regional Lead South — Dev Ashby;
+Liaison Officer — Kai Brenner; Council Chair — Network Partners). An active-speaker highlight
+(green border + "SPEAKING" badge) cycles between tiles. Reuses the secure-video-call control
+styling: mic mute toggle, red hang-up ("Call ended" overlay), red REC with blinking dot + timer,
+bottom-left fullscreen + lock, bottom-right camera + blue share — all interactive.
+Preview: `conference-grid/preview.png`
