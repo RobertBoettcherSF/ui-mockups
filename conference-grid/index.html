@@ -34,7 +34,7 @@ body{background:#000;color:#e8eef2;font:13px/1.4 -apple-system,"Segoe UI",Arial,
 #ended{position:fixed;inset:0;background:#000;z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px}
 #ended h1{font-weight:400;letter-spacing:2px}#ended p{color:#8b98a5}
 #ended button{margin-top:10px;background:#2a2f36;color:#e8eef2;border:none;padding:10px 20px;border-radius:22px;cursor:pointer}
-</style><script src="../vendor/debug-cover.js?v=1.10.0"></script><script src="../vendor/top-bar.js?v=1.10.0"></script>
+</style><script src="../vendor/debug-cover.js?v=1.11.0"></script><script src="../vendor/top-bar.js?v=1.11.0"></script>
 </head><body>
 <div id="top">
  <!-- generic abstract building outline, resembles no real building -->
@@ -114,5 +114,5 @@ $('shareBtn').onclick=()=>$('shareBtn').classList.toggle('on');
 $('fsBtn').onclick=()=>{if(!document.fullscreenElement){(document.documentElement.requestFullscreen||(()=>{})).call(document.documentElement)}else{(document.exitFullscreen||(()=>{})).call(document)}};
 $('hangBtn').onclick=()=>{callOver=true;hl(-1);if(window.speechSynthesis)speechSynthesis.cancel();$('ended').style.display='flex';if(recIv)clearInterval(recIv)};
 $('rejoin').onclick=()=>{$('ended').style.display='none';callOver=false;if(window.VoiceCover&&VoiceCover.restart)VoiceCover.restart()};
-</script><script src="../vendor/voice-cover.js?v=1.10.0" data-callers="6" data-langs="en,de,es,fr"></script>
+</script><script src="../vendor/voice-cover.js?v=1.11.0" data-callers="6" data-langs="en,de,es,fr"></script>
 </body></html>

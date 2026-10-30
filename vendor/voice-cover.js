@@ -8,7 +8,7 @@
   var s=document.currentScript, n=+(s&&s.dataset.callers||2);
   var synth=window.speechSynthesis;
   var muted=/[?&]voice=off/.test(location.search)||localStorage.getItem('vc-muted')==='1';
-  var plan=[], speaking=-1, unlocked=false, cur=null, lit=null;
+  var plan=[], order=[], speaking=-1, unlocked=false, cur=null, lit=null;
   var D=window.DebugCover||{log:function(){},state:function(){}};
   function ev(type,d){D.log('voice:'+type,d);}
   window.VoiceCover={log:ev,get speaking(){return speaking;}};
@@ -80,9 +80,16 @@
   var PITCH=[1.00,0.94,1.06,0.97,1.03,0.91];
   var FEMALE=/female|woman|samantha|victoria|karen|zira|susan|serena|fiona|moira|tessa|aria|jenny|libby|sonia|amelie|amélie|audrey|aurelie|denise|julie|marie|hortense|celine|eloise|vivienne|anna|helena|monica|paulina|katja|petra|hedda|vicki|marlene|conchita|lucia|lucía|paloma|elvira|laura|google uk english female|google us english/i;
   function isFemale(v){return FEMALE.test(v.name);}
+  // Novelty / effect voices (mostly macOS + iOS) sound robotic or spooky.
+  // We never pick them; natural voices (Samantha, Daniel, Anna, Thomas,
+  // Amelie, Monica ...) remain.
+  var NOVELTY=/^(albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|fred|good news|hysterical|jester|junior|kathy|organ|pipe organ|princess|ralph|superstar|trinoids|whisper|wobble|zarvox)\b/i;
+  function isNatural(v){return !NOVELTY.test(v.name);}
   function pick(i){
     var all=synth.getVoices();
     var own=all.filter(function(x){return x.lang.toLowerCase().indexOf(lang)===0;});
+    var natural=own.filter(isNatural);
+    if(natural.length) own=natural;
     if(!own.length) return null;
     var pool=own.filter(function(x){return isFemale(x)===(i%2===1);});
     if(pool.length) return pool[Math.floor(i/2)%pool.length];
@@ -95,13 +102,18 @@
     if(v)u.voice=v;u.lang=TAGS[lang]||lang;u.pitch=PITCH[i%PITCH.length];u.rate=1;
     var vn=v?v.name:'(default)';
     plan.push({speaker:i,key:key,line:t,voice:vn,voiceLang:v?v.lang:null,pitch:u.pitch,rate:u.rate});
-    queued++;
-    function done(){queued--;if(speaking===i){cur=null;setSpk(-1);}if(queued<=0&&started)finishCall();}
+    queued++;order.push(i);
+    // SPEAKING stays on this speaker until the next utterance takes over.
+    // iOS does not always fire onstart for queued lines, so on end we hand
+    // the highlight straight to the next speaker in the queue.
+    function done(){queued--;order.shift();
+      if(queued<=0&&started){finishCall();return;}
+      if(order.length&&speaking!==order[0])setSpk(order[0]);}
     u.onstart=function(){unlocked=true;cur={voice:vn,line:t};setSpk(i);ev('speak-start',{speakerId:i,key:key,voice:vn,line:t,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null});};
     u.onend=function(){ev('speak-end',{speakerId:i,key:key,highlightedTile:lit?lit.index:null});done();};
     u.onerror=function(e){ev('speak-error',{speakerId:i,key:key,error:e.error});done();};
     synth.speak(u);}
-  function run(trigger){if(muted||started||ended)return;started=true;if(synth.speaking||synth.pending)synth.cancel();plan=[];queued=0;ev('run',{trigger:trigger});
+  function run(trigger){if(muted||started||ended)return;started=true;if(synth.speaking||synth.pending)synth.cancel();plan=[];order=[];queued=0;ev('run',{trigger:trigger});
     say(tr(KEYS.first),0,KEYS.first);
     if(n===2){ // two-party call: strict back-and-forth, then goodbye
       say(tr('reply_good_idea'),1,'reply_good_idea');say(tr('more_open_source'),0,'more_open_source');
