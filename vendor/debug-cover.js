@@ -5,7 +5,7 @@
    Other scripts: DebugCover.log(type,data), DebugCover.state(name,fn). */
 (function(){
   if(window.DebugCover)return;
-  var APPV='1.7.0', MAX=500, t0=performance.now();
+  var APPV='1.8.0', MAX=500, t0=performance.now();
   var mock=(location.pathname.split('/').filter(Boolean).slice(-2,-1)[0])||document.title||'root';
   var log=[], providers={};
   function ev(type,d){var e={t:new Date().toISOString(),ms:Math.round(performance.now()-t0),type:type};if(d)for(var k in d)e[k]=d[k];log.push(e);if(log.length>MAX)log.shift();}

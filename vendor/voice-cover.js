@@ -56,46 +56,39 @@
   ev('lang',{lang:lang,supported:supported});
   var started=false, queued=0, ended=false;
 
-  // Named voice styles: fixed rate and pitch, assigned by speaker index.
-  var STYLES=[
-    {name:'neutral',  rate:1.00,pitch:1.00},
-    {name:'warm',     rate:0.90,pitch:0.85},
-    {name:'energetic',rate:1.15,pitch:1.30},
-    {name:'calm',     rate:0.85,pitch:0.95}];
-  function styleFor(i){return STYLES[i%STYLES.length];}
-
+  // Voices: only the selected language's own system voices.
+  // Alternate female/male where the browser offers both. If several speakers
+  // share one voice, a light pitch step (+/-0.06) keeps them apart without
+  // sounding artificial.
+  var PITCH=[1.00,0.94,1.06,0.97,1.03,0.91];
   var FEMALE=/female|woman|samantha|victoria|karen|zira|susan|serena|fiona|moira|tessa|aria|jenny|libby|sonia|amelie|amélie|audrey|aurelie|denise|julie|marie|hortense|celine|eloise|vivienne|anna|helena|monica|paulina|google uk english female|google us english/i;
   function isFemale(v){return FEMALE.test(v.name);}
-  // Pick a voice: prefer the selected language. If it has only one voice,
-  // borrow a voice of the other gender from another locale for variety.
-  // The spoken text always stays in the selected language.
   function pick(i){
-    var all=synth.getVoices(); if(!all.length) return null;
+    var all=synth.getVoices();
     var own=all.filter(function(x){return x.lang.toLowerCase().indexOf(lang)===0;});
-    var wantFemale=(i%2===1);
-    var pool=own.filter(function(x){return isFemale(x)===wantFemale;});
-    if(pool.length) return {voice:pool[Math.floor(i/2)%pool.length],borrowed:false};
-    if(own.length>1) return {voice:own[i%own.length],borrowed:false};
-    var other=all.filter(function(x){return own.indexOf(x)<0&&isFemale(x)===wantFemale;});
-    if(own.length&&i%2===0) return {voice:own[0],borrowed:false};
-    if(other.length) return {voice:other[Math.floor(i/2)%other.length],borrowed:true};
-    return own.length?{voice:own[0],borrowed:false}:{voice:all[0],borrowed:true};}
+    if(!own.length) return null;
+    var pool=own.filter(function(x){return isFemale(x)===(i%2===1);});
+    if(pool.length) return pool[Math.floor(i/2)%pool.length];
+    return own[i%own.length];}
 
   function finishCall(){if(ended)return;ended=true;cur=null;setSpk(-1);ev('call-ended',{});
     dispatchEvent(new CustomEvent('vc:ended'));}
 
-  function say(t,i,key){var u=new SpeechSynthesisUtterance(t);var p=pick(i),v=p&&p.voice,st=styleFor(i);
-    if(v)u.voice=v;u.lang=TAGS[lang]||lang;u.pitch=st.pitch;u.rate=st.rate;
+  function say(t,i,key){var u=new SpeechSynthesisUtterance(t);var v=pick(i);
+    if(v)u.voice=v;u.lang=TAGS[lang]||lang;u.pitch=PITCH[i%PITCH.length];u.rate=1;
     var vn=v?v.name:'(default)';
-    plan.push({speaker:i,key:key,line:t,style:st.name,voice:vn,voiceLang:v?v.lang:null,borrowed:p?p.borrowed:false,pitch:u.pitch,rate:u.rate});
+    plan.push({speaker:i,key:key,line:t,voice:vn,voiceLang:v?v.lang:null,pitch:u.pitch,rate:u.rate});
     queued++;
     function done(){queued--;if(speaking===i){cur=null;setSpk(-1);}if(queued<=0&&started)finishCall();}
-    u.onstart=function(){unlocked=true;cur={voice:vn,style:st.name,line:t};setSpk(i);ev('speak-start',{speakerId:i,key:key,style:st.name,voice:vn,line:t,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null});};
+    u.onstart=function(){unlocked=true;cur={voice:vn,line:t};setSpk(i);ev('speak-start',{speakerId:i,key:key,voice:vn,line:t,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null});};
     u.onend=function(){ev('speak-end',{speakerId:i,key:key,highlightedTile:lit?lit.index:null});done();};
     u.onerror=function(e){ev('speak-error',{speakerId:i,key:key,error:e.error});done();};
     synth.speak(u);}
   function run(trigger){if(muted||started||ended)return;started=true;synth.cancel();plan=[];queued=0;ev('run',{trigger:trigger});
     say(tr(KEYS.first),0,KEYS.first);
+    if(n===2){ // two-party call: strict back-and-forth, then goodbye
+      say(tr('reply_good_idea'),1,'reply_good_idea');say(tr('more_open_source'),0,'more_open_source');
+      say(tr('more_star_too'),1,'more_star_too');say(tr('bye_thanks'),0,'bye_thanks');say(tr('bye_take_care'),1,'bye_take_care');return;}
     for(var k=1;k<n;k++){var r=KEYS.replies[(k-1)%KEYS.replies.length];say(tr(r),k,r);}
     for(var m=n-1;m>=0;m--){var mk=KEYS.more[m%KEYS.more.length];say(tr(mk),m,mk);}
     for(var b=0;b<n;b++){var bk=KEYS.bye[b%KEYS.bye.length];say(tr(bk),b,bk);}}
