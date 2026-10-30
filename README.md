@@ -2,7 +2,7 @@
 
 **Live gallery:** https://robertboettchersf.github.io/ui-mockups/
 
-Standalone HTML/CSS (+ vanilla JS) mockups inspired by interface layouts seen in a film.
+Standalone HTML/CSS (+ vanilla JS) mockups of interface layouts.
 Each folder is self-contained; open its `index.html` in a browser. The map views attempt to
 use real public map data when online, and fall back gracefully to generated/SVG maps offline.
 
@@ -55,8 +55,7 @@ MIT, see [LICENSE](LICENSE). All names, readings and messages are invented.
 ## Details
 
 ### farm-weather-console
-Dark farm weather & dust-storm / crop monitoring console (inspired by a laptop screen glimpsed
-in a film). Left sidebar (system status, striped dust-advisory hazard block, crop-health bars,
+Dark farm weather & dust-storm / crop monitoring console. Left sidebar (system status, striped dust-advisory hazard block, crop-health bars,
 blight index, button row); centre **live Weather Radar map** (Leaflet) with a dark basemap,
 US state borders from us-atlas TopoJSON, and a live radar overlay from the RainViewer public
 API, tinted cyan/yellow-green and centred on the Great Plains; if the network is unavailable it
@@ -70,8 +69,7 @@ Data & attribution:
 - Radar overlay © RainViewer (api.rainviewer.com public weather-maps API)
 
 ### drone-console
-UAV ground-control console inspired by a surveillance-drone UI seen in a film; the original was
-in Hindi and has been recreated in English. Left **Mission Map** (Leaflet, Esri World Imagery
+UAV ground-control console, with all text in English. Left **Mission Map** (Leaflet, Esri World Imagery
 satellite tiles) tracking a simulated solar-powered HALE drone with an original SVG icon and
 trail: phase 1 loiters in slow loops over cornfields near Lincoln, Nebraska; phase 2 climbs to
 stratospheric altitude and flies a great-circle route east to India; phase 3 cruises at high
@@ -93,7 +91,7 @@ All third-party map data is used via public CDNs/APIs and attributed in-app on e
 These wrap the map/console content above in invented, original desktop operating-system
 shells (own names, hand-drawn SVG icons, draggable windows with title bars + minimise/close,
 a bottom taskbar with an app dock, live clock and net/link status tray, desktop launcher
-icons, and a working mock terminal). No film logos, names, or assets are used.
+icons, and a working mock terminal).
 
 ### verdant-os — "VerdantOS"
 Agricultural weather operations desktop. Apps: **Weather Radar** (main window = the live
@@ -155,8 +153,7 @@ Preview: `voicemail-desktop/preview.png`
 
 ### ops-centre-europe
 
-A dark continental operations-centre dashboard inspired by a film control-room
-layout, redrawn as an original, fully generic coordination desk centred on
+A dark continental operations-centre dashboard: an original, fully generic coordination desk centred on
 Europe (Brussels).
 
 - **Header** — abstract geometric emblem (no real seal/flag), spaced-letter
@@ -176,14 +173,13 @@ Europe (Brussels).
   logistics-coordination exercise (*NORTHERN BRIDGE*, status HOLD).
 
 Everything is invented and neutral: no real organisations, governments,
-agencies, nations, flags, official seals, or film references. Map data is
+agencies, nations, flags or official seals. Map data is
 loaded from public CDNs (world-atlas / d3-geo) with a generated offline
 fallback for both projections.
 
 ### ops-centre-france
 
-A regional variant of `ops-centre-europe`, inspired by a film control-room
-layout but redrawn as an original, fully generic coordination desk zoomed in
+A regional variant of `ops-centre-europe`: an original, fully generic coordination desk zoomed in
 on France (Paris).
 
 - **Header / status / audio panels** — same neutral layout as
@@ -199,14 +195,13 @@ on France (Paris).
   matching red triangles at the three locations.
 
 All invented and neutral: no real organisations, governments, agencies,
-nations, flags, official seals, people, or film references. Map data loads from
+nations, flags, official seals or people. Map data loads from
 public CDNs (world-atlas / d3-geo) with a generated offline fallback for both
 projections.
 
 ### ops-centre-berlin
 
-A routine air-security patrol dashboard inspired by a film control-room
-layout, redrawn as an original, fully generic coordination desk focused on the
+A routine air-security patrol dashboard: an original, fully generic coordination desk focused on the
 Bundestag in Berlin.
 
 - **Header / theme** — abstract emblem, *REGIONAL OPERATIONS CENTRE / JOINT
@@ -233,14 +228,12 @@ Bundestag in Berlin.
   keywords; the ticker shows a matching message while it is active.
 
 All invented and neutral apart from the user-approved German flag and
-*BUNDESTAG* label: no other real organisations, agencies, people, seals, or
-film references. Map tiles load from Esri with attribution and a generated
+*BUNDESTAG* label: no other real organisations, agencies, people or seals. Map tiles load from Esri with attribution and a generated
 offline fallback.
 
 ### public-broadcast-channel
 
-A public-information broadcast screen inspired by a film's channel layout and
-colour palette, redrawn as an original, fully generic network.
+A public-information broadcast screen for an original, fully generic network.
 
 - **Background** — dark charcoal with faint, slowly scrolling grey monospace
   filler text behind everything, plus a subtle scanline/flicker overlay.
@@ -259,13 +252,12 @@ colour palette, redrawn as an original, fully generic network.
 - **Ticker** — a wide serif marquee scrolling right-to-left with neutral
   bilingual text.
 
-All invented and neutral: no real organisations, channel logos, flags, seals,
-people, or film references.
+All invented and neutral: no real organisations, channel logos, flags, seals or
+people.
 
 ### self-organizing-system
 
-An original two-mode "self-organizing system" animation inspired by the mood of
-some sci-fi interface shots (no film name or branding anywhere).
+An original two-mode "self-organizing system" animation (no branding anywhere).
 
 - **Mode A — code reorganisation** — a black desktop of many overlapping
   terminal windows (thin pale-blue title bars with tiny File/Edit/View items,
@@ -287,12 +279,12 @@ some sci-fi interface shots (no film name or branding anywhere).
 
 The two modes auto-cycle; press **M** (or see the on-screen hint) to toggle
 manually. `?mode=a` / `?mode=b` force a single mode (used for the two preview
-images). No real brands, logos, or film references.
+images). No real brands or logos.
 
 ### biometric-scan
 
-An original biometric-scan display inspired by the mood of a sci-fi medical
-readout (no film name anywhere).
+An original biometric-scan display in the style of a sci-fi medical
+readout.
 
 - **Centre** — a simple, neutral mannequin-like human silhouette (union of
   basic SVG/canvas shapes, no anatomical detail) filled with an animated
@@ -307,8 +299,7 @@ readout (no film name anywhere).
   white) scrolling continuously.
 - **Overlays** — a subtle scanline flicker and soft glow.
 
-All readings are generic and invented; no real brands, logos, people, or film
-references.
+All readings are generic and invented; no real brands, logos, or people.
 
 ### field-data-viewer
 
