@@ -4,16 +4,16 @@
    Debug: red button next to it downloads a JSON report (note required).
    Pages can listen for 'vc:speaker' events (detail.index = caller, -1 = none). */
 (function(){
-  var APPV='1.1.0';
+  var APPV='1.1.1';
   var s=document.currentScript, n=+(s&&s.dataset.callers||2);
   var mock=(location.pathname.split('/').filter(Boolean).slice(-2,-1)[0])||document.title;
   var synth=window.speechSynthesis;
   var muted=/[?&]voice=off/.test(location.search)||localStorage.getItem('vc-muted')==='1';
-  var log=[], plan=[], speaking=-1, unlocked=false;
+  var log=[], plan=[], speaking=-1, unlocked=false, cur=null, lit=null;
   function ev(type,d){var e={t:new Date().toISOString(),type:type};for(var k in d)e[k]=d[k];log.push(e);if(log.length>200)log.shift();}
   window.VoiceCover={log:ev,get speaking(){return speaking;}};
   function setSpk(i){speaking=i;dispatchEvent(new CustomEvent('vc:speaker',{detail:{index:i}}));}
-  addEventListener('vc:highlight',function(e){ev('highlight',{tile:e.detail.index,label:e.detail.label});});
+  addEventListener('vc:highlight',function(e){lit={index:e.detail.index,label:e.detail.label};ev('highlight',{tile:e.detail.index,label:e.detail.label,speakerId:speaking,match:speaking<0||speaking===e.detail.index});});
   var css='position:fixed;bottom:10px;z-index:99999;font:11px monospace;padding:4px 8px;border-radius:4px;cursor:pointer;';
   var btn=document.createElement('button');btn.style.cssText=css+'left:10px;background:#000a;color:#ddd;border:1px solid #666';
   var dbg=document.createElement('button');dbg.textContent='Debug';dbg.style.cssText=css+'left:150px;background:#b3261e;color:#fff;border:1px solid #e57373;font-weight:bold';
@@ -29,6 +29,7 @@
       screen:{w:screen.width,h:screen.height,viewportW:innerWidth,viewportH:innerHeight,dpr:devicePixelRatio},
       voice:{muted:muted,speechSynthesis:!!synth,unlocked:unlocked,speaking:synth?synth.speaking:false,currentSpeaker:speaking,
         availableVoices:synth?synth.getVoices().map(function(v){return v.name+' ('+v.lang+')';}):[]},
+      sync:{speakerId:speaking,currentSpeakingVoice:cur?cur.voice:null,currentLine:cur?cur.line:null,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null,match:speaking<0||!lit||lit.index===speaking},
       speakerPlan:plan, eventLog:log};
     var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(rep,null,2)],{type:'application/json'}));
     a.download='debug-'+mock+'-'+Date.now()+'.json';document.body.appendChild(a);a.click();a.remove();ev('debug-export',{});};
@@ -45,9 +46,9 @@
   function say(t,i){var u=new SpeechSynthesisUtterance(t);var v=pick(i);if(v)u.voice=v;u.lang=v?v.lang:'en-US';
     u.pitch=[1,1.15,0.85,1.25,0.9,1.05][i%6];u.rate=[1,0.95,1.05,1,0.9,1.1][i%6];
     var vn=v?v.name:'(default)'; plan.push({speaker:i,line:t,voice:vn,pitch:u.pitch,rate:u.rate});
-    u.onstart=function(){unlocked=true;ev('speak-start',{speaker:i,voice:vn,line:t});setSpk(i);};
-    u.onend=function(){ev('speak-end',{speaker:i});if(speaking===i)setSpk(-1);};
-    u.onerror=function(e){ev('speak-error',{speaker:i,error:e.error});if(speaking===i)setSpk(-1);};
+    u.onstart=function(){unlocked=true;cur={voice:vn,line:t};setSpk(i);ev('speak-start',{speakerId:i,voice:vn,line:t,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null});};
+    u.onend=function(){if(speaking===i){cur=null;setSpk(-1);}ev('speak-end',{speakerId:i,highlightedTile:lit?lit.index:null});};
+    u.onerror=function(e){if(speaking===i){cur=null;setSpk(-1);}ev('speak-error',{speakerId:i,error:e.error});};
     synth.speak(u);}
   function run(trigger){if(muted||started)return;started=true;synth.cancel();plan=[];ev('run',{trigger:trigger});say(first,0);
     for(var k=1;k<n;k++) say(lines[(k-1)%lines.length],k);}

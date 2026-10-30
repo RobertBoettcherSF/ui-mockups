@@ -43,7 +43,7 @@ Each of these mockups also shows a small hint in its bottom-right corner.
 - `craft-schematic-display`: **Space** or click a part to highlight a subsystem.
 - `verdant-os`, `aether-os`: type commands in the terminal and press **Enter**.
 - `secure-video-call`, `conference-grid`, `secure-comms-portal`, `global-ops-hub`: voice cover via the browser's built-in speech (Web Speech API). It starts on load or on the first click/key if the browser blocks autoplay. Toggle with the bottom-left button or **V**; `?voice=off` disables it. The choice is remembered.
-- Same four screens: red **Debug** button next to the voice control. Type a short note (required) and a `debug-<mockup>-<time>.json` downloads with app version, URL, browser, screen size, voice state, speaker→line→voice plan and the last 200 events (speak start/end/error, mute, unlock, which tile showed SPEAKING). No personal data beyond your note — send the file in the chat. In `conference-grid` the SPEAKING tile follows whichever caller is talking.
+- Same four screens: red **Debug** button next to the voice control. Type a short note (required) and a `debug-<mockup>-<time>.json` downloads with app version, URL, browser, screen size, voice state, speaker→line→voice plan and the last 200 events (speak start/end/error, mute, unlock, which tile showed SPEAKING, plus a `sync` block with speakerId, voice, line, highlighted tile and match). No personal data beyond your note — send the file in the chat. In `conference-grid` the SPEAKING tile follows whichever caller is talking.
 
 ### Map data attributions
 - Basemap / imagery tiles © Esri; © OpenStreetMap contributors
