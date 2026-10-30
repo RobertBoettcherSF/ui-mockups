@@ -190,4 +190,5 @@ function setNet(s){$('net').innerHTML='NET <span class="v">'+s+'</span>'}
 setInterval(()=>$('clk').textContent=new Date(simMs).toUTCString().slice(17,25)+'Z',500);
 // autostart several windows
 ['map','login','air','tele','roster'].forEach(id=>makeWin(APPS.find(a=>a.id===id)));
-</script></body></html>
+</script><div id="ui-hint" style="position:fixed;right:8px;bottom:6px;z-index:9999;font:11px/1.3 inherit;font-family:inherit;color:#8fd8ff;opacity:.55;pointer-events:none;letter-spacing:.04em">Terminal: type + Enter · ?speed=50 speeds up the flight</div>
+</body></html>

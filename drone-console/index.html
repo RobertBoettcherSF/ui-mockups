@@ -257,4 +257,5 @@ function run(){
  else{dlg.classList.add('alert');title.textContent='Unauthorized Access';sub.textContent='Access attempt detected - further attempts not permitted!!';pbar.style.background='#ff3a2a';pbar.style.width='100%';stat.className='bad';stat.textContent='LINK: BREACH';title.classList.add('blink');setTimeout(()=>{title.classList.remove('blink');step=0;run()},3500);}
 }
 run();$('cancel').onclick=()=>{step=0;run()};$('login').onclick=()=>{step=0;run()};
-</script></body></html>
+</script><div id="ui-hint" style="position:fixed;right:8px;bottom:6px;z-index:9999;font:11px/1.3 inherit;font-family:inherit;color:#7fdcff;opacity:.55;pointer-events:none;letter-spacing:.04em">?speed=50 speeds up the flight</div>
+</body></html>
