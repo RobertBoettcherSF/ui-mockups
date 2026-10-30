@@ -51,7 +51,7 @@ body{background:#000;color:#e8eef2;font:13px/1.4 -apple-system,"Segoe UI",Arial,
 .spk{display:none;position:absolute;top:8px;left:10px;z-index:5;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:1px;color:#fff;background:#36c06acc;padding:2px 7px;border-radius:3px}
 .spk i{width:7px;height:7px;border-radius:50%;background:#fff}
 .panel.speaking .spk{display:flex}
-</style><script src="../vendor/debug-cover.js?v=1.9.0"></script><script src="../vendor/top-bar.js?v=1.9.0"></script>
+</style><script src="../vendor/debug-cover.js?v=1.10.0"></script><script src="../vendor/top-bar.js?v=1.10.0"></script>
 </head><body>
 <!-- top-centre badge: abstract, flag-free -->
 <div id="badge">
@@ -129,5 +129,5 @@ function hl(i){panels.forEach(p=>p.classList.remove('speaking'));if(i>=0&&panels
  dispatchEvent(new CustomEvent('vc:highlight',{detail:{index:i,label:i>=0?panels[i].querySelector('.cap').textContent:null}}))}
 addEventListener('vc:speaker',e=>hl(e.detail.index));
 addEventListener('vc:ended',()=>{setTimeout(()=>{$('ended').style.display='flex';if(recIv)clearInterval(recIv)},800)});
-</script><script src="../vendor/voice-cover.js?v=1.9.0" data-callers="2" data-langs="en,de,es,fr"></script>
+</script><script src="../vendor/voice-cover.js?v=1.10.0" data-callers="2" data-langs="en,de,es,fr"></script>
 </body></html>

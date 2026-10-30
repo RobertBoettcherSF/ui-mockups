@@ -66,6 +66,7 @@
       more_star_too:"Je lui ai déjà donné une étoile.",more_works_for_me:"Ça me va.",
       bye_thanks:"Merci à tous. Je termine l'appel.",bye_see_you:"À la prochaine.",bye_good_call:"Bon appel.",
       bye_later:"On se reparle plus tard.",bye_cheers:"Salut.",bye_take_care:"Prenez soin de vous."}};
+  var TAP={en:'Tap to hear',de:'Tippen zum Anhören',es:'Toca para escuchar',fr:'Touchez pour écouter'};
   function tr(k){return (S[lang]&&S[lang][k])||S.en[k];}
   var supported=(s&&s.dataset.langs||'en').split(','), lang='en';
   try{var ul=localStorage.getItem('uim-lang');var q=(location.search.match(/[?&]lang=(\w+)/)||[])[1];ul=q||ul;if(ul&&supported.indexOf(ul)>=0&&S[ul])lang=ul;}catch(e){}
@@ -100,7 +101,7 @@
     u.onend=function(){ev('speak-end',{speakerId:i,key:key,highlightedTile:lit?lit.index:null});done();};
     u.onerror=function(e){ev('speak-error',{speakerId:i,key:key,error:e.error});done();};
     synth.speak(u);}
-  function run(trigger){if(muted||started||ended)return;started=true;synth.cancel();plan=[];queued=0;ev('run',{trigger:trigger});
+  function run(trigger){if(muted||started||ended)return;started=true;if(synth.speaking||synth.pending)synth.cancel();plan=[];queued=0;ev('run',{trigger:trigger});
     say(tr(KEYS.first),0,KEYS.first);
     if(n===2){ // two-party call: strict back-and-forth, then goodbye
       say(tr('reply_good_idea'),1,'reply_good_idea');say(tr('more_open_source'),0,'more_open_source');
@@ -112,9 +113,29 @@
   function toggle(){muted=!muted;localStorage.setItem('vc-muted',muted?'1':'0');ev('mute',{muted:muted});
     synth.cancel();started=false;ended=false;queued=0;setSpk(-1);if(!muted)run('unmute'); label();}
   btn.onclick=function(e){e.stopPropagation();toggle();};
-  addEventListener('keydown',function(e){if(e.key==='v'||e.key==='V')toggle();else run('key');});
-  addEventListener('pointerdown',function(){if(!unlocked)ev('unlock-attempt',{});run('pointer');});
+  addEventListener('keydown',function(e){if(e.key==='v'||e.key==='V')toggle();});
+  // Tap to hear: iOS Safari only allows speech when the first speak() call
+  // runs synchronously inside a user tap (touchend / click). So we do not
+  // auto-start; the overlay's handler calls run() directly, which calls
+  // synth.speak() before returning.
+  var tap=document.createElement('button');
+  tap.textContent='\u25B6 '+(TAP[lang]||TAP.en);
+  tap.style.cssText='position:fixed;inset:0;margin:auto;width:min(80vw,360px);height:120px;z-index:99998;'+
+    'font:600 22px system-ui,sans-serif;color:#fff;background:rgba(10,120,60,.92);border:2px solid #7f7;border-radius:16px;cursor:pointer';
+  function onTap(e){
+    if(e){e.preventDefault();e.stopPropagation();}
+    ev('unlock-attempt',{via:e?e.type:'none'});
+    if(muted){muted=false;localStorage.setItem('vc-muted','0');label();}
+    started=false;ended=false;
+    run('tap');                      // speak() happens here, synchronously
+    if(tap.parentNode)tap.parentNode.removeChild(tap);
+    setTimeout(function(){
+      if(unlocked)ev('unlock-success',{});
+      else{ev('unlock-fail',{speaking:synth.speaking,pending:synth.pending});started=false;document.body.appendChild(tap);}
+    },1500);}
+  tap.addEventListener('touchend',onTap);
+  tap.addEventListener('click',onTap);
+  if(!muted)document.body.appendChild(tap);
   addEventListener('beforeunload',function(){synth.cancel();});
-  setTimeout(function(){run('auto');},600);
   synth.onvoiceschanged=function(){ev('voices-changed',{count:synth.getVoices().length});};
 })();
