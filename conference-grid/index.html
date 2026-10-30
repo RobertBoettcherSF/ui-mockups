@@ -90,7 +90,12 @@ PART.forEach((p,i)=>{
 const tiles=[...document.querySelectorAll('.tile')];
 // active-speaker highlight cycling
 let cur=0;
-function cycle(){tiles.forEach(t=>t.classList.remove('speaking'));cur=Math.random()*tiles.length|0;tiles[cur].classList.add('speaking')}
+function hl(i){tiles.forEach(t=>t.classList.remove('speaking'));cur=i;if(i>=0&&tiles[i]){tiles[i].classList.add('speaking');}
+ dispatchEvent(new CustomEvent('vc:highlight',{detail:{index:i,label:i>=0&&PART[i]?PART[i].cap:null}}));}
+// voice drives the highlight: the tile whose caller is talking shows SPEAKING (only that one)
+let voiceSpk=-1;addEventListener('vc:speaker',e=>{voiceSpk=e.detail.index;hl(voiceSpk);});
+// idle: gentle random cycling only while no voice is playing
+function cycle(){if(voiceSpk>=0)return;hl(Math.random()*tiles.length|0)}
 cycle();setInterval(cycle,2600);
 
 // call timer HH:MM:SS
