@@ -2,7 +2,8 @@
    Usage: <script src="../vendor/voice-cover.js" data-callers="4"></script>
    Toggle: button bottom-left or key V. ?voice=off disables.
    Requires debug-cover.js loaded first (events + state go into its Debug report).
-   Pages can listen for 'vc:speaker' events (detail.index = caller, -1 = none). */
+   Pages can listen for 'vc:speaker' events (detail.index = caller, -1 = none)
+   and 'vc:ended' (all lines spoken; the call is over). */
 (function(){
   var s=document.currentScript, n=+(s&&s.dataset.callers||2);
   var synth=window.speechSynthesis;
@@ -24,36 +25,83 @@
       speakerPlan:plan};});
   if(!synth) return;
   // Keys stay English; only display/spoken strings are localised.
-  var KEYS={first:'intro_star',lines:['reply_concur','reply_good_idea','reply_plan','reply_would_if_could']};
+  // The call runs in rounds. Round 1: caller 0 says the intro, others reply.
+  // Round 2: more replies. Round 3: everyone says goodbye. Then the call ends.
+  var KEYS={
+    first:'intro_star',
+    replies:['reply_concur','reply_good_idea','reply_plan','reply_would_if_could','reply_agree_all','reply_next_step'],
+    more:['more_open_source','more_try_it','more_feedback','more_languages','more_star_too','more_works_for_me'],
+    bye:['bye_thanks','bye_see_you','bye_good_call','bye_later','bye_cheers','bye_take_care']};
   var TAGS={en:'en-US',fr:'fr-FR'};
   var S={
     en:{intro_star:"This is a mockup GUI. Feel free to use it. If you found it useful, consider giving this repo a star on GitHub.",
-      reply_concur:"I concur.",reply_good_idea:"Good idea.",reply_plan:"That sounds like a plan.",reply_would_if_could:"If I could do it, I would."},
+      reply_concur:"I concur.",reply_good_idea:"Good idea.",reply_plan:"That sounds like a plan.",reply_would_if_could:"If I could do it, I would.",
+      reply_agree_all:"Agreed, all around.",reply_next_step:"Let's take the next step.",
+      more_open_source:"The code is open source, under the MIT licence.",more_try_it:"Try the other screens in the gallery.",
+      more_feedback:"If something looks wrong, press Debug and send the file.",more_languages:"It also works in other languages.",
+      more_star_too:"I gave it a star already.",more_works_for_me:"Works for me.",
+      bye_thanks:"Thanks, everyone. Ending the call now.",bye_see_you:"See you next time.",bye_good_call:"Good call.",
+      bye_later:"Talk later.",bye_cheers:"Cheers.",bye_take_care:"Take care."},
     fr:{intro_star:"Ceci est une maquette d'interface graphique. N'hésitez pas à l'utiliser. Si vous l'avez trouvée utile, pensez à donner une étoile à ce dépôt sur GitHub.",
-      reply_concur:"Je suis d'accord.",reply_good_idea:"Bonne idée.",reply_plan:"Ça me semble être un bon plan.",reply_would_if_could:"Si je pouvais le faire, je le ferais."}};
+      reply_concur:"Je suis d'accord.",reply_good_idea:"Bonne idée.",reply_plan:"Ça me semble être un bon plan.",reply_would_if_could:"Si je pouvais le faire, je le ferais.",
+      reply_agree_all:"D'accord sur toute la ligne.",reply_next_step:"Passons à l'étape suivante.",
+      more_open_source:"Le code est open source, sous licence MIT.",more_try_it:"Essayez les autres écrans de la galerie.",
+      more_feedback:"Si quelque chose cloche, appuyez sur Debug et envoyez le fichier.",more_languages:"Ça marche aussi dans d'autres langues.",
+      more_star_too:"Je lui ai déjà donné une étoile.",more_works_for_me:"Ça me va.",
+      bye_thanks:"Merci à tous. Je termine l'appel.",bye_see_you:"À la prochaine.",bye_good_call:"Bon appel.",
+      bye_later:"On se reparle plus tard.",bye_cheers:"Salut.",bye_take_care:"Prenez soin de vous."}};
   function tr(k){return (S[lang]&&S[lang][k])||S.en[k];}
   var supported=(s&&s.dataset.langs||'en').split(','), lang='en';
   try{var ul=localStorage.getItem('uim-lang');var q=(location.search.match(/[?&]lang=(\w+)/)||[])[1];ul=q||ul;if(ul&&supported.indexOf(ul)>=0&&S[ul])lang=ul;}catch(e){}
-  var first=tr(KEYS.first), lines=KEYS.lines.map(tr);
   ev('lang',{lang:lang,supported:supported});
-  var started=false;
-  function voices(){var v=synth.getVoices().filter(function(x){return x.lang.toLowerCase().indexOf(lang)===0});return v.length?v:synth.getVoices();}
-  function pick(i){var v=voices(); if(!v.length) return null;
-    var fem=v.filter(function(x){return /female|woman|samantha|victoria|karen|zira|susan|serena|fiona|moira|tessa|aria|jenny|libby|sonia|amelie|amélie|audrey|aurelie|denise|julie|marie|hortense|celine|eloise|vivienne/i.test(x.name)});
-    var mal=v.filter(function(x){return fem.indexOf(x)<0});
-    var pool=(i%2? (fem.length?fem:v) : (mal.length?mal:v));
-    return pool[Math.floor(i/2)%pool.length];}
-  function say(t,i){var u=new SpeechSynthesisUtterance(t);var v=pick(i);if(v)u.voice=v;u.lang=v?v.lang:TAGS[lang];
-    u.pitch=[1,1.15,0.85,1.25,0.9,1.05][i%6];u.rate=[1,0.95,1.05,1,0.9,1.1][i%6];
-    var vn=v?v.name:'(default)'; plan.push({speaker:i,line:t,voice:vn,pitch:u.pitch,rate:u.rate});
-    u.onstart=function(){unlocked=true;cur={voice:vn,line:t};setSpk(i);ev('speak-start',{speakerId:i,voice:vn,line:t,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null});};
-    u.onend=function(){if(speaking===i){cur=null;setSpk(-1);}ev('speak-end',{speakerId:i,highlightedTile:lit?lit.index:null});};
-    u.onerror=function(e){if(speaking===i){cur=null;setSpk(-1);}ev('speak-error',{speakerId:i,error:e.error});};
+  var started=false, queued=0, ended=false;
+
+  // Named voice styles: fixed rate and pitch, assigned by speaker index.
+  var STYLES=[
+    {name:'neutral',  rate:1.00,pitch:1.00},
+    {name:'warm',     rate:0.90,pitch:0.85},
+    {name:'energetic',rate:1.15,pitch:1.30},
+    {name:'calm',     rate:0.85,pitch:0.95}];
+  function styleFor(i){return STYLES[i%STYLES.length];}
+
+  var FEMALE=/female|woman|samantha|victoria|karen|zira|susan|serena|fiona|moira|tessa|aria|jenny|libby|sonia|amelie|amélie|audrey|aurelie|denise|julie|marie|hortense|celine|eloise|vivienne|anna|helena|monica|paulina|google uk english female|google us english/i;
+  function isFemale(v){return FEMALE.test(v.name);}
+  // Pick a voice: prefer the selected language. If it has only one voice,
+  // borrow a voice of the other gender from another locale for variety.
+  // The spoken text always stays in the selected language.
+  function pick(i){
+    var all=synth.getVoices(); if(!all.length) return null;
+    var own=all.filter(function(x){return x.lang.toLowerCase().indexOf(lang)===0;});
+    var wantFemale=(i%2===1);
+    var pool=own.filter(function(x){return isFemale(x)===wantFemale;});
+    if(pool.length) return {voice:pool[Math.floor(i/2)%pool.length],borrowed:false};
+    if(own.length>1) return {voice:own[i%own.length],borrowed:false};
+    var other=all.filter(function(x){return own.indexOf(x)<0&&isFemale(x)===wantFemale;});
+    if(own.length&&i%2===0) return {voice:own[0],borrowed:false};
+    if(other.length) return {voice:other[Math.floor(i/2)%other.length],borrowed:true};
+    return own.length?{voice:own[0],borrowed:false}:{voice:all[0],borrowed:true};}
+
+  function finishCall(){if(ended)return;ended=true;cur=null;setSpk(-1);ev('call-ended',{});
+    dispatchEvent(new CustomEvent('vc:ended'));}
+
+  function say(t,i,key){var u=new SpeechSynthesisUtterance(t);var p=pick(i),v=p&&p.voice,st=styleFor(i);
+    if(v)u.voice=v;u.lang=TAGS[lang]||lang;u.pitch=st.pitch;u.rate=st.rate;
+    var vn=v?v.name:'(default)';
+    plan.push({speaker:i,key:key,line:t,style:st.name,voice:vn,voiceLang:v?v.lang:null,borrowed:p?p.borrowed:false,pitch:u.pitch,rate:u.rate});
+    queued++;
+    function done(){queued--;if(speaking===i){cur=null;setSpk(-1);}if(queued<=0&&started)finishCall();}
+    u.onstart=function(){unlocked=true;cur={voice:vn,style:st.name,line:t};setSpk(i);ev('speak-start',{speakerId:i,key:key,style:st.name,voice:vn,line:t,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null});};
+    u.onend=function(){ev('speak-end',{speakerId:i,key:key,highlightedTile:lit?lit.index:null});done();};
+    u.onerror=function(e){ev('speak-error',{speakerId:i,key:key,error:e.error});done();};
     synth.speak(u);}
-  function run(trigger){if(muted||started)return;started=true;synth.cancel();plan=[];ev('run',{trigger:trigger});say(first,0);
-    for(var k=1;k<n;k++) say(lines[(k-1)%lines.length],k);}
+  function run(trigger){if(muted||started||ended)return;started=true;synth.cancel();plan=[];queued=0;ev('run',{trigger:trigger});
+    say(tr(KEYS.first),0,KEYS.first);
+    for(var k=1;k<n;k++){var r=KEYS.replies[(k-1)%KEYS.replies.length];say(tr(r),k,r);}
+    for(var m=n-1;m>=0;m--){var mk=KEYS.more[m%KEYS.more.length];say(tr(mk),m,mk);}
+    for(var b=0;b<n;b++){var bk=KEYS.bye[b%KEYS.bye.length];say(tr(bk),b,bk);}}
+  window.VoiceCover.restart=function(){synth.cancel();started=false;ended=false;setSpk(-1);run('restart');};
   function toggle(){muted=!muted;localStorage.setItem('vc-muted',muted?'1':'0');ev('mute',{muted:muted});
-    synth.cancel();started=false;setSpk(-1);if(!muted)run('unmute'); label();}
+    synth.cancel();started=false;ended=false;queued=0;setSpk(-1);if(!muted)run('unmute'); label();}
   btn.onclick=function(e){e.stopPropagation();toggle();};
   addEventListener('keydown',function(e){if(e.key==='v'||e.key==='V')toggle();else run('key');});
   addEventListener('pointerdown',function(){if(!unlocked)ev('unlock-attempt',{});run('pointer');});
