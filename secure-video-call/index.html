@@ -47,7 +47,11 @@ body{background:#000;color:#e8eef2;font:13px/1.4 -apple-system,"Segoe UI",Arial,
 #ended h1{font-weight:400;letter-spacing:2px;color:#e8eef2}#ended p{color:#8b98a5}
 #ended button{margin-top:10px;background:#2a2f36;color:#e8eef2;border:none;padding:10px 20px;border-radius:22px;cursor:pointer}
 #rectime{position:absolute;right:30px;top:14px;color:#d33a33;font-weight:600;letter-spacing:1px;font-size:12px;display:none}
-</style><script src="../vendor/debug-cover.js?v=1.8.0"></script><script src="../vendor/top-bar.js?v=1.8.0"></script>
+.panel.speaking{border-color:#36c06a;box-shadow:0 0 0 2px #36c06a,inset 0 0 26px #36c06a33}
+.spk{display:none;position:absolute;top:8px;left:10px;z-index:5;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:1px;color:#fff;background:#36c06acc;padding:2px 7px;border-radius:3px}
+.spk i{width:7px;height:7px;border-radius:50%;background:#fff}
+.panel.speaking .spk{display:flex}
+</style><script src="../vendor/debug-cover.js?v=1.9.0"></script><script src="../vendor/top-bar.js?v=1.9.0"></script>
 </head><body>
 <!-- top-centre badge: abstract, flag-free -->
 <div id="badge">
@@ -57,7 +61,7 @@ body{background:#000;color:#e8eef2;font:13px/1.4 -apple-system,"Segoe UI",Arial,
 
 <div id="stage">
  <!-- LEFT: remote office with generated park/building scene -->
- <div class="panel" id="pL">
+ <div class="panel" id="pL"><div class="spk"><i></i>SPEAKING</div>
   <div id="scene">
    <div class="sky"></div><div class="sun"></div>
    <div class="bldg"></div><div class="dome"></div>
@@ -69,7 +73,7 @@ body{background:#000;color:#e8eef2;font:13px/1.4 -apple-system,"Segoe UI",Arial,
   <div class="cap">Remote Office A — Harbourton</div>
  </div>
  <!-- RIGHT: executive office dark panel -->
- <div class="panel" id="pR">
+ <div class="panel" id="pR"><div class="spk"><i></i>SPEAKING</div>
   <div id="rightbg"></div>
   <svg class="seal" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#0a1017" stroke="#c9b67a" stroke-width="2"/><circle cx="60" cy="60" r="43" fill="none" stroke="#c9b67a" stroke-width="1"/><g stroke="#d8c98e" stroke-width="2" fill="none"><rect x="46" y="46" width="28" height="28" transform="rotate(45 60 60)"/><circle cx="60" cy="60" r="9"/><path d="M60 30v12M60 78v12M30 60h12M78 60h12"/></g><text x="60" y="19" fill="#d8c98e" font-size="6.5" text-anchor="middle" font-family="Arial" letter-spacing="1">EXECUTIVE OFFICE B</text><text x="60" y="107" fill="#c9b67a" font-size="6" text-anchor="middle" font-family="Arial" letter-spacing="2">OFFICE OF THE AIDE</text></svg>
   <div class="cap">Executive Office B — Chief of Staff Aide</div>
@@ -119,6 +123,11 @@ $('fsBtn').onclick=()=>{if(!document.fullscreenElement){(document.documentElemen
 // hang up
 $('hangBtn').onclick=()=>{$('ended').style.display='flex';if(recIv)clearInterval(recIv)};
 $('rejoin').onclick=()=>{$('ended').style.display='none';if(window.VoiceCover&&VoiceCover.restart)VoiceCover.restart()};
+// voice drives the highlight: caller 0 = left panel, caller 1 = right panel
+const panels=[$('pL'),$('pR')];
+function hl(i){panels.forEach(p=>p.classList.remove('speaking'));if(i>=0&&panels[i])panels[i].classList.add('speaking');
+ dispatchEvent(new CustomEvent('vc:highlight',{detail:{index:i,label:i>=0?panels[i].querySelector('.cap').textContent:null}}))}
+addEventListener('vc:speaker',e=>hl(e.detail.index));
 addEventListener('vc:ended',()=>{setTimeout(()=>{$('ended').style.display='flex';if(recIv)clearInterval(recIv)},800)});
-</script><script src="../vendor/voice-cover.js?v=1.8.0" data-callers="2" data-langs="en,fr"></script>
+</script><script src="../vendor/voice-cover.js?v=1.9.0" data-callers="2" data-langs="en,de,es,fr"></script>
 </body></html>

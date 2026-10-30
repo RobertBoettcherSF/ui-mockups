@@ -31,7 +31,7 @@ svg#lines{position:absolute;inset:0;width:100%;height:100%}
 #bar .l span{margin-right:3vw}#bar .c{position:absolute;left:50%;transform:translateX(-50%)}
 #bar .r{margin-left:auto;display:flex;gap:1.6vw}#bar .r svg{width:2.4vh;height:2.4vh;stroke:#4cc94c;fill:none;stroke-width:2.2}
 .blink{animation:b 1.6s steps(1) infinite}@keyframes b{50%{opacity:.35}}
-</style><script src="../vendor/debug-cover.js?v=1.8.0"></script><script src="../vendor/top-bar.js?v=1.8.0"></script>
+</style><script src="../vendor/debug-cover.js?v=1.9.0"></script><script src="../vendor/top-bar.js?v=1.9.0"></script>
 </head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
 <symbol id="lock" viewBox="0 0 24 24"><path d="M7 10V7a5 5 0 0110 0v3h2v12H5V10zm2 0h6V7a3 3 0 00-6 0z"/></symbol>
@@ -101,5 +101,5 @@ function fallback(){const g=svg.append('g').attr('fill','#1d5fd0');[[60,40,160,1
 (async()=>{try{if(!window.d3||!window.topojson)throw 0;const w=await(await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')).json();
 const f=topojson.feature(w,w.objects.countries).features.filter(c=>c.id!=='010');
 svg.selectAll('path').data(f).enter().append('path').attr('d',path).attr('fill',(c,i)=>['#1d5fd0','#2a72e6','#1550b8'][i%3]).attr('stroke','#0a1d40').attr('stroke-width',.4);overlay();}catch(e){fallback();}})();
-</script><script src="../vendor/voice-cover.js?v=1.8.0" data-callers="2" data-langs="en,fr"></script>
+</script><script src="../vendor/voice-cover.js?v=1.9.0" data-callers="2" data-langs="en,de,es,fr"></script>
 </body></html>

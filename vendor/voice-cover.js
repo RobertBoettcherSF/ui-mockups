@@ -32,7 +32,7 @@
     replies:['reply_concur','reply_good_idea','reply_plan','reply_would_if_could','reply_agree_all','reply_next_step'],
     more:['more_open_source','more_try_it','more_feedback','more_languages','more_star_too','more_works_for_me'],
     bye:['bye_thanks','bye_see_you','bye_good_call','bye_later','bye_cheers','bye_take_care']};
-  var TAGS={en:'en-US',fr:'fr-FR'};
+  var TAGS={en:'en-US',de:'de-DE',es:'es-ES',fr:'fr-FR'};
   var S={
     en:{intro_star:"This is a mockup GUI. Feel free to use it. If you found it useful, consider giving this repo a star on GitHub.",
       reply_concur:"I concur.",reply_good_idea:"Good idea.",reply_plan:"That sounds like a plan.",reply_would_if_could:"If I could do it, I would.",
@@ -42,6 +42,22 @@
       more_star_too:"I gave it a star already.",more_works_for_me:"Works for me.",
       bye_thanks:"Thanks, everyone. Ending the call now.",bye_see_you:"See you next time.",bye_good_call:"Good call.",
       bye_later:"Talk later.",bye_cheers:"Cheers.",bye_take_care:"Take care."},
+    de:{intro_star:"Dies ist ein Mockup einer Benutzeroberfläche. Nutzen Sie es gern. Wenn es Ihnen geholfen hat, geben Sie diesem Repository einen Stern auf GitHub.",
+      reply_concur:"Ich stimme zu.",reply_good_idea:"Gute Idee.",reply_plan:"Das klingt nach einem Plan.",reply_would_if_could:"Wenn ich könnte, würde ich es tun.",
+      reply_agree_all:"Einverstanden, auf ganzer Linie.",reply_next_step:"Gehen wir den nächsten Schritt.",
+      more_open_source:"Der Code ist Open Source, unter der MIT-Lizenz.",more_try_it:"Probieren Sie die anderen Ansichten in der Galerie aus.",
+      more_feedback:"Wenn etwas nicht stimmt, drücken Sie Debug und senden Sie die Datei.",more_languages:"Es funktioniert auch in anderen Sprachen.",
+      more_star_too:"Ich habe schon einen Stern vergeben.",more_works_for_me:"Passt für mich.",
+      bye_thanks:"Danke an alle. Ich beende jetzt den Anruf.",bye_see_you:"Bis zum nächsten Mal.",bye_good_call:"Gutes Gespräch.",
+      bye_later:"Bis später.",bye_cheers:"Tschüss.",bye_take_care:"Machen Sie es gut."},
+    es:{intro_star:"Esta es una maqueta de interfaz gráfica. Siéntase libre de usarla. Si le ha resultado útil, considere darle una estrella a este repositorio en GitHub.",
+      reply_concur:"Estoy de acuerdo.",reply_good_idea:"Buena idea.",reply_plan:"Me parece un buen plan.",reply_would_if_could:"Si pudiera hacerlo, lo haría.",
+      reply_agree_all:"De acuerdo en todo.",reply_next_step:"Demos el siguiente paso.",
+      more_open_source:"El código es de código abierto, bajo licencia MIT.",more_try_it:"Pruebe las otras pantallas de la galería.",
+      more_feedback:"Si algo no se ve bien, pulse Debug y envíe el archivo.",more_languages:"También funciona en otros idiomas.",
+      more_star_too:"Yo ya le di una estrella.",more_works_for_me:"Por mí, bien.",
+      bye_thanks:"Gracias a todos. Termino la llamada.",bye_see_you:"Hasta la próxima.",bye_good_call:"Buena llamada.",
+      bye_later:"Hablamos luego.",bye_cheers:"Adiós.",bye_take_care:"Cuídense."},
     fr:{intro_star:"Ceci est une maquette d'interface graphique. N'hésitez pas à l'utiliser. Si vous l'avez trouvée utile, pensez à donner une étoile à ce dépôt sur GitHub.",
       reply_concur:"Je suis d'accord.",reply_good_idea:"Bonne idée.",reply_plan:"Ça me semble être un bon plan.",reply_would_if_could:"Si je pouvais le faire, je le ferais.",
       reply_agree_all:"D'accord sur toute la ligne.",reply_next_step:"Passons à l'étape suivante.",
@@ -61,7 +77,7 @@
   // share one voice, a light pitch step (+/-0.06) keeps them apart without
   // sounding artificial.
   var PITCH=[1.00,0.94,1.06,0.97,1.03,0.91];
-  var FEMALE=/female|woman|samantha|victoria|karen|zira|susan|serena|fiona|moira|tessa|aria|jenny|libby|sonia|amelie|amélie|audrey|aurelie|denise|julie|marie|hortense|celine|eloise|vivienne|anna|helena|monica|paulina|google uk english female|google us english/i;
+  var FEMALE=/female|woman|samantha|victoria|karen|zira|susan|serena|fiona|moira|tessa|aria|jenny|libby|sonia|amelie|amélie|audrey|aurelie|denise|julie|marie|hortense|celine|eloise|vivienne|anna|helena|monica|paulina|katja|petra|hedda|vicki|marlene|conchita|lucia|lucía|paloma|elvira|laura|google uk english female|google us english/i;
   function isFemale(v){return FEMALE.test(v.name);}
   function pick(i){
     var all=synth.getVoices();
