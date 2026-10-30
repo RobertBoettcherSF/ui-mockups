@@ -343,18 +343,18 @@ A generic encrypted-messaging portal on a black background with green text and t
 
 All content is invented and neutral; no real agencies, seals, or names.
 
-## global-ops-hub
+### global-ops-hub
 
 A generic operations hub: a silver compass-rose emblem in a hexagon at the centre, linked by thin lines to six green-bordered panels (overview, secure call with animated waveform, task tracker, resource status, multi-region world map, info feed) and a bottom taskbar with a live clock. All content is neutral placeholder text. Map data: [world-atlas](https://github.com/topojson/world-atlas) (Natural Earth), rendered with d3-geo; offline fallback included.
 
-## coastal-monitor
+### coastal-monitor
 
 A generic coastal observation console with a retro look on a flat dark background. Top bar with a live date/time and a boxed gradient-outline "OCEANA" wordmark; mint-green labelled views of a calm ocean sunset and a palm beach (drawn locally on canvas, gently animated); monospace Tide & Wave Log, Buoy Telemetry Feed and a slowly appending Command & Data Log with routine entries. All content is invented and neutral.
 
-## cockpit-flight-display
+### cockpit-flight-display
 
 A generic two-screen flight display with glowing cyan line graphics on dark navy. The tall left screen has an airspeed arc gauge with a moving needle, an altitude slider, a thrust tick scale with a bar, and four attitude dials (pitch, roll, yaw, trim). The wider right screen has a row of animated bar meters, a trajectory/attitude plot with a moving craft silhouette, and data tables with cyan highlight rows. All values are invented.
 
-## craft-schematic-display
+### craft-schematic-display
 
 A generic blueprint-style portrait display: a top-down wireframe schematic of an original small spacecraft design on a navy grid inside a bright cyan frame, with fuel cell and power bus panels below. Subsystems highlight in turn. Click a part or press Space to select one. All labels are generic.
