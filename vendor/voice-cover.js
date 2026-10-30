@@ -18,21 +18,32 @@
   label(); (document.body||document.documentElement).appendChild(btn);
   ev('load',{callers:n,muted:muted,speechSynthesis:!!synth});
   D.state('voice',function(){return {
-      voice:{muted:muted,speechSynthesis:!!synth,unlocked:unlocked,speaking:synth?synth.speaking:false,currentSpeaker:speaking,
+      voice:{lang:lang,muted:muted,speechSynthesis:!!synth,unlocked:unlocked,speaking:synth?synth.speaking:false,currentSpeaker:speaking,
         availableVoices:synth?synth.getVoices().map(function(v){return v.name+' ('+v.lang+')';}):[]},
       sync:{speakerId:speaking,currentSpeakingVoice:cur?cur.voice:null,currentLine:cur?cur.line:null,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null,match:speaking<0||!lit||lit.index===speaking},
       speakerPlan:plan};});
   if(!synth) return;
-  var first="This is a mockup GUI. Feel free to use it. If you found it useful, consider giving this repo a star on GitHub.";
-  var lines=["I concur.","Good idea.","That sounds like a plan.","If I could do it, I would."];
+  // Keys stay English; only display/spoken strings are localised.
+  var KEYS={first:'intro_star',lines:['reply_concur','reply_good_idea','reply_plan','reply_would_if_could']};
+  var TAGS={en:'en-US',fr:'fr-FR'};
+  var S={
+    en:{intro_star:"This is a mockup GUI. Feel free to use it. If you found it useful, consider giving this repo a star on GitHub.",
+      reply_concur:"I concur.",reply_good_idea:"Good idea.",reply_plan:"That sounds like a plan.",reply_would_if_could:"If I could do it, I would."},
+    fr:{intro_star:"Ceci est une maquette d'interface graphique. N'hésitez pas à l'utiliser. Si vous l'avez trouvée utile, pensez à donner une étoile à ce dépôt sur GitHub.",
+      reply_concur:"Je suis d'accord.",reply_good_idea:"Bonne idée.",reply_plan:"Ça me semble être un bon plan.",reply_would_if_could:"Si je pouvais le faire, je le ferais."}};
+  function tr(k){return (S[lang]&&S[lang][k])||S.en[k];}
+  var supported=(s&&s.dataset.langs||'en').split(','), lang='en';
+  try{var ul=localStorage.getItem('uim-lang');var q=(location.search.match(/[?&]lang=(\w+)/)||[])[1];ul=q||ul;if(ul&&supported.indexOf(ul)>=0&&S[ul])lang=ul;}catch(e){}
+  var first=tr(KEYS.first), lines=KEYS.lines.map(tr);
+  ev('lang',{lang:lang,supported:supported});
   var started=false;
-  function voices(){var v=synth.getVoices().filter(function(x){return /^en/i.test(x.lang)});return v.length?v:synth.getVoices();}
+  function voices(){var v=synth.getVoices().filter(function(x){return x.lang.toLowerCase().indexOf(lang)===0});return v.length?v:synth.getVoices();}
   function pick(i){var v=voices(); if(!v.length) return null;
-    var fem=v.filter(function(x){return /female|woman|samantha|victoria|karen|zira|susan|serena|fiona|moira|tessa|aria|jenny|libby|sonia/i.test(x.name)});
+    var fem=v.filter(function(x){return /female|woman|samantha|victoria|karen|zira|susan|serena|fiona|moira|tessa|aria|jenny|libby|sonia|amelie|amélie|audrey|aurelie|denise|julie|marie|hortense|celine|eloise|vivienne/i.test(x.name)});
     var mal=v.filter(function(x){return fem.indexOf(x)<0});
     var pool=(i%2? (fem.length?fem:v) : (mal.length?mal:v));
     return pool[Math.floor(i/2)%pool.length];}
-  function say(t,i){var u=new SpeechSynthesisUtterance(t);var v=pick(i);if(v)u.voice=v;u.lang=v?v.lang:'en-US';
+  function say(t,i){var u=new SpeechSynthesisUtterance(t);var v=pick(i);if(v)u.voice=v;u.lang=v?v.lang:TAGS[lang];
     u.pitch=[1,1.15,0.85,1.25,0.9,1.05][i%6];u.rate=[1,0.95,1.05,1,0.9,1.1][i%6];
     var vn=v?v.name:'(default)'; plan.push({speaker:i,line:t,voice:vn,pitch:u.pitch,rate:u.rate});
     u.onstart=function(){unlocked=true;cur={voice:vn,line:t};setSpk(i);ev('speak-start',{speakerId:i,voice:vn,line:t,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null});};
