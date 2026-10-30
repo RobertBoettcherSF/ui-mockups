@@ -39,7 +39,7 @@ Map views use public map data when online and fall back to generated maps offlin
 ### URL parameters & keys
 Each of these mockups also shows a small hint in its bottom-right corner.
 - `drone-console`, `aether-os`: `?speed=50` speeds up the simulated flight.
-- `self-organizing-system`: press **M** to switch between code and blueprint mode; `?mode=` forces a mode.
+- `self-organizing-system`: press **M** to switch between code and blueprint mode; `?mode=a` (code) or `?mode=b` (blueprint) forces a mode.
 - `craft-schematic-display`: **Space** or click a part to highlight a subsystem.
 - `verdant-os`, `aether-os`: type commands in the terminal and press **Enter**.
 
