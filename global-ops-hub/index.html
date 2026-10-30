@@ -100,4 +100,5 @@ function fallback(){const g=svg.append('g').attr('fill','#1d5fd0');[[60,40,160,1
 (async()=>{try{if(!window.d3||!window.topojson)throw 0;const w=await(await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')).json();
 const f=topojson.feature(w,w.objects.countries).features.filter(c=>c.id!=='010');
 svg.selectAll('path').data(f).enter().append('path').attr('d',path).attr('fill',(c,i)=>['#1d5fd0','#2a72e6','#1550b8'][i%3]).attr('stroke','#0a1d40').attr('stroke-width',.4);overlay();}catch(e){fallback();}})();
-</script></body></html>
+</script><script src="../vendor/voice-cover.js" data-callers="2"></script>
+</body></html>

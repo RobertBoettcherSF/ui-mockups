@@ -42,6 +42,7 @@ Each of these mockups also shows a small hint in its bottom-right corner.
 - `self-organizing-system`: press **M** to switch between code and blueprint mode; `?mode=a` (code) or `?mode=b` (blueprint) forces a mode.
 - `craft-schematic-display`: **Space** or click a part to highlight a subsystem.
 - `verdant-os`, `aether-os`: type commands in the terminal and press **Enter**.
+- `secure-video-call`, `conference-grid`, `secure-comms-portal`, `global-ops-hub`: voice cover via the browser's built-in speech (Web Speech API). It starts on load or on the first click/key if the browser blocks autoplay. Toggle with the bottom-left button or **V**; `?voice=off` disables it. The choice is remembered.
 
 ### Map data attributions
 - Basemap / imagery tiles © Esri; © OpenStreetMap contributors

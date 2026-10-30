@@ -43,4 +43,5 @@ const nodes=[['Node North',72],['Node East',64],['Node South',58],['Node West',6
 function load(){document.getElementById('load').innerHTML=nodes.map(n=>{n[1]=Math.max(40,Math.min(90,n[1]+Math.round((Math.random()-.5)*4)));return `<li>${n[0]} ${n[1]}%</li>`}).join('')}load();setInterval(load,2500);
 let up=58,sync=72;function dash(){up=Math.max(52,Math.min(64,up+Math.round((Math.random()-.5)*2)));document.getElementById('up').textContent=`Uplink: 60% → ${up}%`;document.getElementById('sync').textContent=`Next sync: ${sync} min`}dash();setInterval(dash,3000);setInterval(()=>{sync=sync>1?sync-1:72;dash()},60000);
 function clock(){const d=new Date();document.getElementById('date').textContent='DATE: '+d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});document.getElementById('time').textContent='TIME: '+d.toLocaleTimeString('en-GB')}clock();setInterval(clock,1000);
-</script></body></html>
+</script><script src="../vendor/voice-cover.js" data-callers="4"></script>
+</body></html>

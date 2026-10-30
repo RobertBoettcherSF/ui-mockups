@@ -106,4 +106,5 @@ $('shareBtn').onclick=()=>$('shareBtn').classList.toggle('on');
 $('fsBtn').onclick=()=>{if(!document.fullscreenElement){(document.documentElement.requestFullscreen||(()=>{})).call(document.documentElement)}else{(document.exitFullscreen||(()=>{})).call(document)}};
 $('hangBtn').onclick=()=>{$('ended').style.display='flex';if(recIv)clearInterval(recIv)};
 $('rejoin').onclick=()=>{$('ended').style.display='none'};
-</script></body></html>
+</script><script src="../vendor/voice-cover.js" data-callers="6"></script>
+</body></html>
