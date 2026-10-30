@@ -25,7 +25,8 @@ header{grid-column:1/4;display:flex;align-items:center;justify-content:space-bet
 #charts{grid-column:2;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}#charts canvas{width:100%;height:110px}
 #right{grid-row:2/4;display:flex;flex-direction:column;gap:6px}.big{font-size:28px;color:#d6ff3a}
 .blink{animation:b 1s steps(2) infinite}@keyframes b{50%{opacity:.2}}
-</style></head><body>
+</style><script src="../vendor/debug-cover.js"></script>
+</head><body>
 <header><span>AGRI-MET // DUST STORM WATCH</span><span>GREAT PLAINS · CENTRAL SECTOR</span><span id="clk"></span></header>
 <div id="side">
  <div class="p"><div class="h">System Status</div><div class="row">Radar link<span class="v" id="rstat">CONNECTING</span></div><div class="row">Soil probes<span class="v">48/50</span></div><div class="row">Irrigation<span class="v">STANDBY</span></div><div class="row">Silo vents<span class="v">SEALED</span></div></div>

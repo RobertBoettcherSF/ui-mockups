@@ -1,38 +1,27 @@
 /* Voice cover for call mockups. Web Speech API, no audio files.
    Usage: <script src="../vendor/voice-cover.js" data-callers="4"></script>
    Toggle: button bottom-left or key V. ?voice=off disables.
-   Debug: red button next to it downloads a JSON report (note required).
+   Requires debug-cover.js loaded first (events + state go into its Debug report).
    Pages can listen for 'vc:speaker' events (detail.index = caller, -1 = none). */
 (function(){
-  var APPV='1.1.1';
   var s=document.currentScript, n=+(s&&s.dataset.callers||2);
-  var mock=(location.pathname.split('/').filter(Boolean).slice(-2,-1)[0])||document.title;
   var synth=window.speechSynthesis;
   var muted=/[?&]voice=off/.test(location.search)||localStorage.getItem('vc-muted')==='1';
-  var log=[], plan=[], speaking=-1, unlocked=false, cur=null, lit=null;
-  function ev(type,d){var e={t:new Date().toISOString(),type:type};for(var k in d)e[k]=d[k];log.push(e);if(log.length>200)log.shift();}
+  var plan=[], speaking=-1, unlocked=false, cur=null, lit=null;
+  var D=window.DebugCover||{log:function(){},state:function(){}};
+  function ev(type,d){D.log('voice:'+type,d);}
   window.VoiceCover={log:ev,get speaking(){return speaking;}};
-  function setSpk(i){speaking=i;dispatchEvent(new CustomEvent('vc:speaker',{detail:{index:i}}));}
+  function setSpk(i){var p=speaking;speaking=i;if(p!==i)ev('speaker',{from:p,to:i});dispatchEvent(new CustomEvent('vc:speaker',{detail:{index:i}}));}
   addEventListener('vc:highlight',function(e){lit={index:e.detail.index,label:e.detail.label};ev('highlight',{tile:e.detail.index,label:e.detail.label,speakerId:speaking,match:speaking<0||speaking===e.detail.index});});
-  var css='position:fixed;bottom:10px;z-index:99999;font:11px monospace;padding:4px 8px;border-radius:4px;cursor:pointer;';
-  var btn=document.createElement('button');btn.style.cssText=css+'left:10px;background:#000a;color:#ddd;border:1px solid #666';
-  var dbg=document.createElement('button');dbg.textContent='Debug';dbg.style.cssText=css+'left:150px;background:#b3261e;color:#fff;border:1px solid #e57373;font-weight:bold';
+  var btn=document.createElement('button');btn.setAttribute('data-dbg','1');btn.style.cssText='position:fixed;bottom:10px;left:10px;z-index:99999;font:11px monospace;padding:4px 8px;border-radius:4px;cursor:pointer;background:#000a;color:#ddd;border:1px solid #666';
   function label(){btn.textContent=!synth?'Voice: unsupported':(muted?'🔇 Voice off (V)':'🔊 Voice on (V)');}
-  label(); var root=document.body||document.documentElement; root.appendChild(btn); root.appendChild(dbg);
-  setTimeout(function(){dbg.style.left=(btn.offsetLeft+btn.offsetWidth+8)+'px';},0);
-  ev('load',{mockup:mock,callers:n,muted:muted,speechSynthesis:!!synth});
-  dbg.onclick=function(e){e.stopPropagation();
-    var note=prompt('Debug report — what went wrong? (required)');
-    if(note===null)return; note=note.trim(); if(!note){alert('Please describe the issue.');return;}
-    var rep={appVersion:APPV,mockup:mock,url:location.href,createdAt:new Date().toISOString(),note:note,
-      userAgent:navigator.userAgent,language:navigator.language,
-      screen:{w:screen.width,h:screen.height,viewportW:innerWidth,viewportH:innerHeight,dpr:devicePixelRatio},
+  label(); (document.body||document.documentElement).appendChild(btn);
+  ev('load',{callers:n,muted:muted,speechSynthesis:!!synth});
+  D.state('voice',function(){return {
       voice:{muted:muted,speechSynthesis:!!synth,unlocked:unlocked,speaking:synth?synth.speaking:false,currentSpeaker:speaking,
         availableVoices:synth?synth.getVoices().map(function(v){return v.name+' ('+v.lang+')';}):[]},
       sync:{speakerId:speaking,currentSpeakingVoice:cur?cur.voice:null,currentLine:cur?cur.line:null,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null,match:speaking<0||!lit||lit.index===speaking},
-      speakerPlan:plan, eventLog:log};
-    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(rep,null,2)],{type:'application/json'}));
-    a.download='debug-'+mock+'-'+Date.now()+'.json';document.body.appendChild(a);a.click();a.remove();ev('debug-export',{});};
+      speakerPlan:plan};});
   if(!synth) return;
   var first="This is a mockup GUI. Feel free to use it. If you found it useful, consider giving this repo a star on GitHub.";
   var lines=["I concur.","Good idea.","That sounds like a plan.","If I could do it, I would."];
