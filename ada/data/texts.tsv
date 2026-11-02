@@ -675,3 +675,23 @@ online	online	en línea	en ligne
 scale #:#	Maßstab #:#	escala #:#	échelle #:#
 lim #%	Grenze #%	lím. #%	lim. #%
 regional · ~# km · world-atlas	regional · ~# km · world-atlas	regional · ~# km · world-atlas	régional · ~# km · world-atlas
+# --- v1.12.1 strays
+Secure login accepted - transferring data...	Sichere Anmeldung akzeptiert – Daten werden übertragen...	Inicio de sesión seguro aceptado – transfiriendo datos...	Connexion sécurisée acceptée – transfert des données...
+SENSOR ARRAY SYNC NOMINAL	SENSORFELD SYNC NORMAL	MATRIZ DE SENSORES SINC. NORMAL	RÉSEAU DE CAPTEURS SYNC NOMINAL
+SIGNAL TRACE // MULTI-SERIES	SIGNALVERLAUF // MEHRFACHREIHE	TRAZA DE SEÑAL // MULTISERIE	TRACÉ DU SIGNAL // MULTISÉRIE
+TOP	OBEN	ARRIBA	HAUT
+NOTES / REMARKS	NOTIZEN / BEMERKUNGEN	NOTAS / OBSERVACIONES	NOTES / REMARQUES
+CONNECTED	VERBUNDEN	CONECTADO	CONNECTÉ
+SOURCE: SECURE RELAY CHANNEL	QUELLE: SICHERER RELAISKANAL	FUENTE: CANAL DE RETRANSMISIÓN SEGURO	SOURCE : CANAL RELAIS SÉCURISÉ
+#Ops-Channel	#Ops-Kanal	#Ops-Canal	#Ops-Canal
+ASSEMBLY SCHEMATIC // DRAFT #	BAUGRUPPENSCHEMA // ENTWURF #	ESQUEMA DE ENSAMBLAJE // BORRADOR #	SCHÉMA D'ASSEMBLAGE // ÉBAUCHE #
+EXPLODED VIEW	EXPLOSIONSANSICHT	VISTA DESPIECE	VUE ÉCLATÉE
+[M] TOGGLE MODE  ·  AUTO-CYCLE	[M] MODUS WECHSELN  ·  AUTO-ZYKLUS	[M] CAMBIAR MODO  ·  AUTOCICLO	[M] CHANGER DE MODE  ·  CYCLE AUTO
+Loading module... COMPLETE	Modul wird geladen... FERTIG	Cargando módulo... COMPLETO	Chargement du module... TERMINÉ
+> verify OK	> prüfen OK	> verificar OK	> vérifier OK
+> reorder table	> Tabelle umsortieren	> reordenar tabla	> réordonner la table
+> initialising sector	> Sektor wird initialisiert	> inicializando sector	> initialisation du secteur
+> mapping	> Zuordnung	> asignando	> mappage
+> flush	> leeren	> vaciar	> vidage
+> relink	> neu verknüpfen	> reenlazar	> réédition des liens
+NODE LINK WEIGHT	KNOTEN VERBINDUNG GEWICHT	NODO ENLACE PESO	NŒUD LIAISON POIDS

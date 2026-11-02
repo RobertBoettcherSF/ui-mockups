@@ -83,3 +83,12 @@ Robert's asks:
 3. `ada/src/uim-format.adb`
 4. `vendor/lang.js`
 5. `ada/data/texts.tsv`
+
+## v1.12.1
+
+11. Randomly generated English (login progress lines, schematic labels, the
+    self-organizing console lines, relay headers) now come from rows in
+    `ada/data/texts.tsv` with `#` placeholders, so DE/ES/FR never show them in
+    English. A full smoke (20 screens + gallery, DE/ES/FR at 1280 px, DE/FR at
+    390 px) was run on the final core; English previews were re-shot with the
+    current stamp.

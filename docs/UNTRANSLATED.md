@@ -1,4 +1,4 @@
-# What stays untranslated (v1.12.0)
+# What stays untranslated (v1.12.1)
 
 The language flags (🇩🇪 🇬🇧 🇪🇸 🇫🇷) switch every on-screen text, number format,
 clock format, unit and map place through the Ada core (`ada/`). The things
@@ -16,6 +16,10 @@ below stay as they are **on purpose**.
 | Brand / product names (VerdantOS, AetherOS, Leaflet, Esri, OpenStreetMap, RainViewer, GitHub) | maps, terminals | Names. |
 | Units that are already international (km/h, °C, hPa, µg/m³, NTU, MHz, dBZ, kt for air speed) | everywhere | Already metric / standard. |
 | The **Debug** button, its prompt and the version stamp | every page | Kept English so the debug files are easy to read; the report records the language. |
+| Machine process tables (`PID MODULE ADDR LOAD ST`, `0x… SYNC.L …` rows, module names and their `io.flush :: map` tags, status words OK/BUSY/WAIT/IDLE/DONE/MOVE/SYNC) | self-organizing-system | Generated machine output, like a hex dump. Its labels, hint and console lines (`Loading module... COMPLETE`, `> verify OK` …) are translated. |
+| Shell prompt `agri@verdant:~$` | verdant-os | It is a user@host prompt. |
+| `(C) 2025 Example Systems`, `Esri World Imagery` | secure-comms-portal, ops-centre-berlin | Copyright / map attribution names. |
+| The bilingual word ticker (`INFORMATION RESEAU BULLETIN NETWORK …`) | public-broadcast-channel | Decorative English/French word mix by design. |
 | The Devanagari character rain on the gallery | gallery | Decoration, not text. |
 
 ## Screens with a fixed place
