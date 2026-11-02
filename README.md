@@ -44,7 +44,7 @@ Each of these mockups also shows a small hint in its bottom-right corner.
 - `verdant-os`, `aether-os`: type commands in the terminal and press **Enter**.
 - `secure-video-call`, `conference-grid`, `secure-comms-portal`, `global-ops-hub`: voice cover via the browser's built-in speech (Web Speech API). It starts on load or on the first click/key if the browser blocks autoplay. Toggle with the bottom-left button or **V**; `?voice=off` disables it. The choice is remembered. `conference-grid` speaks French when the gallery language is 🇫🇷 (or `?lang=fr`), preferring French system voices; other screens use English for now.
 - **Voice language policy:** whenever a voice feature is added or changed, add the matching voice samples for every supported gallery language (currently DE, EN, ES, FR). Rollout happens one backlog item at a time. Keys and variables stay English internally; only display/spoken strings are translated.
-- **Every mockup**: red **Debug** button and a bright version stamp (e.g. `v1.11.0`) in the top-right corner; Debug sits bottom-left (next to Voice on call screens), so screenshots show the build. Debug asks for a short note (required) and downloads `debug-<mockup>-v<version>-<time>.json` with app version, URL and params, browser, screen size and the last 500 interaction events (clicks with target, keys, wheel, inputs, resize, visibility, focus, JS errors). On the four voice screens it also includes voice state, the speaker→line→voice plan, speaker changes and a `sync` block (speaker, voice, line, highlighted tile, match). Nothing personal beyond your note — send the file in the chat. In `conference-grid` the SPEAKING tile follows whichever caller is talking. Each caller has a named voice style (neutral / warm / energetic / calm, fixed rate and pitch); when a language has only one system voice, a voice of the other gender may be borrowed from another locale while the text stays in the selected language. Callers speak three rounds (intro and replies, more lines, goodbyes), then the call ends: SPEAKING clears and the Call ended screen shows (Rejoin restarts it).
+- **Every mockup**: red **Debug** button and a bright version stamp (e.g. `v1.12.0`) in the top-right corner; Debug sits bottom-left (next to Voice on call screens), so screenshots show the build. Debug asks for a short note (required) and downloads `debug-<mockup>-v<version>-<time>.json` with app version, URL and params, browser, screen size and the last 500 interaction events (clicks with target, keys, wheel, inputs, resize, visibility, focus, JS errors). On the four voice screens it also includes voice state, the speaker→line→voice plan, speaker changes and a `sync` block (speaker, voice, line, highlighted tile, match). Nothing personal beyond your note — send the file in the chat. In `conference-grid` the SPEAKING tile follows whichever caller is talking. Each caller has a named voice style (neutral / warm / energetic / calm, fixed rate and pitch); when a language has only one system voice, a voice of the other gender may be borrowed from another locale while the text stays in the selected language. Callers speak three rounds (intro and replies, more lines, goodbyes), then the call ends: SPEAKING clears and the Call ended screen shows (Rejoin restarts it).
 - **Updates**: each page checks `version.txt` on load; if a newer build is online, a green **Reload** button appears under the version stamp.
 
 ### Map data attributions
@@ -354,3 +354,14 @@ A generic two-screen flight display with glowing cyan line graphics on dark navy
 ### craft-schematic-display
 
 A generic blueprint-style portrait display: a top-down wireframe schematic of an original small spacecraft design on a navy grid inside a bright cyan frame, with fuel cell and power bus panels below. Subsystems highlight in turn. Click a part or press Space to select one. All labels are generic.
+
+## Languages (v1.12.0)
+
+Pick a flag in the gallery (or add `?lang=de|es|fr|en` to any page). Every
+screen then shows its texts, numbers (`1.234,5`), 24 h clock, units and map
+place in that language: German → Germany/Berlin, Spanish → Spain/Madrid,
+French → France/Paris; English stays as in v1.11.0. All of it comes from a
+small core written in plain Ada (`ada/`), compiled to WebAssembly and
+embedded in `vendor/uim-core.js`, so it works from `file://` too.
+See [docs/HOWTO.md](docs/HOWTO.md), [docs/HOW_WE_GOT_HERE.md](docs/HOW_WE_GOT_HERE.md)
+and [docs/UNTRANSLATED.md](docs/UNTRANSLATED.md).

@@ -19,13 +19,10 @@
     "voicemail-desktop"
   ];
 
-  // Display labels per language. English is the key set.
-  var LABELS = {
-    en: { gallery: "Gallery", jump: "Jump to mockup" },
-    de: { gallery: "Galerie", jump: "Zu Mockup springen" },
-    es: { gallery: "Galería", jump: "Ir a la maqueta" },
-    fr: { gallery: "Galerie", jump: "Aller à la maquette" }
-  };
+  // Labels are English here; the Ada core (vendor/lang.js) translates them.
+  function label(english) {
+    return window.UIM ? window.UIM.t(english) : english;
+  }
 
   var BAR_HEIGHT = 28;
 
@@ -35,18 +32,6 @@
       return window.DebugCover.version;
     }
     return "";
-  }
-
-  // Language saved by the gallery page; English if none.
-  function currentLanguage() {
-    var lang = "en";
-    try {
-      lang = localStorage.getItem("uim-lang") || "en";
-    } catch (e) {}
-    if (!LABELS[lang]) {
-      lang = "en";
-    }
-    return lang;
   }
 
   // Folder name of this page, e.g. "conference-grid".
@@ -77,7 +62,6 @@
   }
 
   function buildBar() {
-    var labels = LABELS[currentLanguage()];
     var version = appVersion();
     var here = currentMockup();
 
@@ -91,7 +75,7 @@
 
     // Gallery link
     var link = document.createElement("a");
-    link.textContent = "\u2190 " + labels.gallery;
+    link.textContent = "\u2190 " + label("Gallery");
     link.href = "../?v=" + version;
     link.style.cssText = "color:#8ecbff;text-decoration:none";
     link.onclick = function () {
@@ -101,7 +85,7 @@
 
     // Dropdown of all mockups
     var select = document.createElement("select");
-    select.title = labels.jump;
+    select.title = label("Jump to mockup");
     select.style.cssText =
       "background:#1a1d24;color:#ddd;border:1px solid #444;" +
       "font:12px monospace;padding:1px 4px";

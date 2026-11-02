@@ -41,35 +41,11 @@
       more_feedback:"If something looks wrong, press Debug and send the file.",more_languages:"It also works in other languages.",
       more_star_too:"I gave it a star already.",more_works_for_me:"Works for me.",
       bye_thanks:"Thanks, everyone. Ending the call now.",bye_see_you:"See you next time.",bye_good_call:"Good call.",
-      bye_later:"Talk later.",bye_cheers:"Cheers.",bye_take_care:"Take care."},
-    de:{intro_star:"Dies ist ein Mockup einer Benutzeroberfläche. Nutzen Sie es gern. Wenn es Ihnen geholfen hat, geben Sie diesem Repository einen Stern auf GitHub.",
-      reply_concur:"Ich stimme zu.",reply_good_idea:"Gute Idee.",reply_plan:"Das klingt nach einem Plan.",reply_would_if_could:"Wenn ich könnte, würde ich es tun.",
-      reply_agree_all:"Einverstanden, auf ganzer Linie.",reply_next_step:"Gehen wir den nächsten Schritt.",
-      more_open_source:"Der Code ist Open Source, unter der MIT-Lizenz.",more_try_it:"Probieren Sie die anderen Ansichten in der Galerie aus.",
-      more_feedback:"Wenn etwas nicht stimmt, drücken Sie Debug und senden Sie die Datei.",more_languages:"Es funktioniert auch in anderen Sprachen.",
-      more_star_too:"Ich habe schon einen Stern vergeben.",more_works_for_me:"Passt für mich.",
-      bye_thanks:"Danke an alle. Ich beende jetzt den Anruf.",bye_see_you:"Bis zum nächsten Mal.",bye_good_call:"Gutes Gespräch.",
-      bye_later:"Bis später.",bye_cheers:"Tschüss.",bye_take_care:"Machen Sie es gut."},
-    es:{intro_star:"Esta es una maqueta de interfaz gráfica. Siéntase libre de usarla. Si le ha resultado útil, considere darle una estrella a este repositorio en GitHub.",
-      reply_concur:"Estoy de acuerdo.",reply_good_idea:"Buena idea.",reply_plan:"Me parece un buen plan.",reply_would_if_could:"Si pudiera hacerlo, lo haría.",
-      reply_agree_all:"De acuerdo en todo.",reply_next_step:"Demos el siguiente paso.",
-      more_open_source:"El código es de código abierto, bajo licencia MIT.",more_try_it:"Pruebe las otras pantallas de la galería.",
-      more_feedback:"Si algo no se ve bien, pulse Debug y envíe el archivo.",more_languages:"También funciona en otros idiomas.",
-      more_star_too:"Yo ya le di una estrella.",more_works_for_me:"Por mí, bien.",
-      bye_thanks:"Gracias a todos. Termino la llamada.",bye_see_you:"Hasta la próxima.",bye_good_call:"Buena llamada.",
-      bye_later:"Hablamos luego.",bye_cheers:"Adiós.",bye_take_care:"Cuídense."},
-    fr:{intro_star:"Ceci est une maquette d'interface graphique. N'hésitez pas à l'utiliser. Si vous l'avez trouvée utile, pensez à donner une étoile à ce dépôt sur GitHub.",
-      reply_concur:"Je suis d'accord.",reply_good_idea:"Bonne idée.",reply_plan:"Ça me semble être un bon plan.",reply_would_if_could:"Si je pouvais le faire, je le ferais.",
-      reply_agree_all:"D'accord sur toute la ligne.",reply_next_step:"Passons à l'étape suivante.",
-      more_open_source:"Le code est open source, sous licence MIT.",more_try_it:"Essayez les autres écrans de la galerie.",
-      more_feedback:"Si quelque chose cloche, appuyez sur Debug et envoyez le fichier.",more_languages:"Ça marche aussi dans d'autres langues.",
-      more_star_too:"Je lui ai déjà donné une étoile.",more_works_for_me:"Ça me va.",
-      bye_thanks:"Merci à tous. Je termine l'appel.",bye_see_you:"À la prochaine.",bye_good_call:"Bon appel.",
-      bye_later:"On se reparle plus tard.",bye_cheers:"Salut.",bye_take_care:"Prenez soin de vous."}};
-  var TAP={en:'Tap to hear',de:'Tippen zum Anhören',es:'Toca para escuchar',fr:'Touchez pour écouter'};
-  function tr(k){return (S[lang]&&S[lang][k])||S.en[k];}
+      bye_later:"Talk later.",bye_cheers:"Cheers.",bye_take_care:"Take care."}};
+  // The English lines are the keys; the Ada core (vendor/lang.js) gives the other languages.
+  function tr(k){return lang!=='en'&&window.UIM?UIM.t(S.en[k]):S.en[k];}
   var supported=(s&&s.dataset.langs||'en').split(','), lang='en';
-  try{var ul=localStorage.getItem('uim-lang');var q=(location.search.match(/[?&]lang=(\w+)/)||[])[1];ul=q||ul;if(ul&&supported.indexOf(ul)>=0&&S[ul])lang=ul;}catch(e){}
+  try{var ul=localStorage.getItem('uim-lang');var q=(location.search.match(/[?&]lang=(\w+)/)||[])[1];ul=q||ul;if(ul&&supported.indexOf(ul)>=0&&TAGS[ul])lang=ul;}catch(e){}
   ev('lang',{lang:lang,supported:supported});
   var started=false, queued=0, ended=false;
 
@@ -131,7 +107,7 @@
   // auto-start; the overlay's handler calls run() directly, which calls
   // synth.speak() before returning.
   var tap=document.createElement('button');
-  tap.textContent='\u25B6 '+(TAP[lang]||TAP.en);
+  tap.textContent='\u25B6 '+(lang!=='en'&&window.UIM?UIM.t('Tap to hear'):'Tap to hear');
   tap.style.cssText='position:fixed;inset:0;margin:auto;width:min(80vw,360px);height:120px;z-index:99998;'+
     'font:600 22px system-ui,sans-serif;color:#fff;background:rgba(10,120,60,.92);border:2px solid #7f7;border-radius:16px;cursor:pointer';
   function onTap(e){

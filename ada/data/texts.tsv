@@ -1,0 +1,677 @@
+# Columns: english, german, spanish, french (separated by one TAB).
+# One row per on-screen English text. "#" stands for a number; numbers are kept
+# in the same order in every language. Rows are matched longest-first inside
+# longer texts, so a log line can be made of several rows.
+# --- gallery and top bar
+UI Mockups	UI-Mockups	Maquetas de interfaz	Maquettes d'interface
+Standalone HTML/CSS/JS interface mockups. Click a card to open it. Source on	Eigenständige HTML/CSS/JS-Oberflächen-Mockups. Karte anklicken zum Öffnen. Quellcode auf	Maquetas de interfaz independientes en HTML/CSS/JS. Haga clic en una tarjeta para abrirla. Código fuente en	Maquettes d'interface autonomes en HTML/CSS/JS. Cliquez sur une carte pour l'ouvrir. Code source sur
+MIT licensed · # mockups	MIT-Lizenz · # Mockups	Licencia MIT · # maquetas	Licence MIT · # maquettes
+Gallery	Galerie	Galería	Galerie
+Jump to mockup	Zu Mockup springen	Ir a la maqueta	Aller à la maquette
+Language	Sprache	Idioma	Langue
+Farm weather & crop monitoring console with live radar map	Konsole für Hofwetter und Feldüberwachung mit Live-Radarkarte	Consola de meteorología agrícola y cultivos con mapa de radar en vivo	Console météo agricole et suivi des cultures avec carte radar en direct
+Solar UAV ground-control console with satellite tracking map	Bodenkontrollkonsole für Solardrohnen mit Satelliten-Trackingkarte	Consola de control en tierra de UAV solar con mapa de seguimiento por satélite	Console de contrôle au sol de drone solaire avec carte de suivi satellite
+Farm desktop operating system concept	Konzept eines Desktop-Betriebssystems für den Hof	Concepto de sistema operativo de escritorio agrícola	Concept de système d'exploitation de bureau agricole
+Drone desktop operating system concept	Konzept eines Desktop-Betriebssystems für Drohnen	Concepto de sistema operativo de escritorio para drones	Concept de système d'exploitation de bureau pour drones
+Generic secure video-call interface	Generische Oberfläche für sichere Videoanrufe	Interfaz genérica de videollamada segura	Interface générique d'appel vidéo sécurisé
+#×# video conference grid with active-speaker cycle	#×#-Videokonferenzraster mit wechselndem aktivem Sprecher	Cuadrícula de videoconferencia #×# con orador activo rotativo	Grille de visioconférence #×# avec orateur actif en alternance
+Desktop with interactive voicemail window	Desktop mit interaktivem Mailbox-Fenster	Escritorio con ventana interactiva de buzón de voz	Bureau avec fenêtre de messagerie vocale interactive
+Operations-centre dashboard centred on Brussels	Einsatzzentralen-Dashboard mit Mittelpunkt Brüssel	Panel de centro de operaciones centrado en Bruselas	Tableau de bord de centre d'opérations centré sur Bruxelles
+Regional operations dashboard centred on Paris	Regionales Einsatz-Dashboard mit Mittelpunkt Paris	Panel regional de operaciones centrado en París	Tableau de bord des opérations régionales centré sur Paris
+Air-patrol dashboard around the Bundestag, Berlin	Luftpatrouillen-Dashboard rund um den Bundestag, Berlin	Panel de patrulla aérea en torno al Bundestag, Berlín	Tableau de bord de patrouille aérienne autour du Bundestag, Berlin
+Bilingual public-information broadcast screen	Zweisprachiger Bildschirm für öffentliche Informationssendungen	Pantalla bilingüe de difusión de información pública	Écran bilingue de diffusion d'informations publiques
+Code / blueprint two-mode system visualisation	Systemvisualisierung mit zwei Modi: Code / Bauplan	Visualización del sistema en dos modos: código / plano	Visualisation du système en deux modes : code / plan
+Body-scan visualisation with live readouts	Körperscan-Visualisierung mit Live-Messwerten	Visualización de escaneo corporal con lecturas en vivo	Visualisation de scan corporel avec mesures en direct
+Field monitoring overview, chart and file viewer	Feldüberwachung: Übersicht, Diagramm und Dateibetrachter	Monitorización de campo: resumen, gráfico y visor de archivos	Surveillance de terrain : synthèse, graphique et visionneuse de fichiers
+Software-defined radio station console	Konsole einer softwaredefinierten Funkstation	Consola de estación de radio definida por software	Console de station radio logicielle
+Green-on-black secure communications portal	Grün-auf-Schwarz-Portal für sichere Kommunikation	Portal de comunicaciones seguras verde sobre negro	Portail de communications sécurisées vert sur noir
+Global operations hub with world map and feeds	Globale Einsatzzentrale mit Weltkarte und Meldungen	Centro global de operaciones con mapa mundial y noticias	Centre d'opérations mondial avec carte du monde et flux
+Retro coastal monitoring terminal with camera views	Retro-Terminal zur Küstenüberwachung mit Kameraansichten	Terminal retro de vigilancia costera con vistas de cámara	Terminal rétro de surveillance côtière avec vues caméra
+Twin-screen spacecraft cockpit flight display	Zwei-Bildschirm-Fluganzeige im Raumschiffcockpit	Pantalla de vuelo de cabina de nave espacial con dos pantallas	Affichage de vol de cockpit de vaisseau à deux écrans
+Interactive spacecraft subsystem schematic	Interaktiver Schaltplan der Raumschiff-Subsysteme	Esquema interactivo de subsistemas de nave espacial	Schéma interactif des sous-systèmes du vaisseau
+# --- voice lines (voice-cover.js keeps the English, Ada holds the rest)
+Tap to hear	Tippen zum Anhören	Toca para escuchar	Touchez pour écouter
+This is a mockup GUI. Feel free to use it. If you found it useful, consider giving this repo a star on GitHub.	Dies ist ein Mockup einer Benutzeroberfläche. Nutzen Sie es gern. Wenn es Ihnen geholfen hat, geben Sie diesem Repository einen Stern auf GitHub.	Esta es una maqueta de interfaz gráfica. Siéntase libre de usarla. Si le ha resultado útil, considere darle una estrella a este repositorio en GitHub.	Ceci est une maquette d'interface graphique. N'hésitez pas à l'utiliser. Si vous l'avez trouvée utile, pensez à donner une étoile à ce dépôt sur GitHub.
+I concur.	Ich stimme zu.	Estoy de acuerdo.	Je suis d'accord.
+Good idea.	Gute Idee.	Buena idea.	Bonne idée.
+That sounds like a plan.	Das klingt nach einem Plan.	Me parece un buen plan.	Ça me semble être un bon plan.
+If I could do it, I would.	Wenn ich könnte, würde ich es tun.	Si pudiera hacerlo, lo haría.	Si je pouvais le faire, je le ferais.
+Agreed, all around.	Einverstanden, auf ganzer Linie.	De acuerdo en todo.	D'accord sur toute la ligne.
+Let's take the next step.	Gehen wir den nächsten Schritt.	Demos el siguiente paso.	Passons à l'étape suivante.
+The code is open source, under the MIT licence.	Der Code ist Open Source, unter der MIT-Lizenz.	El código es de código abierto, bajo licencia MIT.	Le code est open source, sous licence MIT.
+Try the other screens in the gallery.	Probieren Sie die anderen Ansichten in der Galerie aus.	Pruebe las otras pantallas de la galería.	Essayez les autres écrans de la galerie.
+If something looks wrong, press Debug and send the file.	Wenn etwas nicht stimmt, drücken Sie Debug und senden Sie die Datei.	Si algo no se ve bien, pulse Debug y envíe el archivo.	Si quelque chose cloche, appuyez sur Debug et envoyez le fichier.
+It also works in other languages.	Es funktioniert auch in anderen Sprachen.	También funciona en otros idiomas.	Ça marche aussi dans d'autres langues.
+I gave it a star already.	Ich habe schon einen Stern vergeben.	Yo ya le di una estrella.	Je lui ai déjà donné une étoile.
+Works for me.	Passt für mich.	Por mí, bien.	Ça me va.
+Thanks, everyone. Ending the call now.	Danke an alle. Ich beende jetzt den Anruf.	Gracias a todos. Termino la llamada.	Merci à tous. Je termine l'appel.
+See you next time.	Bis zum nächsten Mal.	Hasta la próxima.	À la prochaine.
+Good call.	Gutes Gespräch.	Buena llamada.	Bon appel.
+Talk later.	Bis später.	Hablamos luego.	On se reparle plus tard.
+Cheers.	Tschüss.	Adiós.	Salut.
+Take care.	Machen Sie es gut.	Cuídense.	Prenez soin de vous.
+# --- dates and weekdays
+DATE: November #, #	DATUM: #. November #	FECHA: # de noviembre de #	DATE : # novembre #
+November #, #	#. November #	# de noviembre de #	# novembre #
+November # #	#. November #	# de noviembre de #	# novembre #
+MON	MO	LUN	LUN
+TUE	DI	MAR	MAR
+WED	MI	MIÉ	MER
+THU	DO	JUE	JEU
+FRI	FR	VIE	VEN
+SAT	SA	SÁB	SAM
+SUN	SO	DOM	DIM
+Mon #:#	Mo #:#	lun #:#	lun #:#
+Saturday	Samstag	sábado	samedi
+Monday	Montag	lunes	lundi
+TIME: #:#:#	ZEIT: #:#:#	HORA: #:#:#	HEURE : #:#:#
+TIME	ZEIT	HORA	HEURE
+Time: #:# LT	Zeit: #:# Ortszeit	Hora: #:# local	Heure : #:# locale
+#:#:# LT	#:#:# Ortszeit	#:#:# local	#:#:# locale
+#:# LT	#:# Ortszeit	#:# local	#:# locale
+#:# CET	#:# MEZ	#:# CET	#:# HNEC
+Team Call – #:#	Teamanruf – #:#	Llamada de equipo – #:#	Appel d'équipe – #:#
+Forecast #h	Prognose # h	Previsión # h	Prévision # h
+trend ▲ # / #h	Trend ▲ # / # h	tendencia ▲ # / # h	tendance ▲ # / # h
+# --- global ops hub
+Scheduled maintenance window confirmed for Saturday	Wartungsfenster für Samstag bestätigt	Ventana de mantenimiento confirmada para el sábado	Fenêtre de maintenance confirmée pour samedi
+Backup link online and verified	Ersatzverbindung online und geprüft	Enlace de respaldo en línea y verificado	Liaison de secours en ligne et vérifiée
+Quarterly report draft circulated to teams	Entwurf des Quartalsberichts an die Teams verteilt	Borrador del informe trimestral enviado a los equipos	Projet de rapport trimestriel diffusé aux équipes
+Regional sync moved to #:#	Regionaler Abgleich auf #:# verschoben	Sincronización regional trasladada a las #:#	Synchro régionale déplacée à #:#
+Firmware update rollout at # percent	Firmware-Update zu # Prozent verteilt	Actualización de firmware al # por ciento	Déploiement du firmware à # pour cent
+Visitor access list refreshed	Besucherliste aktualisiert	Lista de acceso de visitantes actualizada	Liste d'accès des visiteurs actualisée
+Training session recordings now available	Aufzeichnungen der Schulung jetzt verfügbar	Grabaciones de la formación ya disponibles	Enregistrements de la formation disponibles
+Global Ops Hub	Globale Einsatzzentrale	Centro global de operaciones	Centre d'opérations mondial
+Global Ops | Overview	Globale Einsätze | Übersicht	Operaciones globales | Resumen	Opérations mondiales | Vue d'ensemble
+Info Feed	Meldungen	Noticias	Flux d'infos
+Network Health:	Netzzustand:	Estado de la red:	État du réseau :
+Network Load Meter	Netzlastanzeige	Medidor de carga de red	Indicateur de charge réseau
+Network link: STABLE	Netzverbindung: STABIL	Enlace de red: ESTABLE	Liaison réseau : STABLE
+Server load:	Serverlast:	Carga del servidor:	Charge serveur :
+Storage: #%	Speicher: #%	Almacenamiento: #%	Stockage : #%
+Storage:	Speicher:	Almacenamiento:	Stockage :
+Next sync: # min	Nächster Abgleich: # min	Próxima sincronización: # min	Prochaine synchro : # min
+Multi-Region Map	Mehrregionenkarte	Mapa multirregión	Carte multirégion
+Resource Status	Ressourcenstatus	Estado de recursos	État des ressources
+System Status	Systemstatus	Estado del sistema	État du système
+Task Tracker	Aufgabenliste	Seguimiento de tareas	Suivi des tâches
+Prepare agenda for regional sync	Agenda für regionalen Abgleich vorbereiten	Preparar la agenda de la sincronización regional	Préparer l'ordre du jour de la synchro régionale
+Confirm backup schedule with Site B	Sicherungsplan mit Standort B abstimmen	Confirmar el plan de copias con el sitio B	Confirmer le planning de sauvegarde avec le site B
+Review weekly capacity report	Wöchentlichen Kapazitätsbericht prüfen	Revisar el informe semanal de capacidad	Examiner le rapport hebdomadaire de capacité
+Update shared contact directory	Gemeinsames Kontaktverzeichnis aktualisieren	Actualizar el directorio de contactos compartido	Mettre à jour l'annuaire partagé
+Backup Completed	Sicherung abgeschlossen	Copia de seguridad completada	Sauvegarde terminée
+Software Update Available	Software-Update verfügbar	Actualización de software disponible	Mise à jour logicielle disponible
+System Tray Alerts	Meldungen im Infobereich	Alertas de la bandeja del sistema	Alertes de la zone de notification
+System Dashboard	System-Dashboard	Panel del sistema	Tableau de bord système
+Node Central #%	Knoten Mitte #%	Nodo central #%	Nœud central #%
+Node East #%	Knoten Ost #%	Nodo este #%	Nœud est #%
+Node North #%	Knoten Nord #%	Nodo norte #%	Nœud nord #%
+Node South #%	Knoten Süd #%	Nodo sur #%	Nœud sud #%
+Node West #%	Knoten West #%	Nodo oeste #%	Nœud ouest #%
+Node Central	Knoten Mitte	Nodo central	Nœud central
+Node East	Knoten Ost	Nodo este	Nœud est
+Node North	Knoten Nord	Nodo norte	Nœud nord
+Node South	Knoten Süd	Nodo sur	Nœud sud
+Node West	Knoten West	Nodo oeste	Nœud ouest
+Pacific	Pazifik	Pacífico	Pacifique
+Atlantic	Atlantik	Atlántico	Atlantique
+Indian	Indischer	Índico	Indien
+Arctic Ocean	Arktischer Ozean	Océano Ártico	Océan Arctique
+Ocean	Ozean	Océano	Océan
+North	Nord	Norte	Nord
+South	Süd	Sur	Sud
+# --- coastal monitor
+Coastal Monitor	Küstenmonitor	Monitor costero	Moniteur côtier
+Buoy # (Pacific): water temp # C	Boje # (Pazifik): Wassertemp. # °C	Boya # (Pacífico): temp. del agua # °C	Bouée # (Pacifique) : temp. de l'eau # °C
+Buoy # (Atlantic): wave ht # m	Boje # (Atlantik): Wellenhöhe # m	Boya # (Atlántico): altura de ola # m	Bouée # (Atlantique) : houle # m
+Buoy # (Indian): wind # kt NE	Boje # (Indik): Wind # kn NO	Boya # (Índico): viento # nudos NE	Bouée # (Indien) : vent # nd NE
+Buoy Telemetry Feed	Bojen-Telemetrie	Telemetría de boyas	Télémétrie des bouées
+EVENT: Scheduled calibration complete	EREIGNIS: Kalibrierung fertig	EVENTO: Calibración programada completada	ÉVÉNEMENT : Étalonnage planifié terminé
+INFO: All buoys reporting	INFO: Alle Bojen melden	INFO: Todas las boyas informan	INFO : Toutes les bouées répondent
+DISPATCH: Daily summary generated	MELDUNG: Tagesbericht erstellt	DESPACHO: Resumen diario generado	DÉPÊCHE : Synthèse quotidienne générée
+NOTE: Systems nominal	HINWEIS: Systeme normal	NOTA: Sistemas normales	NOTE : Systèmes nominaux
+INFO: Webcam feeds refreshed	INFO: Webcam-Bilder aktualisiert	INFO: Imágenes de webcam actualizadas	INFO : Flux webcam actualisés
+EVENT: Tide gauge sync complete	EREIGNIS: Pegelabgleich abgeschlossen	EVENTO: Sincronización del mareógrafo completada	ÉVÉNEMENT : Synchro du marégraphe terminée
+NOTE: Next maintenance window #:# UTC	HINWEIS: Nächstes Wartungsfenster #:# UTC	NOTA: Próxima ventana de mantenimiento #:# UTC	NOTE : Prochaine maintenance #:# UTC
+INFO: Data archive backup finished	INFO: Datenarchiv gesichert	INFO: Copia del archivo de datos terminada	INFO : Sauvegarde de l'archive terminée
+NORTH ATLANTIC CAM	KAMERA NORDATLANTIK	CÁMARA ATLÁNTICO NORTE	CAMÉRA ATLANTIQUE NORD
+PACIFIC COASTAL WEBCAM	WEBCAM PAZIFIKKÜSTE	WEBCAM COSTA DEL PACÍFICO	WEBCAM CÔTE PACIFIQUE
+Tide & Wave Log	Gezeiten- und Wellenprotokoll	Registro de mareas y oleaje	Journal des marées et des vagues
+Station A	Station A	Estación A	Station A
+Station B	Station B	Estación B	Station B
+Station C	Station C	Estación C	Station C
+Event Log	Ereignisprotokoll	Registro de eventos	Journal des événements
+EVENT LOG	EREIGNISPROTOKOLL	REGISTRO DE EVENTOS	JOURNAL DES ÉVÉNEMENTS
+# --- ops centres (Berlin, Europe, France)
+AIR PATROL #	LUFTPATROUILLE #	PATRULLA AÉREA #	PATROUILLE AÉRIENNE #
+> AIR PATROL # — on station	> LUFTPATROUILLE # — auf Position	> PATRULLA AÉREA # — en posición	> PATROUILLE AÉRIENNE # — en position
+> Airspace clear — nominal	> Luftraum frei — normal	> Espacio aéreo despejado — normal	> Espace aérien dégagé — nominal
+> Crew handover logged	> Schichtübergabe protokolliert	> Relevo de tripulación registrado	> Relève d'équipage consignée
+> Daily synchronisation completed on schedule	> Täglicher Abgleich planmäßig abgeschlossen	> Sincronización diaria completada según lo previsto	> Synchronisation quotidienne terminée comme prévu
+> Field units checked in at all sites	> Außeneinheiten an allen Standorten gemeldet	> Unidades de campo registradas en todos los sitios	> Unités de terrain enregistrées sur tous les sites
+> Next briefing cycle in preparation	> Nächste Lagebesprechung in Vorbereitung	> Próximo ciclo de informes en preparación	> Prochain cycle de briefing en préparation
+> Perimeter check complete	> Perimeterkontrolle abgeschlossen	> Control del perímetro completado	> Contrôle du périmètre terminé
+> Regional teams reporting nominal status	> Regionalteams melden Normalbetrieb	> Equipos regionales informan estado normal	> Équipes régionales en état nominal
+> Relay link verified	> Relaisverbindung geprüft	> Enlace de retransmisión verificado	> Liaison relais vérifiée
+> Routine audit queued for review	> Routineprüfung zur Durchsicht eingereiht	> Auditoría rutinaria en cola de revisión	> Audit de routine en attente de revue
+> Region A	> Region A	> Región A	> Région A
+> Region B	> Region B	> Región B	> Région B
+AIRSPACE NOTICE	LUFTRAUMHINWEIS	AVISO DE ESPACIO AÉREO	AVIS D'ESPACE AÉRIEN
+AUDIO CHANNEL A — REGIONAL DESK	AUDIOKANAL A — REGIONALSTELLE	CANAL DE AUDIO A — MESA REGIONAL	CANAL AUDIO A — BUREAU RÉGIONAL
+AUDIO CHANNEL B — CENTRAL DESK	AUDIOKANAL B — ZENTRALE	CANAL DE AUDIO B — MESA CENTRAL	CANAL AUDIO B — BUREAU CENTRAL
+AUTHORISED PERSONNEL ONLY	NUR FÜR BEFUGTES PERSONAL	SOLO PERSONAL AUTORIZADO	PERSONNEL AUTORISÉ UNIQUEMENT
+AUTHORIZED PERSONNEL ONLY	NUR FÜR BEFUGTES PERSONAL	SOLO PERSONAL AUTORIZADO	PERSONNEL AUTORISÉ UNIQUEMENT
+BERLIN SPATIAL SATELLITE PROJECTION MAP	SATELLITEN-PROJEKTIONSKARTE BERLIN	MAPA DE PROYECCIÓN SATELITAL DE BERLÍN	CARTE DE PROJECTION SATELLITE DE BERLIN
+CENTRAL DESK	ZENTRALE	MESA CENTRAL	BUREAU CENTRAL
+Central desk:	Zentrale:	Mesa central:	Bureau central :
+COMMAND STATUS	EINSATZSTATUS	ESTADO DEL MANDO	ÉTAT DU COMMANDEMENT
+CONTINENTAL OPERATIONS CENTRE	KONTINENTALE EINSATZZENTRALE	CENTRO DE OPERACIONES CONTINENTAL	CENTRE D'OPÉRATIONS CONTINENTAL
+Continental Operations Centre	Kontinentale Einsatzzentrale	Centro de operaciones continental	Centre d'opérations continental
+REGIONAL OPERATIONS CENTRE	REGIONALE EINSATZZENTRALE	CENTRO DE OPERACIONES REGIONAL	CENTRE D'OPÉRATIONS RÉGIONAL
+Regional Operations Centre — Berlin	Regionale Einsatzzentrale — Berlin	Centro de operaciones regional — Berlín	Centre d'opérations régional — Berlin
+JOINT COORDINATION DESK	GEMEINSAME KOORDINIERUNGSSTELLE	MESA DE COORDINACIÓN CONJUNTA	BUREAU DE COORDINATION CONJOINT
+Coordination lead:	Koordinationsleitung:	Dirección de coordinación:	Responsable de coordination :
+Coordinator — Mara Venn	Koordinatorin — Mara Venn	Coordinadora — Mara Venn	Coordinatrice — Mara Venn
+Coordinator,	Koordination,	Coordinación,	Coordination,
+Council Chair — Network Partners	Ratsvorsitz — Netzwerkpartner	Presidencia del consejo — Socios de la red	Présidence du conseil — Partenaires du réseau
+Liaison Officer — Kai Brenner	Verbindungsoffizier — Kai Brenner	Oficial de enlace — Kai Brenner	Officier de liaison — Kai Brenner
+Regional Lead East — Ines Corral	Regionalleitung Ost — Ines Corral	Responsable regional este — Ines Corral	Responsable régionale Est — Ines Corral
+Regional Lead North — Tobias Ekker	Regionalleitung Nord — Tobias Ekker	Responsable regional norte — Tobias Ekker	Responsable régional Nord — Tobias Ekker
+Regional Lead South — Dev Ashby	Regionalleitung Süd — Dev Ashby	Responsable regional sur — Dev Ashby	Responsable régional Sud — Dev Ashby
+Regional liaison:	Regionale Verbindung:	Enlace regional:	Liaison régionale :
+Partner support:	Partnerunterstützung:	Apoyo de socios:	Soutien partenaires :
+Readiness:	Bereitschaft:	Disponibilidad:	Disponibilité :
+Relay link:	Relaisverbindung:	Enlace de retransmisión:	Liaison relais :
+Operation:	Einsatz:	Operación:	Opération :
+Schedule:	Zeitplan:	Horario:	Horaire :
+Status:	Status:	Estado:	État :
+Lead,	Leitung,	Dirección,	Direction,
+Support,	Unterstützung,	Apoyo,	Soutien,
+Analyst,	Analyst,	Analista,	Analyste,
+EXECUTIVE OFFICE B	BÜRO DER LEITUNG B	OFICINA EJECUTIVA B	BUREAU EXÉCUTIF B
+Executive Office B — Chief of Staff Aide	Büro der Leitung B — Referent der Stabschefin	Oficina ejecutiva B — Asistente del jefe de gabinete	Bureau exécutif B — Assistant du chef de cabinet
+OFFICE OF THE AIDE	BÜRO DES REFERENTEN	OFICINA DEL ASISTENTE	BUREAU DE L'ASSISTANT
+REMOTE OFFICE A	AUSSENSTELLE A	OFICINA REMOTA A	BUREAU DISTANT A
+Remote Office A — Harbourton	Außenstelle A — Harbourton	Oficina remota A — Harbourton	Bureau distant A — Harbourton
+LINK STATUS: STABLE	VERBINDUNGSSTATUS: STABIL	ESTADO DEL ENLACE: ESTABLE	ÉTAT DE LA LIAISON : STABLE
+SECURE RELAY NODE #: ONLINE	SICHERER RELAISKNOTEN #: ONLINE	NODO DE RETRANSMISIÓN SEGURO #: EN LÍNEA	NŒUD RELAIS SÉCURISÉ # : EN LIGNE
+AIR PATROL #: ON STATION	LUFTPATROUILLE #: AUF POSITION	PATRULLA AÉREA #: EN POSICIÓN	PATROUILLE AÉRIENNE # : EN POSITION
+ENCRYPTION: ACTIVE	VERSCHLÜSSELUNG: AKTIV	CIFRADO: ACTIVO	CHIFFREMENT : ACTIF
+SATELLITE TELEMETRY: NOMINAL	SATELLITENTELEMETRIE: NORMAL	TELEMETRÍA SATELITAL: NORMAL	TÉLÉMÉTRIE SATELLITE : NOMINALE
+AIRSPACE: CLEAR	LUFTRAUM: FREI	ESPACIO AÉREO: DESPEJADO	ESPACE AÉRIEN : DÉGAGÉ
+// SYSTEM ALERT //	// SYSTEMALARM //	// ALERTA DEL SISTEMA //	// ALERTE SYSTÈME //
+TELEMETRY SIGNAL LOST:	TELEMETRIESIGNAL VERLOREN:	SEÑAL DE TELEMETRÍA PERDIDA:	SIGNAL DE TÉLÉMÉTRIE PERDU :
+TRANSPONDER STATUS:	TRANSPONDERSTATUS:	ESTADO DEL TRANSPONDEDOR:	ÉTAT DU TRANSPONDEUR :
+LINK RE-ESTABLISHING	VERBINDUNG WIRD WIEDERHERGESTELLT	RESTABLECIENDO ENLACE	RÉTABLISSEMENT DE LA LIAISON
+RE-ESTABLISHING	WIRD WIEDERHERGESTELLT	RESTABLECIENDO	RÉTABLISSEMENT
+UNKNOWN	UNBEKANNT	DESCONOCIDO	INCONNU
+PATROL ROTATION	PATROUILLENWECHSEL	ROTACIÓN DE PATRULLAS	ROTATION DES PATROUILLES
+PATROL SCHEDULE	PATROUILLENPLAN	CALENDARIO DE PATRULLAS	PLANNING DES PATROUILLES
+Perimeter Patrol	Perimeterpatrouille	Patrulla perimetral	Patrouille de périmètre
+RELAY PLAN	RELAISPLAN	PLAN DE RETRANSMISIÓN	PLAN DE RELAIS
+ROUTE SURVEY	STRECKENERKUNDUNG	RECONOCIMIENTO DE RUTA	RECONNAISSANCE D'ITINÉRAIRE
+ROUTINE CHECKS	ROUTINEKONTROLLEN	CONTROLES RUTINARIOS	CONTRÔLES DE ROUTINE
+STANDING NOTICE	DAUERHINWEIS	AVISO PERMANENTE	AVIS PERMANENT
+WEATHER BRIEF	WETTERLAGE	PARTE METEOROLÓGICO	POINT MÉTÉO
+NORTHERN BRIDGE	NORDBRÜCKE	PUENTE NORTE	PONT NORD
+WESTERN ANCHOR	WESTANKER	ANCLA OESTE	ANCRAGE OUEST
+OPERATION STATUS	EINSATZLAGE	ESTADO DE LA OPERACIÓN	ÉTAT DE L'OPÉRATION
+ON DUTY	IM DIENST	DE SERVICIO	EN SERVICE
+— Crew check complete	— Besatzungscheck abgeschlossen	— Revisión de tripulación completada	— Vérification équipage terminée
+— Patrol orbit established	— Patrouillenkreis eingenommen	— Órbita de patrulla establecida	— Orbite de patrouille établie
+— Perimeter sweep logged	— Perimeterabsuche protokolliert	— Barrido perimetral registrado	— Ratissage du périmètre consigné
+— Relay link nominal	— Relaisverbindung normal	— Enlace de retransmisión normal	— Liaison relais nominale
+• Keep continuous relay with central desk	• Ständige Verbindung zur Zentrale halten	• Mantener retransmisión continua con la mesa central	• Maintenir le relais continu avec le bureau central
+• Maintain holding orbit at set altitude	• Warteschleife in vorgegebener Höhe halten	• Mantener la órbita de espera a la altitud fijada	• Maintenir l'orbite d'attente à l'altitude fixée
+• Report any traffic entering the ring	• Jeden Verkehr im Ring melden	• Informar de cualquier tráfico que entre en el anillo	• Signaler tout trafic entrant dans l'anneau
+Imagery © Esri, Maxar, Earthstar Geographics	Bilder © Esri, Maxar, Earthstar Geographics	Imágenes © Esri, Maxar, Earthstar Geographics	Images © Esri, Maxar, Earthstar Geographics
+Imagery ©	Bilder ©	Imágenes ©	Images ©
+Basemap ©	Grundkarte ©	Mapa base ©	Fond de carte ©
+Tiles ©	Kacheln ©	Teselas ©	Tuiles ©
+generated globe · offline	generierter Globus · offline	globo generado · sin conexión	globe généré · hors ligne
+regional · ~# km · world-atlas	regional · ~# km · world-atlas	regional · ~# km · world-atlas	régional · ~# km · world-atlas
+Scale: # : # # | Projection: WGS #	Maßstab: # : # # | Projektion: WGS #	Escala: # : # # | Proyección: WGS #	Échelle : # : # # | Projection : WGS #
+SATELLITE WORLDWIDE PROJECTION	WELTWEITE SATELLITENPROJEKTION	PROYECCIÓN SATELITAL MUNDIAL	PROJECTION SATELLITE MONDIALE
+INTERCEPT DATA PROJECTION	ABFANGDATEN-PROJEKTION	PROYECCIÓN DE DATOS INTERCEPTADOS	PROJECTION DES DONNÉES INTERCEPTÉES
+Rank	Rang	Rango	Grade
+Name	Name	Nombre	Nom
+Personnel Roster	Personalliste	Lista de personal	Liste du personnel
+ACTIVE	AKTIV	ACTIVO	ACTIF
+STANDBY	BEREIT	EN ESPERA	EN ATTENTE
+OFFLINE	OFFLINE	DESCONECTADO	HORS LIGNE
+ONLINE	ONLINE	EN LÍNEA	EN LIGNE
+SECURE	SICHER	SEGURO	SÉCURISÉ
+NOMINAL	NORMAL	NORMAL	NOMINAL
+CONFIRMED	BESTÄTIGT	CONFIRMADO	CONFIRMÉ
+PENDING	AUSSTEHEND	PENDIENTE	EN ATTENTE
+ALERT	ALARM	ALERTA	ALERTE
+BREACH	EINBRUCH	BRECHA	INTRUSION
+LINK: BREACH	VERBINDUNG: EINBRUCH	ENLACE: BRECHA	LIAISON : INTRUSION
+LINK: SECURE	VERBINDUNG: SICHER	ENLACE: SEGURO	LIAISON : SÉCURISÉE
+LINK	VERBINDUNG	ENLACE	LIAISON
+Capt	Hptm	Cap.	Cne
+Cmdr	Kdr	Cmte.	Cdt
+Cpl	Kpl	Cabo	Cpl
+Lt	Lt	Tte.	Lt
+Sgt	Fw	Sgto.	Sgt
+# --- public broadcast channel (English half translated, French half kept on purpose)
+Continental Public Information Network	Kontinentales öffentliches Informationsnetz	Red continental de información pública	Réseau continental d'information publique
+Broadcast	Sendung	Emisión	Diffusion
+This channel is reserved for all future public broadcasts.	Dieser Kanal ist für alle künftigen öffentlichen Sendungen reserviert.	Este canal está reservado para todas las futuras emisiones públicas.	Cette chaîne est réservée à toutes les diffusions publiques futures.
+ACTIVE WARNINGS	AKTIVE WARNUNGEN	AVISOS ACTIVOS	AVERTISSEMENTS ACTIFS
+NEWS & INFORMATION	NACHRICHTEN & INFORMATIONEN	NOTICIAS E INFORMACIÓN	NOUVELLES ET INFORMATIONS
+PUBLIC INFORMATION	ÖFFENTLICHE INFORMATIONEN	INFORMACIÓN PÚBLICA	INFORMATIONS PUBLIQUES
+NEWS	NACHRICHTEN	NOTICIAS	NOUVELLES
+SEVERE WEATHER ADVISORY IN EFFECT	UNWETTERHINWEIS IN KRAFT	AVISO DE TIEMPO SEVERO EN VIGOR	AVIS DE CONDITIONS MÉTÉO SÉVÈRES EN VIGUEUR
+HIGH WIND WARNING — COASTAL ZONES	STURMWARNUNG — KÜSTENGEBIETE	AVISO DE VIENTO FUERTE — ZONAS COSTERAS	ALERTE VENTS FORTS — ZONES CÔTIÈRES
+HEAT ADVISORY — STAY HYDRATED	HITZEHINWEIS — AUSREICHEND TRINKEN	AVISO DE CALOR — MANTÉNGASE HIDRATADO	AVIS DE CHALEUR — RESTEZ HYDRATÉ
+FLOOD WATCH — LOW-LYING AREAS	HOCHWASSERWARNUNG — TIEFLIEGENDE GEBIETE	VIGILANCIA DE INUNDACIONES — ZONAS BAJAS	VIGILANCE CRUE — ZONES BASSES
+ROAD WORKS — EXPECT DELAYS	BAUSTELLEN — VERZÖGERUNGEN ERWARTET	OBRAS EN LA VÍA — ESPERE RETRASOS	TRAVAUX ROUTIERS — PRÉVOIR DES RETARDS
+BRIDGE MAINTENANCE COMPLETED EARLY	BRÜCKENWARTUNG VORZEITIG ABGESCHLOSSEN	MANTENIMIENTO DEL PUENTE TERMINADO ANTES DE TIEMPO	ENTRETIEN DU PONT TERMINÉ EN AVANCE
+COMMUNITY EVENTS AT THE MAIN SQUARE	VERANSTALTUNGEN AUF DEM MARKTPLATZ	EVENTOS VECINALES EN LA PLAZA MAYOR	ÉVÉNEMENTS COMMUNAUTAIRES SUR LA PLACE
+HARVEST SEASON REPORTED STABLE	ERNTESAISON STABIL	TEMPORADA DE COSECHA ESTABLE	SAISON DES RÉCOLTES JUGÉE STABLE
+LIBRARY HOURS EXTENDED THIS WEEK	BIBLIOTHEK DIESE WOCHE LÄNGER GEÖFFNET	HORARIO DE BIBLIOTECA AMPLIADO ESTA SEMANA	HORAIRES DE BIBLIOTHÈQUE PROLONGÉS
+LOCAL MARKETS EXTEND WEEKEND HOURS	MÄRKTE AM WOCHENENDE LÄNGER GEÖFFNET	LOS MERCADOS AMPLÍAN SU HORARIO DE FIN DE SEMANA	LES MARCHÉS PROLONGENT LEURS HORAIRES
+NEW PARK OPENS TO THE PUBLIC	NEUER PARK ERÖFFNET	NUEVO PARQUE ABIERTO AL PÚBLICO	UN NOUVEAU PARC OUVRE AU PUBLIC
+PUBLIC POOL REOPENS SATURDAY	FREIBAD ÖFFNET AM SAMSTAG WIEDER	LA PISCINA PÚBLICA REABRE EL SÁBADO	LA PISCINE PUBLIQUE ROUVRE SAMEDI
+RAIL TIMETABLE CHANGE FROM MONDAY	FAHRPLANWECHSEL AB MONTAG	CAMBIO DE HORARIO FERROVIARIO DESDE EL LUNES	CHANGEMENT D’HORAIRE FERROVIAIRE DÈS LUNDI
+RECYCLING COLLECTION RESCHEDULED	WERTSTOFFABHOLUNG VERSCHOBEN	RECOGIDA DE RECICLAJE REPROGRAMADA	COLLECTE DE RECYCLAGE REPORTÉE
+REGIONAL TRANSIT RIDERSHIP RISES	MEHR FAHRGÄSTE IM REGIONALVERKEHR	AUMENTAN LOS VIAJEROS DEL TRANSPORTE REGIONAL	LA FRÉQUENTATION DES TRANSPORTS AUGMENTE
+SCHOOL TERM BEGINS NEXT WEEK	SCHULJAHR BEGINNT NÄCHSTE WOCHE	EL CURSO ESCOLAR EMPIEZA LA PRÓXIMA SEMANA	LA RENTRÉE SCOLAIRE A LIEU LA SEMAINE PROCHAINE
+WEATHER SERVICE UPGRADES SENSORS	WETTERDIENST ERNEUERT SENSOREN	EL SERVICIO METEOROLÓGICO RENUEVA SUS SENSORES	LE SERVICE MÉTÉO MODERNISE SES CAPTEURS
+THROUGH TIMES OF CHANGE, STAY INFORMED AND CONNECTED	AUCH IN ZEITEN DES WANDELS INFORMIERT UND VERBUNDEN BLEIBEN	EN TIEMPOS DE CAMBIO, MANTÉNGASE INFORMADO Y CONECTADO	POUR RESTER INFORMÉ ET CONNECTÉ EN TOUT TEMPS
+PUBLIC BROADCASTS CONTINUE AS SCHEDULED	ÖFFENTLICHE SENDUNGEN LAUFEN WIE GEPLANT WEITER	LAS EMISIONES PÚBLICAS CONTINÚAN SEGÚN LO PREVISTO	LES DIFFUSIONS PUBLIQUES SE POURSUIVENT COMME PRÉVU
+# --- biometric scan
+Biometric Scan	Biometrischer Scan	Escaneo biométrico	Scan biométrique
+BIOMETRIC TELEMETRY // LIVE	BIOMETRISCHE TELEMETRIE // LIVE	TELEMETRÍA BIOMÉTRICA // EN VIVO	TÉLÉMÉTRIE BIOMÉTRIQUE // EN DIRECT
+THERMAL MAP // SUBJECT #	WÄRMEBILD // PROBAND #	MAPA TÉRMICO // SUJETO #	CARTE THERMIQUE // SUJET #
+HEART RATE	HERZFREQUENZ	FRECUENCIA CARDÍACA	FRÉQUENCE CARDIAQUE
+RESP RATE	ATEMFREQUENZ	FRECUENCIA RESPIRATORIA	FRÉQUENCE RESPIRATOIRE
+SKIN TEMP	HAUTTEMP.	TEMP. PIEL	TEMP. PEAU
+CORE TEMP	KERNTEMP.	TEMP. CENTRAL	TEMP. CENTRALE
+GLUCOSE	GLUKOSE	GLUCOSA	GLUCOSE
+HYDRATION	HYDRATATION	HIDRATACIÓN	HYDRATATION
+GALV RESP	HAUTLEITWERT	RESP. GALV.	RÉP. GALV.
+SYS BP	SYS. BD	PA SIST.	PA SYST.
+DIA BP	DIA. BD	PA DIAST.	PA DIAST.
+SYS	SYS	SIS	SYS
+Within range	Im Normbereich	Dentro del rango	Dans la norme
+Above threshold	Über Grenzwert	Por encima del umbral	Au-dessus du seuil
+Slightly elevated	Leicht erhöht	Ligeramente elevado	Légèrement élevé
+Elevated	Erhöht	Elevado	Élevé
+Normal	Normal	Normal	Normal
+Critical	Kritisch	Crítico	Critique
+# bpm	# /min	# lpm	# bpm
+# /min	# /min	# /min	# /min
+# --- cockpit flight display and craft schematic
+Cockpit Flight Display	Cockpit-Fluganzeige	Pantalla de vuelo de cabina	Affichage de vol du cockpit
+Craft Schematic Display	Schaltplananzeige des Raumschiffs	Pantalla de esquema de la nave	Affichage du schéma du vaisseau
+HEADING	KURS	RUMBO	CAP
+PITCH	NICKEN	CABECEO	TANGAGE
+ROLL	ROLLEN	ALABEO	ROULIS
+YAW	GIEREN	GUIÑADA	LACET
+pitch	Nicken	cabeceo	tangage
+roll	Rollen	alabeo	roulis
+yaw	Gieren	guiñada	lacet
+airspeed	Fluggeschw.	velocidad	vitesse air
+altitude	Höhe	altitud	altitude
+attitude ref	Lagereferenz	ref. actitud	réf. assiette
+avionics	Avionik	aviónica	avionique
+aux	Hilfs	aux	aux
+bat	Batt	bat	batt
+bus a	Bus A	bus A	bus A
+bus b	Bus B	bus B	bus B
+cabin p	Kabinendruck	presión cabina	press. cabine
+ess	ess	esen	ess
+fuel cells	Brennstoffzellen	pilas de combustible	piles à combustible
+fuel flow	Kraftstofffluss	flujo de combustible	débit carburant
+main bus v	Hauptbus V	bus principal V	bus principal V
+power bus	Strombus	bus de potencia	bus d'alimentation
+rcs temp	RCS-Temp.	temp. RCS	temp. RCS
+thrust	Schub	empuje	poussée
+trim	Trimmung	compensación	compensation
+range	Reichweite	alcance	portée
+flight deck	Flugdeck	cabina de vuelo	poste de pilotage
+two-seat cabin, avionics bay	Zweisitzer-Kabine, Avionikschacht	cabina biplaza, bahía de aviónica	cabine biplace, baie avionique
+engine & reaction control · bus a	Triebwerk & Lageregelung · Bus A	motor y control de reacción · bus A	moteur et contrôle de réaction · bus A
+nav, comms & data units	Navigation, Funk & Dateneinheiten	navegación, comunicaciones y datos	navigation, communications et données
+payload & life support racks	Nutzlast- & Lebenserhaltungsracks	bastidores de carga y soporte vital	baies charge utile et survie
+internal modules	interne Module	módulos internos	modules internes
+schematic · top view · rev #	Schaltplan · Draufsicht · Rev. #	esquema · vista superior · rev. #	schéma · vue de dessus · rév. #
+click a part or press space to cycle	Teil anklicken oder Leertaste zum Durchschalten	haga clic en una pieza o pulse espacio para recorrer	cliquez sur une pièce ou appuyez sur espace pour parcourir
+Space or click a part to highlight	Leertaste oder Klick auf ein Teil zum Hervorheben	Espacio o clic en una pieza para resaltarla	Espace ou clic sur une pièce pour la mettre en évidence
+propellant tanks	Treibstofftanks	tanques de propelente	réservoirs d'ergols
+twin cryo tanks, cross-feed	zwei Kryotanks, Querverbindung	dos tanques criogénicos, alimentación cruzada	deux réservoirs cryogéniques, alimentation croisée
+power system	Energiesystem	sistema de energía	système électrique
+fuel cells + battery bus	Brennstoffzellen + Batteriebus	pilas de combustible + bus de batería	piles à combustible + bus batterie
+reaction control	Lageregelung	control de reacción	contrôle de réaction
+# thruster quads	# Düsenquads	# cuartetos de propulsores	# quadruplets de propulseurs
+main engine bays	Haupttriebwerksschächte	bahías del motor principal	baies du moteur principal
+subsystem	Subsystem	subsistema	sous-système
+parameter	Parameter	parámetro	paramètre
+status	Status	estado	état
+trajectory / attitude	Flugbahn / Lage	trayectoria / actitud	trajectoire / assiette
+waypoint	Wegpunkt	punto de ruta	point de passage
+▲ crossrange dev #°	▲ Querabweichung #°	▲ desv. lateral #°	▲ écart latéral #°
+sys # · nav primary	Sys # · Nav primär	sis # · nav principal	sys # · nav principale
+▸ NAVIGATION	▸ NAVIGATION	▸ NAVEGACIÓN	▸ NAVIGATION
+max	max.	máx.	max
+min	min.	mín.	min
+eta	ETA	ETA	ETA
+data	Daten	datos	données
+cmd	Bef.	cmd	cmd
+act	ist	real	réel
+delta	Delta	delta	delta
+done	fertig	hecho	fait
+queued	wartend	en cola	en attente
+online	online	en línea	en ligne
+active	aktiv	activo	actif
+menu	Menü	menú	menu
+mode auto	Modus auto	modo auto	mode auto
+# --- drone console and aether-os (start point follows the flag: Berlin, Madrid, Paris)
+UAV Ground Control Console	Drohnen-Bodenkontrollkonsole	Consola de control en tierra de UAV	Console de contrôle au sol du drone
+UAV GROUND CONTROL · STATION DELTA-#	DROHNEN-BODENKONTROLLE · STATION DELTA-#	CONTROL EN TIERRA UAV · ESTACIÓN DELTA-#	CONTRÔLE AU SOL DRONE · STATION DELTA-#
+MISSION MAP · SOLAR HALE TRACK	EINSATZKARTE · SOLAR-HALE-KURS	MAPA DE MISIÓN · TRAYECTORIA SOLAR HALE	CARTE DE MISSION · TRACE SOLAIRE HALE
+MISSION MAP · SOLAR HALE	EINSATZKARTE · SOLAR-HALE	MAPA DE MISIÓN · SOLAR HALE	CARTE DE MISSION · SOLAIRE HALE
+PHASE —	PHASE —	FASE —	PHASE —
+PHASE #	PHASE #	FASE #	PHASE #
+LOITER · Lincoln NE cornfields	KREISEN · Felder bei Berlin	ESPERA · campos cerca de Madrid	ATTENTE · champs près de Paris
+TRANSIT CLIMB → India	STEIGFLUG → Indien	ASCENSO DE TRÁNSITO → India	MONTÉE DE TRANSIT → Inde
+STRAT CRUISE · India	STRAT-REISEFLUG · Indien	CRUCERO ESTRATOSFÉRICO · India	CROISIÈRE STRATO · Inde
+Lincoln NE → Delhi IN	Berlin DE → Delhi IN	Madrid ES → Delhi IN	Paris FR → Delhi IN
+Lincoln NE (loiter) -> great-circle -> Delhi IN (strat cruise)	Berlin DE (Kreisen) -> Großkreis -> Delhi IN (Strat-Reiseflug)	Madrid ES (espera) -> ortodrómica -> Delhi IN (crucero estratosférico)	Paris FR (attente) -> orthodromie -> Delhi IN (croisière strato)
+offline — generated terrain (	offline — generiertes Gelände (	sin conexión — terreno generado (	hors ligne — terrain généré (
+Airframe · SOLARIS HALE "Garuda"	Flugzeugzelle · SOLARIS HALE „Garuda“	Fuselaje · SOLARIS HALE «Garuda»	Cellule · SOLARIS HALE « Garuda »
+Airframe · Garuda	Flugzeugzelle · Garuda	Fuselaje · Garuda	Cellule · Garuda
+HALE Transit	HALE-Transit	Tránsito HALE	Transit HALE
+Mission	Einsatz	Misión	Mission
+Mission Map	Einsatzkarte	Mapa de misión	Carte de mission
+Alt band	Höhenband	Banda de altitud	Tranche d'altitude
+Strat # km	Strat # km	Estrat. # km	Strato # km
+Strat #km	Strat # km	Estrat. # km	Strato # km
+Low #m	Niedrig # m	Baja # m	Basse # m
+Mid #m	Mittel # m	Media # m	Moyenne # m
+Route	Route	Ruta	Itinéraire
+Waypoints	Wegpunkte	Puntos de ruta	Points de passage
+Auto-RTB	Auto-Rückkehr	Regreso auto	Retour auto
+Thermal	Wärmebild	Térmica	Thermique
+Thermal feed	Wärmebild-Feed	Imagen térmica	Flux thermique
+Encrypt AES	AES-Verschlüsselung	Cifrado AES	Chiffrement AES
+Encrypt	Verschlüsseln	Cifrar	Chiffrer
+Datalink AES	Datenlink AES	Enlace de datos AES	Liaison de données AES
+Endurance	Ausdauer	Autonomía	Endurance
+Battery	Akku	Batería	Batterie
+Battery charge	Akkuladung	Carga de batería	Charge batterie
+Charge rate	Laderate	Tasa de carga	Taux de charge
+Solar array	Solarfeld	Panel solar	Panneau solaire
+Grid power	Netzstrom	Red eléctrica	Réseau électrique
+Return fuel %	Rückflugreserve %	Combustible de regreso %	Réserve retour %
+BAT %	AKKU %	BAT %	BATT %
+BAT%	AKKU%	BAT%	BATT%
+SOLAR %	SOLAR %	SOLAR %	SOLAIRE %
+SOLAR%	SOLAR%	SOLAR%	SOLAIRE%
+ALT m	HÖHE m	ALT m	ALT m
+SPD	GESCHW.	VEL.	VIT.
+NET	NETTO	NETO	NET
+Telemetry	Telemetrie	Telemetría	Télémétrie
+Telemetry Grid	Telemetrieraster	Cuadrícula de telemetría	Grille de télémétrie
+Target Track	Zielverfolgung	Seguimiento de objetivo	Suivi de cible
+Sensor & Payload Menu	Sensor- & Nutzlastmenü	Menú de sensores y carga útil	Menu capteurs et charge utile
+Sensor Menu	Sensormenü	Menú de sensores	Menu capteurs
+Camera tilt	Kameraneigung	Inclinación de cámara	Inclinaison caméra
+Gimbal zoom	Gimbal-Zoom	Zoom del gimbal	Zoom nacelle
+IR gain	IR-Verstärkung	Ganancia IR	Gain IR
+Laser range	Laserentfernung	Telémetro láser	Télémètre laser
+Payload armed	Nutzlast scharf	Carga útil armada	Charge utile armée
+Beacon off	Bake aus	Baliza apagada	Balise éteinte
+Jammer idle	Störsender inaktiv	Inhibidor inactivo	Brouilleur inactif
+Radar link	Radarverbindung	Enlace de radar	Liaison radar
+Flight Details	Flugdetails	Detalles del vuelo	Détails du vol
+Command & Data Log	Befehls- & Datenprotokoll	Registro de comandos y datos	Journal des commandes et données
+Personnel	Personal	Personal	Personnel
+Login	Anmeldung	Acceso	Connexion
+Authorisation required:	Autorisierung erforderlich:	Autorización requerida:	Autorisation requise :
+User	Benutzer	Usuario	Utilisateur
+Security code	Sicherheitscode	Código de seguridad	Code de sécurité
+Login Successful	Anmeldung erfolgreich	Acceso correcto	Connexion réussie
+Access attempt detected - further attempts not permitted!!	Zugriffsversuch erkannt - weitere Versuche nicht erlaubt!!	Intento de acceso detectado - no se permiten más intentos!!	Tentative d'accès détectée - aucune autre tentative autorisée !!
+Applications ▲	Anwendungen ▲	Aplicaciones ▲	Applications ▲
+Messages ▲	Nachrichten ▲	Mensajes ▲	Messages ▲
+Messages	Nachrichten	Mensajes	Messages
+Terminal: type + Enter · ?speed=# speeds up the flight	Terminal: tippen + Enter · ?speed=# beschleunigt den Flug	Terminal: escriba + Intro · ?speed=# acelera el vuelo	Terminal : tapez + Entrée · ?speed=# accélère le vol
+?speed=# speeds up the flight	?speed=# beschleunigt den Flug	?speed=# acelera el vuelo	?speed=# accélère le vol
+Terminal: type a command + Enter	Terminal: Befehl + Enter	Terminal: comando + Intro	Terminal : commande + Entrée
+Terminal	Terminal	Terminal	Terminal
+commands:	Befehle:	comandos:	commandes :
+command not found:	Befehl nicht gefunden:	comando no encontrado:	commande introuvable :
+link SECURE · mission HALE Transit · phase	Verbindung SICHER · Einsatz HALE-Transit · Phase	enlace SEGURO · misión Tránsito HALE · fase	liaison SÉCURISÉE · mission Transit HALE · phase
+# personnel · # on duty · # standby · # offline	# Personen · # im Dienst · # bereit · # offline	# personas · # de servicio · # en espera · # desconectadas	# personnes · # en service · # en attente · # hors ligne
+AetherOS shell v1.# — type 'help'	AetherOS-Shell v1.# — 'help' eingeben	Shell de AetherOS v1.# — escriba 'help'	Shell AetherOS v1.# — tapez 'help'
+VerdantOS shell v2.# — type 'help'	VerdantOS-Shell v2.# — 'help' eingeben	Shell de VerdantOS v2.# — escriba 'help'	Shell VerdantOS v2.# — tapez 'help'
+Program	Programm	Programa	Programme
+Options	Optionen	Opciones	Options
+View	Ansicht	Ver	Affichage
+Menu	Menü	Menú	Menu
+Fullscreen	Vollbild	Pantalla completa	Plein écran
+Zoom in	Vergrößern	Acercar	Zoom avant
+Zoom out	Verkleinern	Alejar	Zoom arrière
+# --- farm weather console and verdant-os (region follows the flag)
+Farm Weather & Dust Storm Console	Konsole für Hofwetter & Staubsturm	Consola de meteorología agrícola y tormentas de polvo	Console météo agricole et tempêtes de poussière
+AGRI-MET // DUST STORM WATCH	AGRAR-WETTER // STAUBSTURM-BEOBACHTUNG	AGRO-MET // VIGILANCIA DE TORMENTA DE POLVO	AGRO-MÉTÉO // VEILLE TEMPÊTE DE POUSSIÈRE
+GREAT PLAINS · CENTRAL SECTOR	BRANDENBURG · ZENTRALSEKTOR	MESETA CENTRAL · SECTOR CENTRO	BASSIN PARISIEN · SECTEUR CENTRE
+HOME FARM	HEIMATHOF	GRANJA PRINCIPAL	FERME PRINCIPALE
+ETA farm:	Ankunft Hof:	Llegada a la granja:	Arrivée à la ferme :
+Dust front crossing county line #	Staubfront überquert Kreisgrenze #	Frente de polvo cruza el límite comarcal #	Front de poussière franchit la limite du canton #
+Silo vent auto-closed	Silolüftung automatisch geschlossen	Ventilación del silo cerrada automáticamente	Ventilation du silo fermée automatiquement
+Silo vents	Silolüftung	Ventilación de silos	Ventilation des silos
+Soil probes	Bodensonden	Sondas de suelo	Sondes de sol
+Irrigation	Bewässerung	Riego	Irrigation
+Irrigation pump # paused	Bewässerungspumpe # pausiert	Bomba de riego # en pausa	Pompe d'irrigation # en pause
+Probe S-# low battery	Sonde S-# Akku schwach	Sonda S-# batería baja	Sonde S-# batterie faible
+Radar sweep complete	Radarumlauf abgeschlossen	Barrido de radar completado	Balayage radar terminé
+SEALED	VERSIEGELT	SELLADO	SCELLÉ
+DUST ADVISORY	STAUBWARNUNG	AVISO DE POLVO	AVIS DE POUSSIÈRE
+Crop Health	Pflanzengesundheit	Salud de cultivos	Santé des cultures
+Corn	Mais	Maíz	Maïs
+Wheat	Weizen	Trigo	Blé
+Soybean	Soja	Soja	Soja
+Sorghum	Hirse	Sorgo	Sorgho
+Alfalfa	Luzerne	Alfalfa	Luzerne
+Blight Index	Fäuleindex	Índice de plaga	Indice de mildiou
+Blight index	Fäuleindex	Índice de plaga	Indice de mildiou
+Avg canopy NDVI	Mittlerer Bestands-NDVI	NDVI medio del dosel	NDVI moyen du couvert
+Irrigated acres	Bewässerte Fläche	Superficie regada	Surface irriguée
+Field Sensors	Feldsensoren	Sensores de campo	Capteurs de terrain
+Humidity %	Luftfeuchte %	Humedad %	Humidité %
+Wind km/h	Wind km/h	Viento km/h	Vent km/h
+Soil moisture	Bodenfeuchte	Humedad del suelo	Humidité du sol
+Dust index	Staubindex	Índice de polvo	Indice de poussière
+Temp °C	Temp. °C	Temp. °C	Temp. °C
+Temp	Temp.	Temp.	Temp.
+Storm Cell DX-#	Sturmzelle DX-#	Célula de tormenta DX-#	Cellule orageuse DX-#
+Heading #° ENE	Kurs #° ONO	Rumbo #° ENE	Cap #° ENE
+Local Readouts	Messwerte vor Ort	Lecturas locales	Mesures locales
+Rel. humidity	Rel. Feuchte	Humedad rel.	Humidité rel.
+Pressure	Luftdruck	Presión	Pression
+Visibility < # km	Sicht < # km	Visibilidad < # km	Visibilité < # km
+Visibility	Sicht	Visibilidad	Visibilité
+UV index	UV-Index	Índice UV	Indice UV
+Wind gust # km/h at NW mast	Windböe # km/h am NW-Mast	Ráfaga de # km/h en el mástil NO	Rafale de # km/h au mât NO
+DUST · #°	STAUB · #°	POLVO · #°	POUSSIÈRE · #°
+WIND · #°	WIND · #°	VIENTO · #°	VENT · #°
+CLEAR · #°	KLAR · #°	DESPEJADO · #°	DÉGAGÉ · #°
+RADAR	RADAR	RADAR	RADAR
+SOIL	BODEN	SUELO	SOL
+WIND	WIND	VIENTO	VENT
+LOG	LOG	REGISTRO	JOURNAL
+RADAR: LIVE (RainViewer)	RADAR: LIVE (RainViewer)	RADAR: EN VIVO (RainViewer)	RADAR : EN DIRECT (RainViewer)
+RADAR: LIVE BASEMAP (no radar frames)	RADAR: LIVE-GRUNDKARTE (keine Radarbilder)	RADAR: MAPA BASE EN VIVO (sin imágenes de radar)	RADAR : FOND EN DIRECT (pas d'images radar)
+RADAR: LIVE BASEMAP	RADAR: LIVE-GRUNDKARTE	RADAR: MAPA BASE EN VIVO	RADAR : FOND EN DIRECT
+RADAR: OFFLINE (SVG FALLBACK)	RADAR: OFFLINE (SVG-ERSATZ)	RADAR: SIN CONEXIÓN (RESPALDO SVG)	RADAR : HORS LIGNE (SECOURS SVG)
+RADAR: INIT	RADAR: START	RADAR: INICIO	RADAR : DÉMARRAGE
+RADAR NEXRAD · REFLECTIVITY dBZ (SIMULATED)	RADAR · REFLEKTIVITÄT dBZ (SIMULIERT)	RADAR · REFLECTIVIDAD dBZ (SIMULADA)	RADAR · RÉFLECTIVITÉ dBZ (SIMULÉE)
+Offline — procedural SVG map ·	Offline — prozedurale SVG-Karte ·	Sin conexión — mapa SVG procedural ·	Hors ligne — carte SVG procédurale ·
+Leaflet CDN unavailable	Leaflet-CDN nicht erreichbar	CDN de Leaflet no disponible	CDN Leaflet indisponible
+Map © OpenStreetMap / CARTO · borders us-atlas · radar ©	Karte © OpenStreetMap / CARTO · Grenzen click_that_hood · Radar ©	Mapa © OpenStreetMap / CARTO · límites click_that_hood · radar ©	Carte © OpenStreetMap / CARTO · limites france-geojson · radar ©
+© Esri / OpenStreetMap · borders us-atlas · radar ©	© Esri / OpenStreetMap · Grenzen click_that_hood · Radar ©	© Esri / OpenStreetMap · límites click_that_hood · radar ©	© Esri / OpenStreetMap · limites france-geojson · radar ©
+(dark canvas); ©	(dunkle Karte); ©	(lienzo oscuro); ©	(fond sombre) ; ©
+contributors	Mitwirkende	colaboradores	contributeurs
+A JavaScript library for interactive maps	Eine JavaScript-Bibliothek für interaktive Karten	Una biblioteca JavaScript para mapas interactivos	Une bibliothèque JavaScript pour cartes interactives
+Weather Radar	Wetterradar	Radar meteorológico	Radar météo
+System Status	Systemstatus	Estado del sistema	État du système
+radar ONLINE · #/# probes · dust advisory ACTIVE · blight #	Radar ONLINE · #/# Sonden · Staubwarnung AKTIV · Fäule #	radar EN LÍNEA · #/# sondas · aviso de polvo ACTIVO · plaga #	radar EN LIGNE · #/# sondes · avis de poussière ACTIF · mildiou #
+NEXRAD link up · last sweep	Radarverbindung steht · letzter Umlauf	enlace de radar activo · último barrido	liaison radar active · dernier balayage
+· # dust cells tracked	· # Staubzellen verfolgt	· # células de polvo en seguimiento	· # cellules de poussière suivies
+corn #% wheat #% soybean #% sorghum #% alfalfa #%	Mais #% Weizen #% Soja #% Hirse #% Luzerne #%	maíz #% trigo #% soja #% sorgo #% alfalfa #%	maïs #% blé #% soja #% sorgho #% luzerne #%
+S-#..S-# reporting; S-# LOW BATT; mean soil moisture #	S-#..S-# melden; S-# AKKU SCHWACH; mittlere Bodenfeuchte #	S-#..S-# informando; S-# BATERÍA BAJA; humedad media del suelo #	S-#..S-# répondent ; S-# BATTERIE FAIBLE ; humidité moyenne du sol #
+# --- field data viewer
+Field Monitoring Service	Feldüberwachungsdienst	Servicio de monitorización de campo	Service de surveillance de terrain
+Field Monitoring Service — Data Portal	Feldüberwachungsdienst — Datenportal	Servicio de monitorización de campo — Portal de datos	Service de surveillance de terrain — Portail de données
+Data Portal	Datenportal	Portal de datos	Portail de données
+DATA OVERVIEW	DATENÜBERSICHT	RESUMEN DE DATOS	SYNTHÈSE DES DONNÉES
+DATA CHART	DATENDIAGRAMM	GRÁFICO DE DATOS	GRAPHIQUE DES DONNÉES
+FILE VIEWER	DATEIBETRACHTER	VISOR DE ARCHIVOS	VISIONNEUSE DE FICHIERS
+Site: SP-#	Standort: SP-#	Sitio: SP-#	Site : SP-#
+SITE	STANDORT	SITIO	SITE
+Turbidity: # NTU	Trübung: # NTU	Turbidez: # NTU	Turbidité : # NTU
+Water temp: # °C	Wassertemp.: # °C	Temp. del agua: # °C	Temp. de l'eau : # °C
+Notes: Sample flagged for lab review	Notizen: Probe zur Laborprüfung markiert	Notas: Muestra marcada para revisión en laboratorio	Notes : Échantillon signalé pour analyse en laboratoire
+Notes:	Notizen:	Notas:	Notes :
+Sample flagged for lab review	Probe zur Laborprüfung markiert	Muestra marcada para revisión en laboratorio	Échantillon signalé pour analyse en laboratoire
+Clear flow, no change from baseline	Klarer Abfluss, keine Änderung zum Ausgangswert	Flujo claro, sin cambios respecto a la referencia	Écoulement clair, pas de changement par rapport à la référence
+Minor sediment after overnight rain	Leichte Ablagerungen nach nächtlichem Regen	Sedimento leve tras la lluvia nocturna	Léger dépôt après la pluie nocturne
+Recheck scheduled at next pass	Nachprüfung beim nächsten Durchgang geplant	Nueva comprobación en la próxima pasada	Nouveau contrôle au prochain passage
+Remarks	Bemerkungen	Observaciones	Remarques
+IMG_SP#_#.jpg — aerial sample	IMG_SP#_#.jpg — Luftbildprobe	IMG_SP#_#.jpg — muestra aérea	IMG_SP#_#.jpg — échantillon aérien
+Scale: # : # # | Projection: WGS #	Maßstab: # : # # | Projektion: WGS #	Escala: # : # # | Proyección: WGS #	Échelle : # : # # | Projection : WGS #
+# --- sdr console
+SDR Console	SDR-Konsole	Consola SDR	Console SDR
+SDR Console v3.# ENCRYPTED	SDR-Konsole v3.# VERSCHLÜSSELT	Consola SDR v3.# CIFRADA	Console SDR v3.# CHIFFRÉE
+Encryption Level	Verschlüsselungsstufe	Nivel de cifrado	Niveau de chiffrement
+Level #	Stufe #	Nivel #	Niveau #
+Secure Frequency	Sichere Frequenz	Frecuencia segura	Fréquence sécurisée
+"Station A"	„Station A“	«Estación A»	« Station A »
+"Station B"	„Station B“	«Estación B»	« Station B »
+"Station C"	„Station C“	«Estación C»	« Station C »
+Listening	Hört mit	Escuchando	En écoute
+Transmitting	Sendet	Transmitiendo	En émission
+Idle	Inaktiv	Inactivo	Inactif
+Normal	Normal	Normal	Normal
+Within range	Im Bereich	Dentro del rango	Dans la plage
+Slightly elevated	Leicht erhöht	Ligeramente elevado	Légèrement élevé
+Above threshold	Über Grenzwert	Por encima del umbral	Au-dessus du seuil
+Scale:	Maßstab:	Escala:	Échelle :
+Projection:	Projektion:	Proyección:	Projection :
+# --- secure comms portal
+Secure Communications Portal	Portal für sichere Kommunikation	Portal de comunicaciones seguras	Portail de communications sécurisées
+SECURE COMMUNICATIONS PORTAL	PORTAL FÜR SICHERE KOMMUNIKATION	PORTAL DE COMUNICACIONES SEGURAS	PORTAIL DE COMMUNICATIONS SÉCURISÉES
+ENCRYPTED MESSAGING SOFTWARE	VERSCHLÜSSELTE NACHRICHTENSOFTWARE	SOFTWARE DE MENSAJERÍA CIFRADA	LOGICIEL DE MESSAGERIE CHIFFRÉE
+Unlocked	Entsperrt	Desbloqueado	Déverrouillé
+Team Call – #:#	Teamanruf – #:#	Llamada de equipo – #:#	Appel d'équipe – #:#
+Team Call – 8:30 PM	Teamanruf – 20:30	Llamada de equipo – 20:30	Appel d'équipe – 20:30
+CHANNEL ID:	KANAL-ID:	ID DE CANAL:	ID DU CANAL :
+FREQUENCY:	FREQUENZ:	FRECUENCIA:	FRÉQUENCE :
+DATE:	DATUM:	FECHA:	DATE :
+TIME:	ZEIT:	HORA:	HEURE :
+PARTICIPANTS:	TEILNEHMER:	PARTICIPANTES:	PARTICIPANTS :
+Lead,	Leitung,	Dirección,	Responsable,
+Coordinator,	Koordination,	Coordinación,	Coordination,
+Analyst,	Analyse,	Análisis,	Analyste,
+Support,	Unterstützung,	Soporte,	Support,
+Observer	Beobachtung	Observación	Observateur
+LIVE AUDIO CALL	LIVE-AUDIOANRUF	LLAMADA DE AUDIO EN VIVO	APPEL AUDIO EN DIRECT
+AUTHORIZED PERSONNEL ONLY	NUR FÜR BEFUGTES PERSONAL	SOLO PERSONAL AUTORIZADO	PERSONNEL AUTORISÉ UNIQUEMENT
+Network Load Meter	Netzlastanzeige	Medidor de carga de red	Indicateur de charge réseau
+Node North #%	Knoten Nord #%	Nodo Norte #%	Nœud Nord #%
+Node East #%	Knoten Ost #%	Nodo Este #%	Nœud Est #%
+Node South #%	Knoten Süd #%	Nodo Sur #%	Nœud Sud #%
+Node West #%	Knoten West #%	Nodo Oeste #%	Nœud Ouest #%
+Node Central #%	Knoten Mitte #%	Nodo Central #%	Nœud Central #%
+System Dashboard	System-Dashboard	Panel del sistema	Tableau de bord système
+Uplink: #% → #%	Uplink: #% → #%	Enlace ascendente: #% → #%	Liaison montante : #% → #%
+Storage: #%	Speicher: #%	Almacenamiento: #%	Stockage : #%
+Next sync: # min	Nächster Abgleich: # min	Próxima sincronización: # min	Prochaine synchro : # min
+System Tray Alerts	Infobereich-Meldungen	Alertas de la bandeja del sistema	Alertes de la zone de notification
+Software Update Available	Softwareupdate verfügbar	Actualización de software disponible	Mise à jour logicielle disponible
+Secure Channel Active	Sicherer Kanal aktiv	Canal seguro activo	Canal sécurisé actif
+Backup Completed	Sicherung abgeschlossen	Copia de seguridad completada	Sauvegarde terminée
+▶ Tap to hear	▶ Tippen zum Anhören	▶ Toca para escuchar	▶ Touchez pour écouter
+# --- secure video call and conference grid (person names stay)
+Secure Video Call	Sicherer Videoanruf	Videollamada segura	Appel vidéo sécurisé
+SECURE LINK	SICHERE VERBINDUNG	ENLACE SEGURO	LIAISON SÉCURISÉE
+SECURE CHANNEL	SICHERER KANAL	CANAL SEGURO	CANAL SÉCURISÉ
+SPEAKING	SPRICHT	HABLANDO	PARLE
+REMOTE OFFICE A	AUSSENSTELLE A	OFICINA REMOTA A	BUREAU DISTANT A
+Remote Office A — Harbourton	Außenstelle A — Harbourton	Oficina remota A — Harbourton	Bureau distant A — Harbourton
+EXECUTIVE OFFICE B	LEITUNGSBÜRO B	OFICINA EJECUTIVA B	BUREAU EXÉCUTIF B
+OFFICE OF THE AIDE	BÜRO DER REFERENTIN	OFICINA DEL ASISTENTE	BUREAU DE L'ASSISTANT
+Executive Office B — Chief of Staff Aide	Leitungsbüro B — Referentin der Büroleitung	Oficina ejecutiva B — Asistente del jefe de gabinete	Bureau exécutif B — Assistant du chef de cabinet
+REC	AUFN.	GRAB.	ENR.
+● REC #:#	● AUFN. #:#	● GRAB. #:#	● ENR. #:#
+Call ended	Anruf beendet	Llamada finalizada	Appel terminé
+Secure link terminated	Sichere Verbindung getrennt	Enlace seguro terminado	Liaison sécurisée interrompue
+Conference link terminated	Konferenzverbindung getrennt	Enlace de conferencia terminado	Liaison de conférence interrompue
+Rejoin	Erneut beitreten	Volver a unirse	Rejoindre
+Lock	Sperren	Bloquear	Verrouiller
+Mute	Stumm	Silenciar	Muet
+Unmute	Ton an	Activar sonido	Réactiver le son
+Hang up	Auflegen	Colgar	Raccrocher
+Record	Aufnehmen	Grabar	Enregistrer
+Camera	Kamera	Cámara	Caméra
+Share	Teilen	Compartir	Partager
+Conference Grid	Konferenzraster	Cuadrícula de conferencia	Grille de conférence
+Coordinator — Mara Venn	Koordinatorin — Mara Venn	Coordinadora — Mara Venn	Coordinatrice — Mara Venn
+Regional Lead North — Tobias Ekker	Regionalleitung Nord — Tobias Ekker	Responsable regional Norte — Tobias Ekker	Responsable régional Nord — Tobias Ekker
+Regional Lead East — Ines Corral	Regionalleitung Ost — Ines Corral	Responsable regional Este — Ines Corral	Responsable régionale Est — Ines Corral
+Regional Lead South — Dev Ashby	Regionalleitung Süd — Dev Ashby	Responsable regional Sur — Dev Ashby	Responsable régional Sud — Dev Ashby
+Liaison Officer — Kai Brenner	Verbindungsoffizier — Kai Brenner	Oficial de enlace — Kai Brenner	Officier de liaison — Kai Brenner
+Council Chair — Network Partners	Ratsvorsitz — Netzwerkpartner	Presidencia del consejo — Socios de la red	Présidence du conseil — Partenaires du réseau
+# --- voicemail desktop
+Voicemail	Mailbox	Buzón de voz	Messagerie vocale
+Voicemail Desktop	Mailbox-Desktop	Escritorio de buzón de voz	Bureau de messagerie vocale
+Health Agency Director	Leitung Gesundheitsbehörde	Dirección de la agencia de salud	Direction de l'agence de santé
+Calling…	Anruf läuft…	Llamando…	Appel en cours…
+Call Back	Zurückrufen	Devolver llamada	Rappeler
+Delete	Löschen	Eliminar	Supprimer
+More	Mehr	Más	Plus
+Transcript	Abschrift	Transcripción	Transcription
+Save	Speichern	Guardar	Enregistrer
+Forward	Weiterleiten	Reenviar	Transférer
+Channel	Kanal	Canal	Canal
+Secure #	Sicher #	Seguro #	Sécurisé #
+Open Line	Offene Leitung	Línea abierta	Ligne ouverte
+Relay	Relais	Relé	Relais
+Comms	Komm.	Comunic.	Comms
+Conference	Konferenz	Conferencia	Conférence
+Broadcast	Rundruf	Difusión	Diffusion
+Priority	Priorität	Prioridad	Priorité
+Routine	Routine	Rutina	Routine
+Elevated	Erhöht	Elevada	Élevée
+Urgent	Dringend	Urgente	Urgent
+Critical	Kritisch	Crítica	Critique
+# --- self-organizing system (labels only; code panes stay as they are)
+Self-Organizing System	Selbstorganisierendes System	Sistema autoorganizado	Système auto-organisé
+File	Datei	Archivo	Fichier
+Edit	Bearbeiten	Editar	Édition
+[M] TOGGLE MODE · AUTO-CYCLE	[M] MODUS WECHSELN · AUTO-ZYKLUS	[M] CAMBIAR MODO · CICLO AUTO	[M] CHANGER DE MODE · CYCLE AUTO
+M switches code / blueprint · ?mode=a (code) or ?mode=b (blueprint)	M wechselt Code / Bauplan · ?mode=a (Code) oder ?mode=b (Bauplan)	M alterna código / plano · ?mode=a (código) o ?mode=b (plano)	M bascule code / plan · ?mode=a (code) ou ?mode=b (plan)
+# --- found in the first German smoke run
+Cancel	Abbrechen	Cancelar	Annuler
+Data stream synchronised. Verifying credentials...	Datenstrom synchronisiert. Zugangsdaten werden geprüft...	Flujo de datos sincronizado. Verificando credenciales...	Flux de données synchronisé. Vérification des identifiants...
+Unauthorized Access	Unbefugter Zugriff	Acceso no autorizado	Accès non autorisé
+Secure Login	Sichere Anmeldung	Acceso seguro	Connexion sécurisée
+Name	Name	Nombre	Nom
+Status	Status	Estado	Statut
+Status:	Status:	Estado:	Statut :
+Signal power	Signalstärke	Potencia de señal	Puissance du signal
+Silent	Lautlos	Silencio	Silencieux
+#% capacity	#% Auslastung	#% de capacidad	#% de capacité
+% capacity	% Auslastung	% de capacidad	% de capacité
+#% used	#% belegt	#% usado	#% utilisé
+> Region A	> Region A	> Región A	> Région A
+> Region B	> Region B	> Región B	> Région B
+Secure Call	Sicherer Anruf	Llamada segura	Appel sécurisé
+online	online	en línea	en ligne
+scale #:#	Maßstab #:#	escala #:#	échelle #:#
+lim #%	Grenze #%	lím. #%	lim. #%
+regional · ~# km · world-atlas	regional · ~# km · world-atlas	regional · ~# km · world-atlas	régional · ~# km · world-atlas

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>AetherOS</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.0"></script><script src="../vendor/lang.js?v=1.12.0"></script><title>AetherOS</title>
 <link rel="stylesheet" href="../vendor/leaflet/leaflet.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -43,7 +43,7 @@ table{border-collapse:collapse;width:100%}td,th{padding:2px 5px;text-align:left;
 #tray{display:flex;gap:12px;align-items:center;color:#8bd8bd;font-size:11px}#tray .v{color:#2fe89a}
 .eng{width:calc(100% - 20px);margin:6px 10px;background:#2a140a;border:1px solid #ff7a3a;color:#ff7a3a;padding:6px;cursor:pointer;letter-spacing:2px}
 .blink{animation:b 1s steps(2) infinite}@keyframes b{50%{opacity:.25}}
-</style><script src="../vendor/debug-cover.js?v=1.11.0"></script><script src="../vendor/top-bar.js?v=1.11.0"></script>
+</style><script src="../vendor/debug-cover.js?v=1.12.0"></script><script src="../vendor/top-bar.js?v=1.12.0"></script>
 </head><body>
 <div id="desk"><div id="globe"></div><div class="deskicons" id="deskicons"></div></div>
 <div id="bar">
@@ -86,7 +86,8 @@ function makeWin(app){
 function markOpen(){document.querySelectorAll('#dock .app').forEach(a=>{const id=a.dataset.id;a.classList.toggle('open',!!WINS[id]&&WINS[id].style.display!=='none')})}
 
 /* ================= SOLAR DRONE SIM (shared state) ================= */
-const LINCOLN=[40.81,-96.70],DELHI=[28.61,77.21];
+// Start point: Lincoln NE in English, the capital of the flag's country otherwise (Ada core).
+const LINCOLN=UIM.lang==='en'||!UIM.place()?[40.81,-96.70]:UIM.place().home, DELHI=[28.61,77.21];
 const DRONE_SVG='<svg width="26" height="26" viewBox="0 0 26 26"><g stroke="#aeffd6" stroke-width="1.4" fill="none"><ellipse cx="13" cy="13" rx="3" ry="7"/><line x1="13" y1="6" x2="13" y2="2"/><line x1="10" y1="11" x2="1" y2="14"/><line x1="16" y1="11" x2="25" y2="14"/><line x1="11" y1="19" x2="8" y2="24"/><line x1="15" y1="19" x2="18" y2="24"/><circle cx="13" cy="13" r="1.5" fill="#ff7a3a"/></g></svg>';
 const d2r=Math.PI/180,r2d=180/Math.PI;
 const toVec=ll=>{const la=ll[0]*d2r,lo=ll[1]*d2r;return[Math.cos(la)*Math.cos(lo),Math.cos(la)*Math.sin(lo),Math.sin(la)]};

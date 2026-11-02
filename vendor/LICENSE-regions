@@ -1,0 +1,11 @@
+data-regions-eu.js bundles simplified region outlines:
+
+Germany (Bundesländer) and Spain (comunidades autónomas):
+  codeforgermany/click_that_hood, MIT License, Copyright (c) 2013-2021 Code for America.
+  https://github.com/codeforgermany/click_that_hood
+
+France (régions):
+  gregoiredavid/france-geojson, data from IGN / INSEE, Licence Ouverte / Open Licence 2.0 (Etalab).
+  https://github.com/gregoiredavid/france-geojson
+
+Simplified with mapshaper. Corsica, the Canary Islands, Ceuta and Melilla are left out so the mainland fills the map.
