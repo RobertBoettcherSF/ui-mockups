@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.13.1"></script><script src="../vendor/lang.js?v=1.13.1"></script><title>Self-Organizing System</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.13.2"></script><script src="../vendor/lang.js?v=1.13.2"></script><title>Self-Organizing System</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -31,7 +31,7 @@ text.lbl{fill:#cfe0f0;font:8px "Courier New",monospace;letter-spacing:1px}
 @keyframes draw{to{stroke-dashoffset:0}}
 .fade{animation:fade 7s ease-in-out infinite}
 @keyframes fade{0%,100%{opacity:.25}50%{opacity:1}}
-</style><script src="../vendor/debug-cover.js?v=1.13.1"></script><script src="../vendor/top-bar.js?v=1.13.1"></script>
+</style><script src="../vendor/debug-cover.js?v=1.13.2"></script><script src="../vendor/top-bar.js?v=1.13.2"></script>
 </head><body>
 <div id="stage">
  <div id="modeA"></div>
@@ -64,6 +64,7 @@ const hex=n=>'0x'+Array.from({length:n},()=>'0123456789ABCDEF'[RI(0,16)]).join('
 /* ===================== MODE A ===================== */
 const MODULES=['kernel.sched','mem.alloc','net.route','io.flush','crypt.core','parse.ast','graph.walk','cache.lru','sync.lock','vm.page','fs.inode','proc.fork','sig.trap','dma.map','bus.arb','clk.pll'];
 const STATES=['OK','BUSY','IDLE','SYNC','MOVE','WAIT','DONE'];
+const stw=()=>{const w=pick(STATES);return window.UIM&&UIM.t?UIM.t(w):w;};
 const modeA=document.getElementById('modeA');
 let wins=[];let zTop=10;
 
@@ -102,7 +103,7 @@ function streamWin(win){
   // shuffle a highlight
   const d=win.body.querySelectorAll('div');if(d.length){d.forEach(x=>{if(x.classList.contains('row-y')||x.classList.contains('row-b')){x.className=win.data.cls;}});const t=d[RI(1,d.length)];if(t)t.className=Math.random()<.5?'row-y':'row-b';}
  }else{
-  const extra=win.type==='green'?(' '+String(RI(100,9999)).padStart(4)+'  '+pick(MODULES).padEnd(14)+'  '+hex(6)+'  '+String(RI(1,99)).padStart(3)+'%  '+pick(STATES)):(hex(4).slice(2)+' '+hex(4).slice(2)+' '+hex(4).slice(2)+' '+hex(4).slice(2));
+  const extra=win.type==='green'?(' '+String(RI(100,9999)).padStart(4)+'  '+pick(MODULES).padEnd(14)+'  '+hex(6)+'  '+String(RI(1,99)).padStart(3)+'%  '+stw()):(hex(4).slice(2)+' '+hex(4).slice(2)+' '+hex(4).slice(2)+' '+hex(4).slice(2));
   win.body.textContent+=extra+'\n';
  }
  // trim + autoscroll via removing top lines

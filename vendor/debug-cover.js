@@ -5,20 +5,20 @@
    Other scripts: DebugCover.log(type,data), DebugCover.state(name,fn). */
 (function(){
   if(window.DebugCover)return;
-  var APPV='1.13.1', MAX=500, t0=performance.now();
+  var APPV='1.13.2', MAX=500, t0=performance.now();
   var mock=(location.pathname.split('/').filter(Boolean).slice(-2,-1)[0])||document.title||'root';
   var log=[], providers={};
   function ev(type,d){var e={t:new Date().toISOString(),ms:Math.round(performance.now()-t0),type:type};if(d)for(var k in d)e[k]=d[k];log.push(e);if(log.length>MAX)log.shift();}
   function desc(el){if(!el||!el.tagName)return null;var c=(typeof el.className==='string'?el.className:(el.getAttribute&&el.getAttribute('class'))||'');
     return {tag:el.tagName.toLowerCase(),id:el.id||undefined,cls:c?c.slice(0,60):undefined,text:(el.innerText||el.textContent||'').trim().replace(/\s+/g,' ').slice(0,40)||undefined};}
-  window.DebugCover={version:APPV,log:ev,state:function(n,f){providers[n]=f;}};
+  window.DebugCover={version:APPV,log:ev,events:function(){return log;},state:function(n,f){providers[n]=f;}};
   var SRC=(document.currentScript&&document.currentScript.src)||'';
   var ROOT=SRC?SRC.replace(/vendor\/debug-cover\.js.*$/,''):'/ui-mockups/';
   var base='position:fixed;z-index:100000;font:11px monospace;padding:4px 8px;border-radius:4px;';
   var badge=document.createElement('div');badge.textContent='v'+APPV;badge.setAttribute('data-dbg','1');badge.title='Build version';
-  badge.style.cssText=base+'top:2px;right:8px;font:bold 26px monospace;padding:6px 14px;border-width:3px;background:#ffeb3b;color:#000;border:2px solid #000;box-shadow:0 0 8px #ffeb3b;pointer-events:none';
+  badge.style.cssText=base+'top:4px;right:6px;font:bold 13px/16px monospace;padding:1px 8px;background:#ffeb3b;color:#000;border:2px solid #000;box-shadow:0 0 4px #ffeb3b;pointer-events:none';
   var rl=document.createElement('button');rl.setAttribute('data-dbg','1');
-  rl.style.cssText=base+'top:58px;right:8px;display:none;cursor:pointer;font:bold 13px monospace;background:#00e676;color:#000;border:2px solid #000';
+  rl.style.cssText=base+'top:32px;right:8px;display:none;cursor:pointer;font:bold 13px monospace;background:#00e676;color:#000;border:2px solid #000';
   var dbg=document.createElement('button');dbg.textContent='Debug';dbg.setAttribute('data-dbg','1');
   dbg.style.cssText=base+'bottom:10px;left:10px;cursor:pointer;background:#b3261e;color:#fff;border:1px solid #e57373;font-weight:bold';
   function place(){var v=null;document.querySelectorAll('button[data-dbg]').forEach(function(b){if(b!==dbg&&b!==rl&&/voice/i.test(b.textContent))v=b;});

@@ -2,11 +2,22 @@
 
 **Live gallery:** https://robertboettchersf.github.io/ui-mockups/
 
+## How it works
+
+All texts, number/unit formatting, time-zone labels and per-country place data come from a
+small **plain Ada core compiled to WebAssembly** (no Ada runtime; sources in [`ada/`](ada/),
+texts in [`ada/data/texts.tsv`](ada/data/texts.tsv), built by `ada/build.sh` into
+`vendor/uim-core.js`, which embeds the WASM so pages also work from `file://`). The pages
+themselves are plain HTML/CSS/JS. See [docs/HOWTO.md](docs/HOWTO.md) and
+[docs/HOW_WE_GOT_HERE.md](docs/HOW_WE_GOT_HERE.md).
+
 Standalone HTML/CSS (+ vanilla JS) mockups of interface layouts.
 Each folder is self-contained; open its `index.html` in a browser. The map views attempt to
 use real public map data when online, and fall back gracefully to generated/SVG maps offline.
 
 ## Gallery
+
+Every screen follows the selected flag: language, and wherever a map, coast, clock or place appears, the region (🇬🇧 UK/London, 🇩🇪 Germany/Berlin, 🇪🇸 Spain/Madrid, 🇫🇷 France/Paris).
 
 | Preview | Mockup | Description |
 |---|---|---|
@@ -42,9 +53,9 @@ Each of these mockups also shows a small hint in its bottom-right corner.
 - `self-organizing-system`: press **M** to switch between code and blueprint mode; `?mode=a` (code) or `?mode=b` (blueprint) forces a mode.
 - `craft-schematic-display`: **Space** or click a part to highlight a subsystem.
 - `verdant-os`, `aether-os`: type commands in the terminal and press **Enter**.
-- `secure-video-call`, `conference-grid`, `secure-comms-portal`, `global-ops-hub`: voice cover via the browser's built-in speech (Web Speech API). It starts on load or on the first click/key if the browser blocks autoplay. Toggle with the bottom-left button or **V**; `?voice=off` disables it. The choice is remembered. `conference-grid` speaks French when the gallery language is 🇫🇷 (or `?lang=fr`), preferring French system voices; other screens use English for now.
+- `secure-video-call`, `conference-grid`, `secure-comms-portal`, `global-ops-hub`: voice cover via the browser's built-in speech (Web Speech API). All four speak the selected language (🇩🇪 de-DE, 🇬🇧 en-GB with en-US only as a fallback voice, 🇪🇸 es-ES, 🇫🇷 fr-FR), using only that language's own system voices. Flow: a translated **Tap to hear** overlay → after the tap it turns into a pulsing **Connecting…** (further taps are ignored) → it disappears as soon as speech starts and speaker A is highlighted from the first word → at the end a red **Call ended** → a **Repeat?** dialog (Rejoin, or “Repeat the call?” on screens without their own end screen). Toggle with the bottom-left button or **V**; `?voice=off` disables it; the choice is remembered. Participants are shown as initial + surname (M. Venn, T. Ekker …) with gender-neutral roles in every language, so any voice fits.
 - **Voice language policy:** whenever a voice feature is added or changed, add the matching voice samples for every supported gallery language (currently DE, EN, ES, FR). Rollout happens one backlog item at a time. Keys and variables stay English internally; only display/spoken strings are translated.
-- **Every mockup**: red **Debug** button and a bright version stamp (e.g. `v1.13.1`) in the top-right corner; Debug sits bottom-left (next to Voice on call screens), so screenshots show the build. Debug asks for a short note (required) and downloads `debug-<mockup>-v<version>-<time>.json` with app version, URL and params, browser, screen size and the last 500 interaction events (clicks with target, keys, wheel, inputs, resize, visibility, focus, JS errors). On the four voice screens it also includes voice state, the speaker→line→voice plan, speaker changes and a `sync` block (speaker, voice, line, highlighted tile, match). Nothing personal beyond your note — send the file in the chat. In `conference-grid` the SPEAKING tile follows whichever caller is talking. Each caller has a named voice style (neutral / warm / energetic / calm, fixed rate and pitch); when a language has only one system voice, a voice of the other gender may be borrowed from another locale while the text stays in the selected language. Callers speak three rounds (intro and replies, more lines, goodbyes), then the call ends: SPEAKING clears and the Call ended screen shows (Rejoin restarts it).
+- **Every mockup**: red **Debug** button and a bright version stamp (e.g. `v1.13.2`) in the top-right corner; Debug sits bottom-left (next to Voice on call screens), so screenshots show the build. Debug asks for a short note (required) and downloads `debug-<mockup>-v<version>-<time>.json` with app version, URL and params, browser, screen size and the last 500 interaction events (clicks with target, keys, wheel, inputs, resize, visibility, focus, JS errors). On the four voice screens it also includes voice state, the speaker→line→voice plan, speaker changes and a `sync` block (speaker, voice, line, highlighted tile, match). Nothing personal beyond your note — send the file in the chat. In `conference-grid` the SPEAKING tile follows whichever caller is talking. Each caller has a named voice style (neutral / warm / energetic / calm, fixed rate and pitch); when a language has only one system voice, a voice of the other gender may be borrowed from another locale while the text stays in the selected language. Callers speak three rounds (intro and replies, more lines, goodbyes), then the call ends: SPEAKING clears and the Call ended screen shows (Rejoin restarts it).
 - **Updates**: each page checks `version.txt` on load; if a newer build is online, a green **Reload** button appears under the version stamp.
 
 ### Map data attributions
@@ -62,7 +73,7 @@ MIT, see [LICENSE](LICENSE). All names, readings and messages are invented.
 ### farm-weather-console
 Dark farm weather & dust-storm / crop monitoring console. Left sidebar (system status, striped dust-advisory hazard block, crop-health bars,
 blight index, button row); centre **live Weather Radar map** (Leaflet) with a dark basemap,
-US state borders from us-atlas TopoJSON, and a live radar overlay from the RainViewer public
+region borders of the flag's country (12 UK regions, German Länder, Spanish communities, French régions from `vendor/data-regions-eu.js`), and a live radar overlay from the RainViewer public
 API, tinted cyan/yellow-green and centred on the flag's country (UK for English); if the network is unavailable it
 falls back to an offline map of that country's regions with simulated radar dust blobs.
 Bottom row of five live line-chart panels; right column of readouts and a rolling event log.
@@ -70,11 +81,11 @@ Preview: `farm-weather-console/preview.png`
 
 Data & attribution:
 - Basemap tiles © Esri (dark canvas); © OpenStreetMap contributors
-- US state borders: us-atlas (TopoJSON, Natural Earth / US Census) via jsDelivr
+- Region borders: bundled `vendor/data-regions-eu.js` (see `vendor/LICENSE-regions`); us-atlas (TopoJSON, Natural Earth / US Census) is kept only as a fallback when no region file matches the flag
 - Radar overlay © RainViewer (api.rainviewer.com public weather-maps API)
 
 ### drone-console
-UAV ground-control console, with all text in English. Left **Mission Map** (Leaflet, Esri World Imagery
+UAV ground-control console, in the selected language (DE/EN/ES/FR) with the region following the flag. Left **Mission Map** (Leaflet, Esri World Imagery
 satellite tiles) tracking a simulated solar-powered HALE drone with an original SVG icon and
 trail: phase 1 loiters in slow loops near the flag's capital (London for English); phase 2 climbs to
 stratospheric altitude and flies a great-circle route east to India; phase 3 cruises at high
@@ -100,15 +111,15 @@ icons, and a working mock terminal).
 
 ### verdant-os — "VerdantOS"
 Agricultural weather operations desktop. Apps: **Weather Radar** (main window = the live
-Leaflet map: dark basemap + us-atlas state borders + RainViewer radar overlay, with the
-procedural Great-Plains SVG offline fallback), Field Sensors (live charts), Crop Health,
+Leaflet map: dark basemap + the flag's regional borders + RainViewer radar overlay, with the
+procedural offline fallback of the flag's country), Field Sensors (live charts), Crop Health,
 System Status (dust advisory), Event Log, and a Terminal (`help, status, radar, crops,
 probes, ls`). Draggable windows, dock + desktop icons, tray clock/NET status.
 Preview: `verdant-os/preview.png`
 
 ### aether-os — "AetherOS"
-UAV ground-control desktop. Apps: **Mission Map** (the solar-HALE tracking sim — Nebraska
-loiter → great-circle climb to India → stratospheric cruise, on Esri World Imagery, with
+UAV ground-control desktop. Apps: **Mission Map** (the solar-HALE tracking sim — loiter over the flag's country
+→ great-circle climb to India → stratospheric cruise, on Esri World Imagery, with
 generated-terrain offline fallback; `?speed=50` to accelerate), **Secure Login** (the
 Login Successful → transferring data → Unauthorized Access cycle; the window border also
 flashes red and the tray link flips to BREACH), Airframe + Telemetry (solar array / battery /
@@ -123,7 +134,7 @@ all stay in sync. All third-party map data is loaded via public CDNs/APIs and at
 ### secure-video-call
 Secure two-party video-call interface on a black background, made fully generic: no real nation, government, agency, flag or official seal.
 Top-centre flag-free "SECURE LINK" badge; two 16:9 video panels with thin white borders, each
-with a centred abstract geometric emblem and a lower-left caption ("Remote Office A — Harbourton",
+with a centred abstract geometric emblem and a lower-left caption ("Remote Office A — Westmarrow",
 "Executive Office B — Chief of Staff Aide"); the left panel shows a CSS/SVG-generated, dimmed
 park/building scene. Bottom-centre control cluster (mic mute toggle, red hang-up, red REC with
 blinking dot + live timer); bottom-left fullscreen (Fullscreen API) and lock toggle; bottom-right
@@ -136,9 +147,9 @@ Multi-party conference grid on a black background, fully generic (no real names,
 governments, official seals or org logos). Top-centre shows a generic abstract building-outline
 icon (resembling no real building) and a live HH:MM:SS call timer. A 3×2 grid of black tiles
 with thin white borders, each carrying a distinct original abstract geometric emblem and a
-lower-left caption with invented names and generic roles (Coordinator — Mara Venn; Regional
-Lead North — Tobias Ekker; Regional Lead East — Ines Corral; Regional Lead South — Dev Ashby;
-Liaison Officer — Kai Brenner; Council Chair — Network Partners). An active-speaker highlight
+lower-left caption with invented names and generic roles (Coordinator — M. Venn; Regional
+Lead North — T. Ekker; Regional Lead East — I. Corral; Regional Lead South — D. Ashby;
+Liaison Office — K. Brenner; Council Chair — Network Partners). An active-speaker highlight
 (green border + "SPEAKING" badge) cycles between tiles. Reuses the secure-video-call control
 styling: mic mute toggle, red hang-up ("Call ended" overlay), red REC with blinking dot + timer,
 bottom-left fullscreen + lock, bottom-right camera + blue share — all interactive.
@@ -188,7 +199,7 @@ A public-information broadcast screen for an original, fully generic network.
 - **Background** — dark charcoal with faint, slowly scrolling grey monospace
   filler text behind everything, plus a subtle scanline/flicker overlay.
 - **Sidebar** — an invented channel name (*CONTINENTAL PUBLIC INFORMATION
-  NETWORK*) in white serif caps, a live `HH:MM LT` clock, an underlined date,
+  NETWORK*) in white serif caps, a live `HH:MM` clock with the flag's zone label (GMT/BST, MEZ/MESZ, CET/CEST, HNEC/HAEC), an underlined date,
   an original abstract emblem (no flag/stars/parliament outline), and a
   two-column bilingual English/French italic notice.
 - **Header** — a bordered box with a line icon: *NEWS & INFORMATION |
@@ -267,7 +278,7 @@ All data is invented; no real agencies, seals, or logos.
 
 A generic software-defined-radio status strip on a plain black background.
 
-- **Map card** — white-bordered tall card with a glowing dot-and-line network over a continental US outline (us-atlas TopoJSON + d3-geo, with an offline generated fallback).
+- **Map card** — white-bordered tall card with a glowing dot-and-line network over the flag's country outline (UK for English; world-atlas TopoJSON + d3-geo, with an offline generated fallback).
 - **SDR Console v3.2 ENCRYPTED** — bright green panel with LCD-style rows: encryption level, secure frequency and three generic stations (A/B/C) whose statuses cycle; the transmitting one blinks.
 - **Spectrum panel** — grey panel with an abstract antenna tile, an animated segmented spectrum display and a row of white tool icons.
 
@@ -290,7 +301,7 @@ A generic operations hub: a silver compass-rose emblem in a hexagon at the centr
 
 ### coastal-monitor
 
-A generic coastal observation console with a retro look on a flat dark background. Top bar with a live date/time and a boxed gradient-outline "OCEANA" wordmark; mint-green labelled views of a calm ocean sunset and a palm beach (drawn locally on canvas, gently animated); monospace Tide & Wave Log, Buoy Telemetry Feed and a slowly appending Command & Data Log with routine entries. All content is invented and neutral.
+A generic coastal observation console with a retro look on a flat dark background. Top bar with a live date/time and a boxed gradient-outline "OCEANA" wordmark; mint-green labelled views of the flag's coast (UK: North Sea / Atlantic cliffs; DE: Baltic / North Sea dunes; FR: Atlantic / Mediterranean pines; ES: Mediterranean / Balearic palms; drawn locally on canvas, gently animated); monospace Tide & Wave Log, Buoy Telemetry Feed and a slowly appending Command & Data Log with routine entries. All content is invented and neutral.
 
 ### cockpit-flight-display
 
@@ -300,7 +311,7 @@ A generic two-screen flight display with glowing cyan line graphics on dark navy
 
 A generic blueprint-style portrait display: a top-down wireframe schematic of an original small spacecraft design on a navy grid inside a bright cyan frame, with fuel cell and power bus panels below. Subsystems highlight in turn. Click a part or press Space to select one. All labels are generic.
 
-## Languages (v1.13.1)
+## Languages (v1.13.2)
 
 Pick a flag in the gallery (or add `?lang=de|es|fr|en` to any page). Every
 screen then shows its texts, numbers (`1.234,5`), 24 h clock, units and map

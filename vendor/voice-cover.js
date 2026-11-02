@@ -15,7 +15,8 @@
   function setSpk(i){var p=speaking;speaking=i;if(p!==i)ev('speaker',{from:p,to:i});dispatchEvent(new CustomEvent('vc:speaker',{detail:{index:i}}));}
   addEventListener('vc:highlight',function(e){lit={index:e.detail.index,label:e.detail.label};ev('highlight',{tile:e.detail.index,label:e.detail.label,speakerId:speaking,match:speaking<0||speaking===e.detail.index});});
   var btn=document.createElement('button');btn.setAttribute('data-dbg','1');btn.style.cssText='position:fixed;bottom:10px;left:10px;z-index:99999;font:11px monospace;padding:4px 8px;border-radius:4px;cursor:pointer;background:#000a;color:#ddd;border:1px solid #666';
-  function label(){btn.textContent=!synth?'Voice: unsupported':(muted?'🔇 Voice off (V)':'🔊 Voice on (V)');}
+  function label(){var k=!synth?'Voice: unsupported':(muted?'🔇 Voice off (V)':'🔊 Voice on (V)');btn.textContent=(window.UIM&&UIM.t)?UIM.t(k):k;}
+  document.addEventListener('uim-lang',function(){label();});
   label(); (document.body||document.documentElement).appendChild(btn);
   ev('load',{callers:n,muted:muted,speechSynthesis:!!synth});
   D.state('voice',function(){return {
@@ -32,7 +33,7 @@
     replies:['reply_concur','reply_good_idea','reply_plan','reply_would_if_could','reply_agree_all','reply_next_step'],
     more:['more_open_source','more_try_it','more_feedback','more_languages','more_star_too','more_works_for_me'],
     bye:['bye_thanks','bye_see_you','bye_good_call','bye_later','bye_cheers','bye_take_care']};
-  var TAGS={en:'en-US',de:'de-DE',es:'es-ES',fr:'fr-FR'};
+  var TAGS={en:'en-GB',de:'de-DE',es:'es-ES',fr:'fr-FR'};
   var S={
     en:{intro_star:"This is a mockup GUI. Feel free to use it. If you found it useful, consider giving this repo a star on GitHub.",
       reply_concur:"I concur.",reply_good_idea:"Good idea.",reply_plan:"That sounds like a plan.",reply_would_if_could:"If I could do it, I would.",
@@ -64,6 +65,7 @@
   function pick(i){
     var all=synth.getVoices();
     var own=all.filter(function(x){return x.lang.toLowerCase().indexOf(lang)===0;});
+    if(lang==='en'){var gb=own.filter(function(x){return /en[-_]gb/i.test(x.lang);});if(gb.length)own=gb;} // EN = UK; en-US only as fallback
     var natural=own.filter(isNatural);
     if(natural.length) own=natural;
     if(!own.length) return null;
@@ -71,10 +73,21 @@
     if(pool.length) return pool[Math.floor(i/2)%pool.length];
     return own[i%own.length];}
 
-  function finishCall(){if(ended)return;ended=true;cur=null;setSpk(-1);ev('call-ended',{});
-    dispatchEvent(new CustomEvent('vc:ended'));}
+  function finishCall(){if(ended)return;ended=true;if(tap.dataset.state==='connecting')tapState('gone');cur=null;setSpk(-1);ev('call-ended',{});
+    dispatchEvent(new CustomEvent('vc:ended'));
+    if(!document.getElementById('ended'))setTimeout(endBox,800);}
+  // Pages without their own #ended screen get a generic one: red "Call ended" + repeat.
+  function endBox(){var T=function(k){return window.UIM&&UIM.t?UIM.t(k):k;};
+    var b=document.getElementById('vc-ended');if(!b){b=document.createElement('div');b.id='vc-ended';
+      b.style.cssText='position:fixed;inset:0;margin:auto;width:min(86vw,380px);height:170px;z-index:99997;background:rgba(10,12,16,.95);border:1px solid #ff4d4d;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font:15px system-ui,sans-serif;color:#e8eef2';
+      b.innerHTML='<div style="color:#ff4d4d;font-size:24px" data-k="Call ended"></div><div data-k="Repeat the call?"></div><button data-k="Repeat" style="background:#2a2f36;color:#e8eef2;border:1px solid #556;padding:8px 18px;border-radius:20px;cursor:pointer"></button>';
+      b.querySelector('button').onclick=function(){b.style.display='none';window.VoiceCover.restart();};
+      document.body.appendChild(b);}
+    b.querySelectorAll('[data-k]').forEach(function(x){x.textContent=T(x.getAttribute('data-k'));});b.style.display='flex';ev('end-box',{});}
 
-  function say(t,i,key){var u=new SpeechSynthesisUtterance(t);var v=pick(i);
+  // Spoken text only: acronyms (MIT, GUI, URL …) are spelled letter by letter, e.g. 'MIT' -> 'M I T'; the plan/log keep the original line.
+  function spell(t){return t.replace(/\b[A-ZÄÖÜ]{2,5}\b/g,function(w){return w.split('').join(' ');});}
+  function say(t,i,key){var u=new SpeechSynthesisUtterance(spell(t));var v=pick(i);
     if(v)u.voice=v;u.lang=TAGS[lang]||lang;u.pitch=PITCH[i%PITCH.length];u.rate=1;
     var vn=v?v.name:'(default)';
     plan.push({speaker:i,key:key,line:t,voice:vn,voiceLang:v?v.lang:null,pitch:u.pitch,rate:u.rate});
@@ -85,7 +98,7 @@
     function done(){queued--;order.shift();
       if(queued<=0&&started){finishCall();return;}
       if(order.length&&speaking!==order[0])setSpk(order[0]);}
-    u.onstart=function(){unlocked=true;cur={voice:vn,line:t};setSpk(i);ev('speak-start',{speakerId:i,key:key,voice:vn,line:t,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null});};
+    u.onstart=function(){unlocked=true;if(tap.dataset.state!=='gone')tapState('gone');cur={voice:vn,line:t};setSpk(i);ev('speak-start',{speakerId:i,key:key,voice:vn,line:t,highlightedTile:lit?lit.index:null,highlightedLabel:lit?lit.label:null});};
     u.onend=function(){ev('speak-end',{speakerId:i,key:key,highlightedTile:lit?lit.index:null});done();};
     u.onerror=function(e){ev('speak-error',{speakerId:i,key:key,error:e.error});done();};
     synth.speak(u);}
@@ -106,24 +119,36 @@
   // runs synchronously inside a user tap (touchend / click). So we do not
   // auto-start; the overlay's handler calls run() directly, which calls
   // synth.speak() before returning.
-  var tap=document.createElement('button');
-  tap.textContent='\u25B6 '+(lang!=='en'&&window.UIM?UIM.t('Tap to hear'):'Tap to hear');
+  var tap=document.createElement('button');tap.setAttribute('data-dbg','1');
+  var TT=function(k){return window.UIM&&UIM.t?UIM.t(k):k;};
+  var st=document.createElement('style');st.textContent='@keyframes vcpulse{0%,100%{opacity:1}50%{opacity:.45}}';document.head.appendChild(st);
+  // States: idle (tap to hear) -> connecting (pulse, taps ignored) -> gone while speaking.
+  function tapState(k){tap.dataset.state=k;
+    if(k==='idle'){tap.textContent='\u25B6 '+TT('Tap to hear');tap.style.animation='';tap.style.pointerEvents='auto';tap.style.display='';}
+    else if(k==='connecting'){tap.textContent='\u23F3 '+TT('Connecting…');tap.style.animation='vcpulse 1.2s ease-in-out infinite';tap.style.pointerEvents='none';tap.style.display='';}
+    else{tap.style.display='none';tap.style.animation='';}
+    ev('overlay',{state:k});}
   tap.style.cssText='position:fixed;inset:0;margin:auto;width:min(80vw,360px);height:120px;z-index:99998;'+
     'font:600 22px system-ui,sans-serif;color:#fff;background:rgba(10,120,60,.92);border:2px solid #7f7;border-radius:16px;cursor:pointer';
+  tapState('idle');
+  document.addEventListener('uim-lang',function(){if(tap.dataset.state!=='gone')tapState(tap.dataset.state);});
   function onTap(e){
     if(e){e.preventDefault();e.stopPropagation();}
+    if(tap.dataset.state!=='idle')return;              // taps while connecting/playing are ignored
     ev('unlock-attempt',{via:e?e.type:'none'});
     if(muted){muted=false;localStorage.setItem('vc-muted','0');label();}
     started=false;ended=false;
+    tapState('connecting');
     run('tap');                      // speak() happens here, synchronously
-    if(tap.parentNode)tap.parentNode.removeChild(tap);
-    setTimeout(function(){
-      if(unlocked)ev('unlock-success',{});
-      else{ev('unlock-fail',{speaking:synth.speaking,pending:synth.pending});started=false;document.body.appendChild(tap);}
-    },1500);}
+    var t0=Date.now();
+    (function check(){
+      if(unlocked||synth.speaking){unlocked=true;ev('unlock-success',{speaking:synth.speaking,ms:Date.now()-t0});if(synth.speaking){if(speaking<0&&order.length)setSpk(order[0]);if(tap.dataset.state==='connecting')tapState('gone');}else if(tap.dataset.state==='connecting')setTimeout(check,100);return;}
+      if(Date.now()-t0<10000){setTimeout(check,100);return;}
+      if(synth.pending){setTimeout(check,100);return;}
+      ev('unlock-fail',{speaking:synth.speaking,pending:synth.pending});started=false;tapState('idle');})();}
   tap.addEventListener('touchend',onTap);
   tap.addEventListener('click',onTap);
-  if(!muted)document.body.appendChild(tap);
+  document.body.appendChild(tap);if(muted)tapState('gone');
   addEventListener('beforeunload',function(){synth.cancel();});
   synth.onvoiceschanged=function(){ev('voices-changed',{count:synth.getVoices().length});};
 })();

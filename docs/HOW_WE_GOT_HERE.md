@@ -152,3 +152,15 @@ gallery) are unchanged.
 - Big titles on the three ops screens no longer slide under the top bar (`#wrap` starts 24 px down).
 - The public-broadcast word ticker is now `data-notr`, so it stays the same English/French mix in every language.
 - New `tools/strict_scan.py`: every visible DE/FR/ES string is split into words; a word counts as a hit if it occurs in the EN harvest, is not in that language's column of texts.tsv and is not in UNTRANSLATED.md. Names, slugs, machine tables, the French half of the broadcast and shared loanwords (Bus, Zoom, Sensor, nominal, regional …) are reported separately as allowed.
+
+## v1.13.2: voice calls that finish, badge in the top bar, neutral names
+
+- **Voice button stayed English**: it carries `data-dbg`, which the page translation skips. `voice-cover.js` now labels it through `UIM.t` and relabels on `uim-lang`.
+- **Call never reached the end** (Linux Chrome): the unlock check fired `unlock-fail` while `speechSynthesis.speaking` was true, the overlay came back, and the next tap restarted the call and cut off the first speaker. Now: tap → translated "Connecting…" (pulsing, taps ignored) → hidden as soon as speech starts (onstart *or* `speaking===true`, which also highlights speaker A from the first word) → red translated "Call ended" → repeat dialog (Rejoin on conference-grid/secure-video-call, a generic "Repeat the call?" box on global-ops-hub/secure-comms-portal).
+- **Names**: initial + surname (M. Venn, T. Ekker …) and gender-neutral roles in all languages (Koordination, Regionalleitung, Stabsstelle, Direction régionale …).
+- **Version badge** is smaller and sits inside the 28 px top bar's reserved right slot, so it no longer covers page labels.
+- **self-organizing-system** status words (OK/BUSY/IDLE/SYNC/MOVE/WAIT/DONE) translate via Ada; the exemption is gone.
+- **public-broadcast ticker**: English half follows the flag, French half stays French.
+- **Gallery rain**: whole-grapheme array (क्ष, ज्ञ as single entries), so no lone virama / dotted circle.
+- **capital-air-patrol**: animations about 25 % slower; crew lines use radio callsigns and phrasing ("AIR PATROL 1: handover complete, over").
+- **Fictional places follow the flag**: secure-video-call's remote office is Westmarrow (EN), Talmersbrück (DE), Valmorena del Mar (ES), Port-Saumelle (FR) instead of the US-sounding Harbourton; acronyms in spoken lines are spelled letter by letter (M I T), displayed text unchanged.

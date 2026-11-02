@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.13.1"></script><script src="../vendor/lang.js?v=1.13.1"></script><title>Capital Air Patrol</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.13.2"></script><script src="../vendor/lang.js?v=1.13.2"></script><title>Capital Air Patrol</title>
 <link rel="stylesheet" href="../vendor/leaflet/leaflet.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{background:#000;color:#cfe0d6;font:12px/1.4 "Courier New",monospace;overflow:hidden}
-#wrap{position:absolute;inset:24px 0 0 0;overflow:hidden;padding:12px 18px 0;display:grid;grid-template-rows:auto 1fr auto;gap:10px}
+#wrap{position:absolute;inset:28px 0 0 0;overflow:hidden;padding:12px 18px 0;display:grid;grid-template-rows:auto 1fr auto;gap:10px}
 header{display:flex;align-items:flex-start;gap:16px}
 header .em{width:58px;height:58px;flex-shrink:0}
 header .ttl{flex:1;min-width:0;overflow:hidden}
@@ -51,9 +51,9 @@ header .ttl{flex:1;min-width:0;overflow:hidden}
 .blink{background:#5c0f0b;color:#ffd0c9;padding:1px 5px}
 .blink.inv{background:#ffd0c9;color:#5c0f0b}
 .ticker{background:#b11810;color:#ffe1dd;white-space:nowrap;overflow:hidden;font-size:12px;letter-spacing:1px;padding:4px 0}
-.ticker span{display:inline-block;padding-left:100%;animation:scroll 26s linear infinite}
+.ticker span{display:inline-block;padding-left:100%;animation:scroll 34s linear infinite}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
-</style><script src="../vendor/debug-cover.js?v=1.13.1"></script><script src="../vendor/top-bar.js?v=1.13.1"></script>
+</style><script src="../vendor/debug-cover.js?v=1.13.2"></script><script src="../vendor/top-bar.js?v=1.13.2"></script>
 </head><body>
 <div id="wrap">
  <header>
@@ -80,7 +80,7 @@ header .ttl{flex:1;min-width:0;overflow:hidden}
     <div class="ln">&gt; Perimeter check complete</div>
     <div class="ln">&gt; Airspace clear — nominal</div>
     <div class="ln">&gt; Relay link verified</div>
-    <div class="ln">&gt; Crew handover logged</div>
+    <div class="ln">&gt; AIR PATROL 1: handover complete, over</div>
    </div>
    <div class="box">
     <h4>STANDING NOTICE</h4>
@@ -123,9 +123,9 @@ header .ttl{flex:1;min-width:0;overflow:hidden}
     <h4>NOTES / REMARKS</h4>
     <div class="dd"></div>
     <div class="ln"><span class="tm" data-tz>22:04 </span> — Patrol orbit established</div>
-    <div class="ln"><span class="tm" data-tz>22:09 </span> — Relay link nominal</div>
+    <div class="ln"><span class="tm" data-tz>22:09 </span> — CENTRAL: relay check, read you five, over</div>
     <div class="ln"><span class="tm" data-tz>22:15 </span> — Perimeter sweep logged</div>
-    <div class="ln"><span class="tm" data-tz>22:21 </span> — Crew check complete</div>
+    <div class="ln"><span class="tm" data-tz>22:21 </span> — AIR PATROL 2: crew check complete, over</div>
    </div>
   </div>
  </div>
@@ -145,7 +145,7 @@ document.getElementById('tick').textContent=tickText+tickText;
 
 /* audio bars */
 (function(){const cv=document.getElementById('aud');function fit(){cv.width=cv.clientWidth;cv.height=cv.clientHeight}fit();const ctx=cv.getContext('2d');
- (function loop(){const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);const n=46,bw=W/n;for(let i=0;i<n;i++){const env=Math.sin(i/n*Math.PI);const h=3+Math.random()*env*H*.85;ctx.fillStyle='#ffe780';ctx.fillRect(i*bw+1,H-h,bw-1.5,h)}requestAnimationFrame(loop)})();})();
+ let fc=0;(function loop(){if(++fc%4===0){requestAnimationFrame(loop);return;}const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);const n=46,bw=W/n;for(let i=0;i<n;i++){const env=Math.sin(i/n*Math.PI);const h=3+Math.random()*env*H*.85;ctx.fillStyle='#ffe780';ctx.fillRect(i*bw+1,H-h,bw-1.5,h)}requestAnimationFrame(loop)})();})();
 
 /* helicopter divIcon (original top-down icon) */
 function heliSVG(){return '<svg class="heli" width="34" height="34" viewBox="0 0 34 34">'
@@ -175,7 +175,7 @@ function offlineFallback(){
  const b=document.createElement('div');b.innerHTML=badgeHTML();b.style.cssText='position:absolute;z-index:5;transform:translate(-50%,-50%);left:'+cx+'px;top:'+cy+'px';mw.appendChild(b);
  const h1=document.createElement('div'),h2=document.createElement('div');
  [h1,h2].forEach(h=>{h.style.cssText='position:absolute;z-index:6;transform:translate(-50%,-50%)';mw.appendChild(h)});
- let t=0;(function sp(){t+=0.02;const R=Math.min(W,H)*.28;
+ let t=0;(function sp(){t+=0.015;const R=Math.min(W,H)*.28;
   place(h1,cx+R*Math.cos(t),cy+R*Math.sin(t),t);
   place(h2,cx+R*Math.cos(t+Math.PI),cy+R*Math.sin(t+Math.PI),t+Math.PI);
   requestAnimationFrame(sp)})();
@@ -202,7 +202,7 @@ function init(){
   const hA=mkHeli(),hB=mkHeli();
   const Rlat=0.0036, Rlng=0.0036/Math.cos(GOV[0]*Math.PI/180); // ~400 m
   let t=0;
-  function orbit(){t+=0.015;
+  function orbit(){t+=0.011;
    function set(m,ph){const lat=GOV[0]+Rlat*Math.sin(t+ph);const lng=GOV[1]+Rlng*Math.cos(t+ph);m.setLatLng([lat,lng]);
     const head=(t+ph)*180/Math.PI; // tangent heading
     const el=m.getElement();if(el){const s=el.querySelector('svg');if(s)s.style.transform='rotate('+(head)+'deg)';}}
@@ -223,11 +223,11 @@ let alertOn=false, blinkT=null;
 function showAlert(){ if(alertOn) return; alertOn=true; alertBox.classList.add('on');
  tickEl.textContent=alertTick+alertTick+alertTick;
  const blinks=[document.getElementById('bk1'),document.getElementById('bk2'),document.getElementById('bk3')];
- let f=false; blinkT=setInterval(()=>{f=!f; blinks.forEach(b=>b&&b.classList.toggle('inv',f));},600);
- setTimeout(hideAlert,8000);
+ let f=false; blinkT=setInterval(()=>{f=!f; blinks.forEach(b=>b&&b.classList.toggle('inv',f));},800);
+ setTimeout(hideAlert,10000);
 }
 function hideAlert(){ alertOn=false; alertBox.classList.remove('on'); if(blinkT)clearInterval(blinkT); tickEl.textContent=normalTick; }
-setInterval(()=>{ if(!alertOn) showAlert(); }, 25000);
+setInterval(()=>{ if(!alertOn) showAlert(); }, 32000);
 document.querySelector('header').style.cursor='pointer';
 document.querySelector('header').addEventListener('click',showAlert);
 

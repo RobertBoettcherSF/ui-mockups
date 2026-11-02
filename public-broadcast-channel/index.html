@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.13.1"></script><script src="../vendor/lang.js?v=1.13.1"></script><title>Continental Public Information Network</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.13.2"></script><script src="../vendor/lang.js?v=1.13.2"></script><title>Continental Public Information Network</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -37,7 +37,7 @@ body{background:#0c0f12;color:#d7dde0;font:13px/1.45 Georgia,"Times New Roman",s
 .ticker{border-top:1px solid #39434b;border-bottom:1px solid #39434b;overflow:hidden;white-space:nowrap;padding:8px 0}
 .ticker span{display:inline-block;padding-left:100%;font-size:26px;letter-spacing:1px;color:#e9eef0;font-family:Georgia,serif;animation:scroll 40s linear infinite;animation-delay:-22s}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
-</style><script src="../vendor/debug-cover.js?v=1.13.1"></script><script src="../vendor/top-bar.js?v=1.13.1"></script>
+</style><script src="../vendor/debug-cover.js?v=1.13.2"></script><script src="../vendor/top-bar.js?v=1.13.2"></script>
 </head><body>
 <div id="bg" data-notr></div>
 <div id="scan"></div>
@@ -91,7 +91,10 @@ body{background:#0c0f12;color:#d7dde0;font:13px/1.45 Georgia,"Times New Roman",s
 </div>
 <script>
 // background filler (neutral monospace gibberish)
-(function(){const words="INFORMATION NOUVELLES PUBLIC RESEAU CONTINENTAL ADVISORY BULLETIN METEO SERVICE NETWORK CHANNEL DIFFUSION SIGNAL RELAY STANDBY NOMINAL ".split(" ");let out="";for(let r=0;r<160;r++){let line="";for(let c=0;c<42;c++)line+=words[(r*7+c*3)%words.length]+" ";out+=line+"\n";}document.getElementById('bg').textContent=out;})();
+(function(){const EN="INFORMATION PUBLIC CONTINENTAL ADVISORY BULLETIN SERVICE NETWORK CHANNEL SIGNAL RELAY STANDBY NOMINAL".split(" "),FR="NOUVELLES RESEAU METEO DIFFUSION".split(" ");
+/* English half follows the flag (Ada texts.tsv), French half stays French. */
+function draw(){const T=w=>window.UIM&&UIM.t?UIM.t(w):w;const words=[];for(let k=0;k<16;k++)words.push(k%4===3?FR[(k>>2)%FR.length]:T(EN[(k-(k>>2))%EN.length]));let out="";for(let r=0;r<160;r++){let line="";for(let c=0;c<42;c++)line+=words[(r*7+c*3)%words.length]+" ";out+=line+"\n";}document.getElementById('bg').textContent=out;}
+draw();document.addEventListener('uim-lang',draw);})();
 
 // clock + date
 function pad(n){return String(n).padStart(2,'0')}

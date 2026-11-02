@@ -4,7 +4,7 @@
 # longer texts, so a log line can be made of several rows.
 # --- gallery and top bar
 UI Mockups	UI-Mockups	Maquetas de interfaz	Maquettes d'interface
-Standalone HTML/CSS/JS interface mockups. Click a card to open it. Source on	Eigenständige HTML/CSS/JS-Oberflächen-Mockups. Karte anklicken zum Öffnen. Quellcode auf	Maquetas de interfaz independientes en HTML/CSS/JS. Haga clic en una tarjeta para abrirla. Código fuente en	Maquettes d'interface autonomes en HTML/CSS/JS. Cliquez sur une carte pour l'ouvrir. Code source sur
+Standalone HTML/CSS/JS + Ada (WebAssembly) interface mockups. Click a card to open it. Source on	Eigenständige Oberflächen-Mockups in HTML/CSS/JS + Ada (WebAssembly). Karte anklicken zum Öffnen. Quellcode auf	Maquetas de interfaz independientes en HTML/CSS/JS + Ada (WebAssembly). Haga clic en una tarjeta para abrirla. Código fuente en	Maquettes d'interface autonomes en HTML/CSS/JS + Ada (WebAssembly). Cliquez sur une carte pour l'ouvrir. Code source sur
 MIT licensed · # mockups	MIT-Lizenz · # Mockups	Licencia MIT · # maquetas	Licence MIT · # maquettes
 Gallery	Galerie	Galería	Galerie
 Jump to mockup	Zu Mockup springen	Ir a la maqueta	Aller à la maquette
@@ -27,7 +27,45 @@ Retro coastal monitoring terminal with camera views	Retro-Terminal zur Küstenü
 Twin-screen spacecraft cockpit flight display	Zwei-Bildschirm-Fluganzeige im Raumschiffcockpit	Pantalla de vuelo de cabina de nave espacial con dos pantallas	Affichage de vol de cockpit de vaisseau à deux écrans
 Interactive spacecraft subsystem schematic	Interaktiver Schaltplan der Raumschiff-Subsysteme	Esquema interactivo de subsistemas de nave espacial	Schéma interactif des sous-systèmes du vaisseau
 # --- voice lines (voice-cover.js keeps the English, Ada holds the rest)
+> AIR PATROL 1: handover complete, over	> LUFTPATROUILLE 1: Übergabe abgeschlossen, kommen	> PATRULLA AÉREA 1: relevo completado, cambio	> PATROUILLE AÉRIENNE 1 : relève terminée, à vous
+AIR PATROL 2: crew check complete, over	LUFTPATROUILLE 2: Besatzungscheck abgeschlossen, kommen	PATRULLA AÉREA 2: control de tripulación completado, cambio	PATROUILLE AÉRIENNE 2 : contrôle équipage terminé, à vous
+CENTRAL: relay check, read you five, over	ZENTRALE: Relaisprüfung, höre Sie fünf, kommen	CENTRAL: prueba de relé, le recibo cinco, cambio	CENTRAL : essai relais, je vous reçois cinq, à vous
+Connecting…	Verbinde …	Conectando…	Connexion…
+Coordinator — M. Venn	Koordination — M. Venn	Coordinación — M. Venn	Coordination — M. Venn
+Regional Lead North — T. Ekker	Regionalleitung Nord — T. Ekker	Dirección regional norte — T. Ekker	Direction régionale Nord — T. Ekker
+Regional Lead East — I. Corral	Regionalleitung Ost — I. Corral	Dirección regional este — I. Corral	Direction régionale Est — I. Corral
+Regional Lead South — D. Ashby	Regionalleitung Süd — D. Ashby	Dirección regional sur — D. Ashby	Direction régionale Sud — D. Ashby
+Liaison Office — K. Brenner	Verbindungsstelle — K. Brenner	Enlace — K. Brenner	Liaison — K. Brenner
+Council Chair — Network Partners	Ratsvorsitz — Netzwerkpartner	Presidencia del consejo — Socios de la red	Présidence du conseil — Partenaires du réseau
+Executive Office B — Chief of Staff's Office	Büro der Leitung B — Stabsstelle	Oficina ejecutiva B — Gabinete	Bureau exécutif B — Cabinet
+OFFICE OF THE AIDE	STABSSTELLE	GABINETE	CABINET
+Remote Office A — Westmarrow	Außenstelle A — Talmersbrück	Oficina remota A — Valmorena del Mar	Bureau distant A — Port-Saumelle
+Lead,	Leitung,	Dirección,	Direction,
+Coordinator,	Koordination,	Coordinación,	Coordination,
+Analyst,	Analyse,	Análisis,	Analyse,
+Support,	Unterstützung,	Soporte,	Soutien,
+Observer	Beobachtung	Observación	Observation
+Thanks, everyone. Ending the call now.	Danke an alle. Ich beende jetzt den Anruf.	Gracias a todo el mundo. Termino la llamada.	Merci à tout le monde. Je termine l'appel.
+Repeat the call?	Anruf wiederholen?	¿Repetir la llamada?	Répéter l’appel ?
+Repeat	Wiederholen	Repetir	Répéter
 sys	sys	sis	sys
+RELAY	RELAIS	RELÉ	RELAIS
+SIGNAL	SIGNAL	SEÑAL	SIGNAL
+CHANNEL	KANAL	CANAL	CHAÎNE
+NETWORK	NETZ	RED	RÉSEAU
+SERVICE	DIENST	SERVICIO	SERVICE
+BULLETIN	BULLETIN	BOLETÍN	BULLETIN
+ADVISORY	HINWEIS	AVISO	AVIS
+CONTINENTAL	KONTINENTAL	CONTINENTAL	CONTINENTAL
+PUBLIC	ÖFFENTLICH	PÚBLICO	PUBLIC
+INFORMATION	INFORMATION	INFORMACIÓN	INFORMATION
+DONE	FERTIG	HECHO	FINI
+WAIT	WARTEN	ESPERA	ATTENTE
+MOVE	BEWEG.	MOV.	DÉPL.
+SYNC	SYNC	SINC.	SYNC
+IDLE	FREI	INACT.	INACTIF
+BUSY	BELEGT	OCUP.	OCCUPÉ
+OK	OK	OK	OK
 Tap to hear	Tippen zum Anhören	Toca para escuchar	Touchez pour écouter
 Region A	Region A	Región A	Région A
 Region B	Region B	Región B	Région B
@@ -68,7 +106,6 @@ If something looks wrong, press Debug and send the file.	Wenn etwas nicht stimmt
 It also works in other languages.	Es funktioniert auch in anderen Sprachen.	También funciona en otros idiomas.	Ça marche aussi dans d'autres langues.
 I gave it a star already.	Ich habe schon einen Stern vergeben.	Yo ya le di una estrella.	Je lui ai déjà donné une étoile.
 Works for me.	Passt für mich.	Por mí, bien.	Ça me va.
-Thanks, everyone. Ending the call now.	Danke an alle. Ich beende jetzt den Anruf.	Gracias a todos. Termino la llamada.	Merci à tous. Je termine l'appel.
 See you next time.	Bis zum nächsten Mal.	Hasta la próxima.	À la prochaine.
 Good call.	Gutes Gespräch.	Buena llamada.	Bon appel.
 Talk later.	Bis später.	Hablamos luego.	On se reparle plus tard.
@@ -206,13 +243,6 @@ REGIONAL OPERATIONS CENTRE	REGIONALE EINSATZZENTRALE	CENTRO DE OPERACIONES REGIO
 Regional Operations Centre — Berlin	Regionale Einsatzzentrale — Berlin	Centro de operaciones regional — Berlín	Centre d'opérations régional — Berlin
 JOINT COORDINATION DESK	GEMEINSAME KOORDINIERUNGSSTELLE	MESA DE COORDINACIÓN CONJUNTA	BUREAU DE COORDINATION CONJOINT
 Coordination lead:	Koordinationsleitung:	Dirección de coordinación:	Responsable de coordination :
-Coordinator — Mara Venn	Koordinatorin — Mara Venn	Coordinadora — Mara Venn	Coordinatrice — Mara Venn
-Coordinator,	Koordination,	Coordinación,	Coordination,
-Council Chair — Network Partners	Ratsvorsitz — Netzwerkpartner	Presidencia del consejo — Socios de la red	Présidence du conseil — Partenaires du réseau
-Liaison Officer — Kai Brenner	Verbindungsoffizier — Kai Brenner	Oficial de enlace — Kai Brenner	Officier de liaison — Kai Brenner
-Regional Lead East — Ines Corral	Regionalleitung Ost — Ines Corral	Responsable regional este — Ines Corral	Responsable régionale Est — Ines Corral
-Regional Lead North — Tobias Ekker	Regionalleitung Nord — Tobias Ekker	Responsable regional norte — Tobias Ekker	Responsable régional Nord — Tobias Ekker
-Regional Lead South — Dev Ashby	Regionalleitung Süd — Dev Ashby	Responsable regional sur — Dev Ashby	Responsable régional Sud — Dev Ashby
 Regional liaison:	Regionale Verbindung:	Enlace regional:	Liaison régionale :
 Partner support:	Partnerunterstützung:	Apoyo de socios:	Soutien partenaires :
 Readiness:	Bereitschaft:	Disponibilidad:	Disponibilité :
@@ -220,14 +250,8 @@ Relay link:	Relaisverbindung:	Enlace de retransmisión:	Liaison relais :
 Operation:	Einsatz:	Operación:	Opération :
 Schedule:	Zeitplan:	Horario:	Horaire :
 Status:	Status:	Estado:	État :
-Lead,	Leitung,	Dirección,	Direction,
-Support,	Unterstützung,	Apoyo,	Soutien,
-Analyst,	Analyst,	Analista,	Analyste,
 EXECUTIVE OFFICE B	BÜRO DER LEITUNG B	OFICINA EJECUTIVA B	BUREAU EXÉCUTIF B
-Executive Office B — Chief of Staff Aide	Büro der Leitung B — Referent der Stabschefin	Oficina ejecutiva B — Asistente del jefe de gabinete	Bureau exécutif B — Assistant du chef de cabinet
-OFFICE OF THE AIDE	BÜRO DES REFERENTEN	OFICINA DEL ASISTENTE	BUREAU DE L'ASSISTANT
 REMOTE OFFICE A	AUSSENSTELLE A	OFICINA REMOTA A	BUREAU DISTANT A
-Remote Office A — Harbourton	Außenstelle A — Harbourton	Oficina remota A — Harbourton	Bureau distant A — Harbourton
 LINK STATUS: STABLE	VERBINDUNGSSTATUS: STABIL	ESTADO DEL ENLACE: ESTABLE	ÉTAT DE LA LIAISON : STABLE
 SECURE RELAY NODE #: ONLINE	SICHERER RELAISKNOTEN #: ONLINE	NODO DE RETRANSMISIÓN SEGURO #: EN LÍNEA	NŒUD RELAIS SÉCURISÉ # : EN LIGNE
 AIR PATROL #: ON STATION	LUFTPATROUILLE #: AUF POSITION	PATRULLA AÉREA #: EN POSICIÓN	PATROUILLE AÉRIENNE # : EN POSITION
@@ -609,11 +633,6 @@ FREQUENCY:	FREQUENZ:	FRECUENCIA:	FRÉQUENCE :
 DATE:	DATUM:	FECHA:	DATE :
 TIME:	ZEIT:	HORA:	HEURE :
 PARTICIPANTS:	TEILNEHMER:	PARTICIPANTES:	PARTICIPANTS :
-Lead,	Leitung,	Dirección,	Responsable,
-Coordinator,	Koordination,	Coordinación,	Coordination,
-Analyst,	Analyse,	Análisis,	Analyste,
-Support,	Unterstützung,	Soporte,	Support,
-Observer	Beobachtung	Observación	Observateur
 LIVE AUDIO CALL	LIVE-AUDIOANRUF	LLAMADA DE AUDIO EN VIVO	APPEL AUDIO EN DIRECT
 AUTHORIZED PERSONNEL ONLY	NUR FÜR BEFUGTES PERSONAL	SOLO PERSONAL AUTORIZADO	PERSONNEL AUTORISÉ UNIQUEMENT
 Network Load Meter	Netzlastanzeige	Medidor de carga de red	Indicateur de charge réseau
@@ -637,10 +656,7 @@ SECURE LINK	SICHERE VERBINDUNG	ENLACE SEGURO	LIAISON SÉCURISÉE
 SECURE CHANNEL	SICHERER KANAL	CANAL SEGURO	CANAL SÉCURISÉ
 SPEAKING	SPRICHT	HABLANDO	PARLE
 REMOTE OFFICE A	AUSSENSTELLE A	OFICINA REMOTA A	BUREAU DISTANT A
-Remote Office A — Harbourton	Außenstelle A — Harbourton	Oficina remota A — Harbourton	Bureau distant A — Harbourton
 EXECUTIVE OFFICE B	LEITUNGSBÜRO B	OFICINA EJECUTIVA B	BUREAU EXÉCUTIF B
-OFFICE OF THE AIDE	BÜRO DER REFERENTIN	OFICINA DEL ASISTENTE	BUREAU DE L'ASSISTANT
-Executive Office B — Chief of Staff Aide	Leitungsbüro B — Referentin der Büroleitung	Oficina ejecutiva B — Asistente del jefe de gabinete	Bureau exécutif B — Assistant du chef de cabinet
 REC	AUFN.	GRAB.	ENR.
 ● REC #:#	● AUFN. #:#	● GRAB. #:#	● ENR. #:#
 Call ended	Anruf beendet	Llamada finalizada	Appel terminé
@@ -655,12 +671,6 @@ Record	Aufnehmen	Grabar	Enregistrer
 Camera	Kamera	Cámara	Caméra
 Share	Teilen	Compartir	Partager
 Conference Grid	Konferenzraster	Cuadrícula de conferencia	Grille de conférence
-Coordinator — Mara Venn	Koordinatorin — Mara Venn	Coordinadora — Mara Venn	Coordinatrice — Mara Venn
-Regional Lead North — Tobias Ekker	Regionalleitung Nord — Tobias Ekker	Responsable regional Norte — Tobias Ekker	Responsable régional Nord — Tobias Ekker
-Regional Lead East — Ines Corral	Regionalleitung Ost — Ines Corral	Responsable regional Este — Ines Corral	Responsable régionale Est — Ines Corral
-Regional Lead South — Dev Ashby	Regionalleitung Süd — Dev Ashby	Responsable regional Sur — Dev Ashby	Responsable régional Sud — Dev Ashby
-Liaison Officer — Kai Brenner	Verbindungsoffizier — Kai Brenner	Oficial de enlace — Kai Brenner	Officier de liaison — Kai Brenner
-Council Chair — Network Partners	Ratsvorsitz — Netzwerkpartner	Presidencia del consejo — Socios de la red	Présidence du conseil — Partenaires du réseau
 # --- voicemail desktop
 Voicemail	Mailbox	Buzón de voz	Messagerie vocale
 Voicemail Desktop	Mailbox-Desktop	Escritorio de buzón de voz	Bureau de messagerie vocale

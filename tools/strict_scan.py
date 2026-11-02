@@ -6,11 +6,11 @@ en=json.load(open('/tmp/h-en.json'))
 enw=set().union(*[W(' '.join(v['strings'])) for v in en.values()])
 frw=set().union(*[W(' '.join(v['strings'])) for v in json.load(open('/tmp/h-fr.json')).values()])
 col={'de':1,'es':2,'fr':3};tot={};raw={}
-NAMES=set('aravind bhaskar chandran devraj gopal iyer keshav madhavan nandan prakash raghuraj ramesh shekhar varma dev ashby oceana nrm gps'.split())
+NAMES=set('aravind bhaskar chandran devraj gopal iyer keshav madhavan nandan prakash raghuraj ramesh shekhar varma dev ashby venn ekker corral brenner oceana nrm gps'.split())
 COG={'de':set('probe online bus auto eta nav temp sensor feed zoom transit scan subsystem index wind teams update software analyst routine national info solar spo mmhg'.split()),
  'es':set('regional silo min resp alt auto eta nav zoom info spo mmhg'.split()),
- 'fr':set('vent nominal personnel cycle maintenance trace transit press info auto eta nav sys alt spo mmhg'.split())}
-SKIP={'self-organizing-system','gallery'}
+ 'fr':set('silo vent nominal personnel cycle maintenance trace transit press info auto eta nav sys alt spo mmhg'.split())}
+SKIP={'gallery'}
 for l,c in col.items():
     native=set().union(*[W(r[c]) for r in T]); 
     for r in T:
@@ -18,6 +18,7 @@ for l,c in col.items():
     d=json.load(open(f'/tmp/h-{l}.json'));hits=collections.defaultdict(set)
     for slug,v in d.items():
         for s in v['strings']:
+            s=re.sub(r'\b[a-z]+\.[a-z]+\b|0x[0-9A-Fa-f]+|\b[0-9A-F]{4}\b|PID +MODULE +ADDR +LOAD +ST|:: *[a-z]+|\b(parse|proc|alloc|fork|sched|walk|lock|route|trace)\b\.?(?= +[0-9])','',s) # machine identifiers (UNTRANSLATED.md)
             for w in W(s):
                 if w in enw and w not in native and w not in allow:
                     raw[l]=raw.get(l,0)+1
