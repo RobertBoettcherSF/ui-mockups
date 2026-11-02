@@ -1,4 +1,4 @@
-# What stays untranslated (v1.12.2)
+# What stays untranslated (v1.12.3)
 
 The language flags (🇩🇪 🇬🇧 🇪🇸 🇫🇷) switch every on-screen text, number format,
 clock format, unit and map place through the Ada core (`ada/`). The things

@@ -69,7 +69,6 @@ TIME	ZEIT	HORA	HEURE
 Time: #:# LT	Zeit: #:# Ortszeit	Hora: #:# local	Heure : #:# locale
 #:#:# LT	#:#:# Ortszeit	#:#:# local	#:#:# locale
 #:# LT	#:# Ortszeit	#:# local	#:# locale
-#:# CET	#:# MEZ	#:# CET	#:# HNEC
 Team Call – #:#	Teamanruf – #:#	Llamada de equipo – #:#	Appel d'équipe – #:#
 Forecast #h	Prognose # h	Previsión # h	Prévision # h
 trend ▲ # / #h	Trend ▲ # / # h	tendencia ▲ # / # h	tendance ▲ # / # h

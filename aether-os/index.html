@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.2"></script><script src="../vendor/lang.js?v=1.12.2"></script><title>AetherOS</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.3"></script><script src="../vendor/lang.js?v=1.12.3"></script><title>AetherOS</title>
 <link rel="stylesheet" href="../vendor/leaflet/leaflet.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -43,13 +43,13 @@ table{border-collapse:collapse;width:100%}td,th{padding:2px 5px;text-align:left;
 #tray{display:flex;gap:12px;align-items:center;color:#8bd8bd;font-size:11px}#tray .v{color:#2fe89a}
 .eng{width:calc(100% - 20px);margin:6px 10px;background:#2a140a;border:1px solid #ff7a3a;color:#ff7a3a;padding:6px;cursor:pointer;letter-spacing:2px}
 .blink{animation:b 1s steps(2) infinite}@keyframes b{50%{opacity:.25}}
-</style><script src="../vendor/debug-cover.js?v=1.12.2"></script><script src="../vendor/top-bar.js?v=1.12.2"></script>
+</style><script src="../vendor/debug-cover.js?v=1.12.3"></script><script src="../vendor/top-bar.js?v=1.12.3"></script>
 </head><body>
 <div id="desk"><div id="globe"></div><div class="deskicons" id="deskicons"></div></div>
 <div id="bar">
  <div id="start"><svg viewBox="0 0 24 24" fill="none" stroke="#2fe89a" stroke-width="2"><path d="M12 3l9 6-9 4-9-4z"/><path d="M3 9v6l9 4 9-4V9"/></svg>AETHER</div>
  <div class="dock" id="dock"></div>
- <div id="tray"><span id="stat">LINK <span class="v">SECURE</span></span><span id="net">NET <span class="v">—</span></span><span id="clk"></span></div>
+ <div id="tray"><span id="stat">LINK <span class="v">SECURE</span></span><span id="net">NET <span class="v">—</span></span><span id="clk" data-notr></span></div>
 </div>
 
 <script src="../vendor/leaflet/leaflet.js"></script>

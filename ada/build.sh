@@ -17,7 +17,7 @@ for F in ../src/*.adb; do
 done
 ar x "$T/lib/rts-native/adalib/libgnat.a" s-memcop.o s-memmov.o s-memset.o
 "$LD" --no-entry --strip-all --export=uim_in --export=uim_out --export=uim_t \
-  --export=uim_num --export=uim_qty --export=uim_place --export=uim_version \
+  --export=uim_num --export=uim_qty --export=uim_place --export=uim_version --export=uim_zone \
   -z stack-size=1048576 --initial-memory=4194304 -o uim.wasm *.o
 cd ..
 python3 ../tools/embed_core.py obj/uim.wasm ../vendor/uim-core.js

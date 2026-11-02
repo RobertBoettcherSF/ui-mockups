@@ -27,6 +27,12 @@ package UIM.API is
    function Place (Lang : Integer) return Integer
      with Export, Convention => C, External_Name => "uim_place";
 
+   --  Zone at the UTC instant Y-Mo-D H:00 for Lang: "LABEL|offset_minutes".
+   --  EU summer time: last Sunday of March 01:00 UTC to last Sunday of
+   --  October 01:00 UTC. Labels: EN GMT/BST, DE MEZ/MESZ, ES CET/CEST, FR HNEC/HAEC.
+   function Zone (Lang : Integer; Y, Mo, D, H : Integer) return Integer
+     with Export, Convention => C, External_Name => "uim_zone";
+
    --  Version of this core, e.g. "1.12.0".
    function Version return Integer
      with Export, Convention => C, External_Name => "uim_version";

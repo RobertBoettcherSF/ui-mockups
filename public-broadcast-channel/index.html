@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.2"></script><script src="../vendor/lang.js?v=1.12.2"></script><title>Continental Public Information Network</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.3"></script><script src="../vendor/lang.js?v=1.12.3"></script><title>Continental Public Information Network</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -37,7 +37,7 @@ body{background:#0c0f12;color:#d7dde0;font:13px/1.45 Georgia,"Times New Roman",s
 .ticker{border-top:1px solid #39434b;border-bottom:1px solid #39434b;overflow:hidden;white-space:nowrap;padding:8px 0}
 .ticker span{display:inline-block;padding-left:100%;font-size:26px;letter-spacing:1px;color:#e9eef0;font-family:Georgia,serif;animation:scroll 40s linear infinite;animation-delay:-22s}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
-</style><script src="../vendor/debug-cover.js?v=1.12.2"></script><script src="../vendor/top-bar.js?v=1.12.2"></script>
+</style><script src="../vendor/debug-cover.js?v=1.12.3"></script><script src="../vendor/top-bar.js?v=1.12.3"></script>
 </head><body>
 <div id="bg"></div>
 <div id="scan"></div>
@@ -46,7 +46,7 @@ body{background:#0c0f12;color:#d7dde0;font:13px/1.45 Georgia,"Times New Roman",s
   <!-- SIDEBAR -->
   <div class="side">
    <div class="chan">Continental Public Information Network</div>
-   <div class="clock" id="clock">00:00 LT</div>
+   <div class="clock" id="clock" data-notr>00:00</div>
    <div><span class="date" id="date">—</span></div>
    <div class="emblem">
     <svg width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="40" fill="none" stroke="#9fb0bb" stroke-width="2"/><circle cx="45" cy="45" r="30" fill="none" stroke="#5f6e78" stroke-width="1"/><g stroke="#d7dde0" stroke-width="2" fill="none"><circle cx="45" cy="45" r="7"/><path d="M45 12v12M45 66v12M12 45h12M66 45h12M23 23l8 8M59 59l8 8M67 23l-8 8M31 59l-8 8"/></g></svg>
@@ -95,7 +95,7 @@ body{background:#0c0f12;color:#d7dde0;font:13px/1.45 Georgia,"Times New Roman",s
 
 // clock + date
 function pad(n){return String(n).padStart(2,'0')}
-function tick(){const d=new Date();document.getElementById('clock').textContent=pad(d.getHours())+':'+pad(d.getMinutes())+' LT';
+function tick(){const d=new Date();document.getElementById('clock').textContent=UIM.time(d);
  const mo=["January","February","March","April","May","June","July","August","September","October","November","December"][d.getMonth()];
  const de=document.getElementById('date');de.setAttribute('data-notr','');de.textContent=UIM.date(d,{day:'numeric',month:'long',year:'numeric'});}
 tick();setInterval(tick,1000*20);

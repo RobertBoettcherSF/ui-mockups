@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.2"></script><script src="../vendor/lang.js?v=1.12.2"></script><title>Field Monitoring Service — Data Portal</title>
+<html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.3"></script><script src="../vendor/lang.js?v=1.12.3"></script><title>Field Monitoring Service — Data Portal</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;background:#000;color:#e8f0e8;font-family:"DejaVu Sans Condensed","Arial Narrow",Arial,sans-serif;overflow:hidden}
@@ -25,7 +25,7 @@ tr.alert td{color:#ff2a2a}
 #sb .ic{margin-left:auto;display:flex;gap:1.3vw;align-items:center}
 #sb .ic svg{width:2vw;height:2vw}
 #clk{margin-left:3vw;color:#7cf08e}
-</style><script src="../vendor/debug-cover.js?v=1.12.2"></script><script src="../vendor/top-bar.js?v=1.12.2"></script>
+</style><script src="../vendor/debug-cover.js?v=1.12.3"></script><script src="../vendor/top-bar.js?v=1.12.3"></script>
 </head><body>
 <div id="hdr">
  <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="#ddd" stroke-width="3"/><circle cx="50" cy="50" r="34" fill="none" stroke="#5fe07a" stroke-width="2"/><path d="M18 62 Q34 44 50 58 T82 52" fill="none" stroke="#ddd" stroke-width="4"/><path d="M22 72 Q38 58 52 68 T80 64" fill="none" stroke="#5fe07a" stroke-width="3"/><polygon points="50,16 56,32 44,32" fill="#ddd"/></svg>
@@ -70,5 +70,5 @@ function draw(k){const c=document.getElementById('img'),x=c.getContext('2d'),W=c
  x.strokeStyle=rows[k].a?'#ff3030':'#5fe07a';x.lineWidth=3;x.strokeRect(W*.62-50,H*.55-50,100,100);
  x.fillStyle=x.strokeStyle;x.font='bold 20px sans-serif';x.fillText(rows[k].s,W*.62-50,H*.55-58)}
 select(sel);
-const clk=document.getElementById('clk');function tick(){clk.textContent=new Date().toTimeString().slice(0,8)+' LT'}tick();setInterval(tick,1000);
+const clk=document.getElementById('clk');function tick(){clk.setAttribute('data-notr','');clk.textContent=UIM.time(new Date(),true)}tick();setInterval(tick,1000);
 </script></body></html>

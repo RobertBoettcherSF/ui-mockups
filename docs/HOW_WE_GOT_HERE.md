@@ -124,3 +124,8 @@ public-broadcast-channel stays bilingual EN/FR by design; marine VHF 156.800 MHz
 (international). Screens with no place reference (biometric-scan, cockpit,
 craft, conference-grid, field-data-viewer, sdr-console, self-organizing,
 gallery) are unchanged.
+
+## v1.12.3
+- Zone labels and offsets come from one Ada source (uim_zone): EU DST rule (last Sunday March to last Sunday October, 01:00 UTC). Winter GMT/MEZ/CET/HNEC, summer BST/MESZ/CEST/HAEC, by the displayed date.
+- All clocks and dates are built in the flag zone and marked data-notr, so number formatting never touches them (fixes DE "2,11.").
+- Replaced system-time clocks: public-broadcast-channel (was "LT"), field-data-viewer, farm-weather-console log, verdant-os clock and log, voicemail weekday.
