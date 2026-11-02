@@ -16,9 +16,6 @@ Drone desktop operating system concept	Konzept eines Desktop-Betriebssystems fü
 Generic secure video-call interface	Generische Oberfläche für sichere Videoanrufe	Interfaz genérica de videollamada segura	Interface générique d'appel vidéo sécurisé
 #×# video conference grid with active-speaker cycle	#×#-Videokonferenzraster mit wechselndem aktivem Sprecher	Cuadrícula de videoconferencia #×# con orador activo rotativo	Grille de visioconférence #×# avec orateur actif en alternance
 Desktop with interactive voicemail window	Desktop mit interaktivem Mailbox-Fenster	Escritorio con ventana interactiva de buzón de voz	Bureau avec fenêtre de messagerie vocale interactive
-Operations-centre dashboard centred on Brussels	Einsatzzentralen-Dashboard mit Mittelpunkt Brüssel	Panel de centro de operaciones centrado en Bruselas	Tableau de bord de centre d'opérations centré sur Bruxelles
-Regional operations dashboard centred on Paris	Regionales Einsatz-Dashboard mit Mittelpunkt Paris	Panel regional de operaciones centrado en París	Tableau de bord des opérations régionales centré sur Paris
-Air-patrol dashboard around the Bundestag, Berlin	Luftpatrouillen-Dashboard rund um den Bundestag, Berlin	Panel de patrulla aérea en torno al Bundestag, Berlín	Tableau de bord de patrouille aérienne autour du Bundestag, Berlin
 Bilingual public-information broadcast screen	Zweisprachiger Bildschirm für öffentliche Informationssendungen	Pantalla bilingüe de difusión de información pública	Écran bilingue de diffusion d'informations publiques
 Code / blueprint two-mode system visualisation	Systemvisualisierung mit zwei Modi: Code / Bauplan	Visualización del sistema en dos modos: código / plano	Visualisation du système en deux modes : code / plan
 Body-scan visualisation with live readouts	Körperscan-Visualisierung mit Live-Messwerten	Visualización de escaneo corporal con lecturas en vivo	Visualisation de scan corporel avec mesures en direct
@@ -66,9 +63,14 @@ Saturday	Samstag	sábado	samedi
 Monday	Montag	lunes	lundi
 TIME: #:#:#	ZEIT: #:#:#	HORA: #:#:#	HEURE : #:#:#
 TIME	ZEIT	HORA	HEURE
-Time: #:# LT	Zeit: #:# Ortszeit	Hora: #:# local	Heure : #:# locale
-#:#:# LT	#:#:# Ortszeit	#:#:# local	#:#:# locale
-#:# LT	#:# Ortszeit	#:# local	#:# locale
+Time: #:# GMT	Zeit: #:# GMT	Hora: #:# GMT	Heure : #:# GMT
+Time: #:# BST	Zeit: #:# BST	Hora: #:# BST	Heure : #:# BST
+Time: #:# MEZ	Zeit: #:# MEZ	Hora: #:# MEZ	Heure : #:# MEZ
+Time: #:# MESZ	Zeit: #:# MESZ	Hora: #:# MESZ	Heure : #:# MESZ
+Time: #:# CET	Zeit: #:# CET	Hora: #:# CET	Heure : #:# CET
+Time: #:# CEST	Zeit: #:# CEST	Hora: #:# CEST	Heure : #:# CEST
+Time: #:# HNEC	Zeit: #:# HNEC	Hora: #:# HNEC	Heure : #:# HNEC
+Time: #:# HAEC	Zeit: #:# HAEC	Hora: #:# HAEC	Heure : #:# HAEC
 Team Call – #:#	Teamanruf – #:#	Llamada de equipo – #:#	Appel d'équipe – #:#
 Forecast #h	Prognose # h	Previsión # h	Prévision # h
 trend ▲ # / #h	Trend ▲ # / # h	tendencia ▲ # / # h	tendance ▲ # / # h
@@ -154,10 +156,23 @@ AUDIO CHANNEL A — REGIONAL DESK	AUDIOKANAL A — REGIONALSTELLE	CANAL DE AUDIO
 AUDIO CHANNEL B — CENTRAL DESK	AUDIOKANAL B — ZENTRALE	CANAL DE AUDIO B — MESA CENTRAL	CANAL AUDIO B — BUREAU CENTRAL
 AUTHORISED PERSONNEL ONLY	NUR FÜR BEFUGTES PERSONAL	SOLO PERSONAL AUTORIZADO	PERSONNEL AUTORISÉ UNIQUEMENT
 AUTHORIZED PERSONNEL ONLY	NUR FÜR BEFUGTES PERSONAL	SOLO PERSONAL AUTORIZADO	PERSONNEL AUTORISÉ UNIQUEMENT
-BERLIN SPATIAL SATELLITE PROJECTION MAP	SATELLITEN-PROJEKTIONSKARTE BERLIN	MAPA DE PROYECCIÓN SATELITAL DE BERLÍN	CARTE DE PROJECTION SATELLITE DE BERLIN
 CENTRAL DESK	ZENTRALE	MESA CENTRAL	BUREAU CENTRAL
 Central desk:	Zentrale:	Mesa central:	Bureau central :
 COMMAND STATUS	EINSATZSTATUS	ESTADO DEL MANDO	ÉTAT DU COMMANDEMENT
+Continental operations dashboard centred on the flag's capital	Kontinentales Einsatz-Dashboard mit der Hauptstadt der Flagge im Mittelpunkt	Panel de operaciones continental centrado en la capital de la bandera	Tableau de bord continental centré sur la capitale du drapeau
+National operations dashboard with the country's regions	Nationales Einsatz-Dashboard mit den Regionen des Landes	Panel nacional de operaciones con las regiones del país	Tableau de bord national avec les régions du pays
+Air-patrol dashboard over the capital's government district	Luftpatrouillen-Dashboard über dem Regierungsviertel der Hauptstadt	Panel de patrulla aérea sobre el distrito gubernamental de la capital	Tableau de bord de patrouille aérienne au-dessus du quartier gouvernemental de la capitale
+NATIONAL OPERATIONS CENTRE	NATIONALE EINSATZZENTRALE	CENTRO NACIONAL DE OPERACIONES	CENTRE NATIONAL DES OPÉRATIONS
+CAPITAL AIR PATROL CENTRE	LUFTPATROUILLENZENTRALE HAUPTSTADT	CENTRO DE PATRULLA AÉREA DE LA CAPITAL	CENTRE DE PATROUILLE AÉRIENNE DE LA CAPITALE
+Capital Air Patrol	Luftpatrouille Hauptstadt	Patrulla aérea de la capital	Patrouille aérienne de la capitale
+National Operations Centre	Nationale Einsatzzentrale	Centro nacional de operaciones	Centre national des opérations
+LONDON SPATIAL SATELLITE PROJECTION MAP	SATELLITEN-PROJEKTIONSKARTE LONDON	MAPA DE PROYECCIÓN SATELITAL DE LONDRES	CARTE DE PROJECTION SATELLITE DE LONDRES
+BERLIN SPATIAL SATELLITE PROJECTION MAP	SATELLITEN-PROJEKTIONSKARTE BERLIN	MAPA DE PROYECCIÓN SATELITAL DE BERLÍN	CARTE DE PROJECTION SATELLITE DE BERLIN
+MADRID SPATIAL SATELLITE PROJECTION MAP	SATELLITEN-PROJEKTIONSKARTE MADRID	MAPA DE PROYECCIÓN SATELITAL DE MADRID	CARTE DE PROJECTION SATELLITE DE MADRID
+PARIS SPATIAL SATELLITE PROJECTION MAP	SATELLITEN-PROJEKTIONSKARTE PARIS	MAPA DE PROYECCIÓN SATELITAL DE PARÍS	CARTE DE PROJECTION SATELLITE DE PARIS
+GOVERNMENT DISTRICT LONDON	REGIERUNGSVIERTEL LONDON	DISTRITO GUBERNAMENTAL DE LONDRES	QUARTIER GOUVERNEMENTAL DE LONDRES
+GOVERNMENT DISTRICT MADRID	REGIERUNGSVIERTEL MADRID	DISTRITO GUBERNAMENTAL DE MADRID	QUARTIER GOUVERNEMENTAL DE MADRID
+GOVERNMENT DISTRICT PARIS	REGIERUNGSVIERTEL PARIS	DISTRITO GUBERNAMENTAL DE PARÍS	QUARTIER GOUVERNEMENTAL DE PARIS
 CONTINENTAL OPERATIONS CENTRE	KONTINENTALE EINSATZZENTRALE	CENTRO DE OPERACIONES CONTINENTAL	CENTRE D'OPÉRATIONS CONTINENTAL
 Continental Operations Centre	Kontinentale Einsatzzentrale	Centro de operaciones continental	Centre d'opérations continental
 REGIONAL OPERATIONS CENTRE	REGIONALE EINSATZZENTRALE	CENTRO DE OPERACIONES REGIONAL	CENTRE D'OPÉRATIONS RÉGIONAL

@@ -129,3 +129,17 @@ gallery) are unchanged.
 - Zone labels and offsets come from one Ada source (uim_zone): EU DST rule (last Sunday March to last Sunday October, 01:00 UTC). Winter GMT/MEZ/CET/HNEC, summer BST/MESZ/CEST/HAEC, by the displayed date.
 - All clocks and dates are built in the flag zone and marked data-notr, so number formatting never touches them (fixes DE "2,11.").
 - Replaced system-time clocks: public-broadcast-channel (was "LT"), field-data-viewer, farm-weather-console log, verdant-os clock and log, voicemail weekday.
+
+## v1.13.0: the three ops-centre screens follow the flag
+- `ops-centre-europe` -> `continental-ops-centre`: globe and world map centred on the flag's capital, red link lines from it.
+- `ops-centre-france` -> `national-ops-centre`: the flag's country with its regions (data-regions-eu.js), capital plus two cities as red triangles, further city nodes; all coordinates from the Ada core (`home`, `nodes`).
+- `ops-centre-berlin` -> `capital-air-patrol`: local satellite image of the capital's government district (EOxCloudless 2016, Sentinel-2, CC BY 4.0, vendor/imagery/LICENSE), flag badge and district name from the core (`gov`, `img`, `district`, `flag`): BUNDESTAG (DE), GOVERNMENT DISTRICT LONDON / MADRID / PARIS elsewhere. Notes use the uim_zone label.
+- Old folders are redirect pages that keep `?lang`, `?v` and the hash.
+- field-data-viewer: sample times show the flag's zone label instead of "LT".
+
+| Flag | Continental HQ | National map | Air patrol |
+|---|---|---|---|
+| EN | London | UK regions, London, Manchester, Birmingham | Westminster, Government District London |
+| DE | Berlin | Länder, Berlin, Hamburg, Munich | Bundestag |
+| ES | Madrid | Comunidades, Madrid, Barcelona, Valencia | Government District Madrid |
+| FR | Paris | Régions, Paris, Lyon, Bordeaux | Government District Paris |

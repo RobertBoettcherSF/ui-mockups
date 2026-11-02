@@ -17,9 +17,9 @@ use real public map data when online, and fall back gracefully to generated/SVG 
 | [<img src="secure-video-call/preview.png" width="240">](secure-video-call/preview.png) | [`secure-video-call`](secure-video-call/index.html) | Generic secure video-call interface |
 | [<img src="conference-grid/preview.png" width="240">](conference-grid/preview.png) | [`conference-grid`](conference-grid/index.html) | 3×2 video conference grid with active-speaker cycle |
 | [<img src="voicemail-desktop/preview.png" width="240">](voicemail-desktop/preview.png) | [`voicemail-desktop`](voicemail-desktop/index.html) | Desktop with interactive voicemail window |
-| [<img src="ops-centre-europe/preview.png" width="240">](ops-centre-europe/preview.png) | [`ops-centre-europe`](ops-centre-europe/index.html) | Operations-centre dashboard centred on Brussels |
-| [<img src="ops-centre-france/preview.png" width="240">](ops-centre-france/preview.png) | [`ops-centre-france`](ops-centre-france/index.html) | Regional operations dashboard centred on Paris |
-| [<img src="ops-centre-berlin/preview.png" width="240">](ops-centre-berlin/preview.png) | [`ops-centre-berlin`](ops-centre-berlin/index.html) | Air-patrol dashboard around the Bundestag, Berlin |
+| [<img src="continental-ops-centre/preview.png" width="240">](continental-ops-centre/preview.png) | [`continental-ops-centre`](continental-ops-centre/index.html) | Continental operations dashboard centred on the flag's capital |
+| [<img src="national-ops-centre/preview.png" width="240">](national-ops-centre/preview.png) | [`national-ops-centre`](national-ops-centre/index.html) | National operations dashboard with the country's regions |
+| [<img src="capital-air-patrol/preview.png" width="240">](capital-air-patrol/preview.png) | [`capital-air-patrol`](capital-air-patrol/index.html) | Air-patrol dashboard over the capital's government district |
 | [<img src="public-broadcast-channel/preview.png" width="240">](public-broadcast-channel/preview.png) | [`public-broadcast-channel`](public-broadcast-channel/index.html) | Bilingual public-information broadcast screen |
 | [<img src="self-organizing-system/preview.png" width="240">](self-organizing-system/preview.png) | [`self-organizing-system`](self-organizing-system/index.html) | Code / blueprint two-mode system visualisation |
 | [<img src="biometric-scan/preview.png" width="240">](biometric-scan/preview.png) | [`biometric-scan`](biometric-scan/index.html) | Body-scan visualisation with live readouts |
@@ -44,7 +44,7 @@ Each of these mockups also shows a small hint in its bottom-right corner.
 - `verdant-os`, `aether-os`: type commands in the terminal and press **Enter**.
 - `secure-video-call`, `conference-grid`, `secure-comms-portal`, `global-ops-hub`: voice cover via the browser's built-in speech (Web Speech API). It starts on load or on the first click/key if the browser blocks autoplay. Toggle with the bottom-left button or **V**; `?voice=off` disables it. The choice is remembered. `conference-grid` speaks French when the gallery language is 🇫🇷 (or `?lang=fr`), preferring French system voices; other screens use English for now.
 - **Voice language policy:** whenever a voice feature is added or changed, add the matching voice samples for every supported gallery language (currently DE, EN, ES, FR). Rollout happens one backlog item at a time. Keys and variables stay English internally; only display/spoken strings are translated.
-- **Every mockup**: red **Debug** button and a bright version stamp (e.g. `v1.12.3`) in the top-right corner; Debug sits bottom-left (next to Voice on call screens), so screenshots show the build. Debug asks for a short note (required) and downloads `debug-<mockup>-v<version>-<time>.json` with app version, URL and params, browser, screen size and the last 500 interaction events (clicks with target, keys, wheel, inputs, resize, visibility, focus, JS errors). On the four voice screens it also includes voice state, the speaker→line→voice plan, speaker changes and a `sync` block (speaker, voice, line, highlighted tile, match). Nothing personal beyond your note — send the file in the chat. In `conference-grid` the SPEAKING tile follows whichever caller is talking. Each caller has a named voice style (neutral / warm / energetic / calm, fixed rate and pitch); when a language has only one system voice, a voice of the other gender may be borrowed from another locale while the text stays in the selected language. Callers speak three rounds (intro and replies, more lines, goodbyes), then the call ends: SPEAKING clears and the Call ended screen shows (Rejoin restarts it).
+- **Every mockup**: red **Debug** button and a bright version stamp (e.g. `v1.13.0`) in the top-right corner; Debug sits bottom-left (next to Voice on call screens), so screenshots show the build. Debug asks for a short note (required) and downloads `debug-<mockup>-v<version>-<time>.json` with app version, URL and params, browser, screen size and the last 500 interaction events (clicks with target, keys, wheel, inputs, resize, visibility, focus, JS errors). On the four voice screens it also includes voice state, the speaker→line→voice plan, speaker changes and a `sync` block (speaker, voice, line, highlighted tile, match). Nothing personal beyond your note — send the file in the chat. In `conference-grid` the SPEAKING tile follows whichever caller is talking. Each caller has a named voice style (neutral / warm / energetic / calm, fixed rate and pitch); when a language has only one system voice, a voice of the other gender may be borrowed from another locale while the text stays in the selected language. Callers speak three rounds (intro and replies, more lines, goodbyes), then the call ends: SPEAKING clears and the Call ended screen shows (Rejoin restarts it).
 - **Updates**: each page checks `version.txt` on load; if a newer build is online, a green **Reload** button appears under the version stamp.
 
 ### Map data attributions
@@ -156,85 +156,30 @@ is draggable. Black bottom taskbar with Channel / Comms / Priority dropdown menu
 items), a centred live day+time clock, and a right tray (volume / arrow / wifi icons).
 Preview: `voicemail-desktop/preview.png`
 
-### ops-centre-europe
+### continental-ops-centre
 
-A dark continental operations-centre dashboard: an original, fully generic coordination desk centred on
-Europe (Brussels).
+(formerly `ops-centre-europe`; the old URL redirects.) A dark continental operations-centre dashboard,
+fully generic, centred on the capital of the selected flag (London / Berlin / Madrid / Paris, from the Ada core).
 
-- **Header** — abstract geometric emblem (no real seal/flag), spaced-letter
-  title *CONTINENTAL OPERATIONS CENTRE / JOINT COORDINATION DESK*, dotted rule,
-  and a *RESTRICTED // CENTRAL DESK* marker.
-- **Intercept Data Projection** — a slowly rotating orthographic globe
-  (d3-geo, world-atlas TopoJSON via CDN) centred on Brussels, with graticule,
-  generic circular node markers across European cities plus a spread-out
-  offshore cluster in the North Sea, and a red triangle at the centre.
-- **Satellite Worldwide Projection** — a Natural Earth world map (d3-geo)
-  rotated to a European central meridian, with English ocean labels and the
-  red centre marker.
-- **Recorded Communication** — two animated audio-waveform channels
-  (Regional Desk / Central Desk) over a generic secure-relay source line.
-- **Command Status / Operation Status** — bordered panels with a live
-  "network link" strength bar and flickering status fields for a neutral
-  logistics-coordination exercise (*NORTHERN BRIDGE*, status HOLD).
+- **Intercept Data Projection** — rotating orthographic globe centred on the flag's capital, generic
+  unlabelled node markers across Europe and red link lines from the capital.
+- **Satellite Worldwide Projection** — Natural Earth world map with the capital marker and link lines.
+- **Recorded Communication / Command Status / Operation Status** — neutral exercise panels.
 
-Everything is invented and neutral: no real organisations, governments,
-agencies, nations, flags or official seals. Map data is
-loaded from public CDNs (world-atlas / d3-geo) with a generated offline
-fallback for both projections.
+### national-ops-centre
 
-### ops-centre-france
+(formerly `ops-centre-france`.) National operations desk: the selected flag's country with its regions
+(vendor/data-regions-eu.js, see LICENSE-regions), the capital and two cities as red triangles and further
+unlabelled city nodes (all from the Ada core), plus the world map.
 
-A regional variant of `ops-centre-europe`: an original, fully generic coordination desk zoomed in
-on France (Paris).
+### capital-air-patrol
 
-- **Header / status / audio panels** — same neutral layout as
-  `ops-centre-europe` (abstract emblem, *REGIONAL OPERATIONS CENTRE / JOINT
-  COORDINATION DESK*, recorded-communication waveforms, and Command/Operation
-  status panels for the neutral exercise *WESTERN ANCHOR*).
-- **Intercept Data Projection** — a zoomed-in regional map (~1300 km wide,
-  d3-geo orthographic centred on Paris) with coastlines, borders and a fine
-  graticule over a dark satellite-style ocean; a red triangle at the centre
-  plus two more at other locations, and several generic circular node markers
-  scattered within the surrounding territory (west of the Rhine).
-- **Satellite Worldwide Projection** — the same Natural Earth world map with
-  matching red triangles at the three locations.
-
-All invented and neutral: no real organisations, governments, agencies,
-nations, flags, official seals or people. Map data loads from
-public CDNs (world-atlas / d3-geo) with a generated offline fallback for both
-projections.
-
-### ops-centre-berlin
-
-A routine air-security patrol dashboard: an original, fully generic coordination desk focused on the
-Bundestag in Berlin.
-
-- **Header / theme** — abstract emblem, *REGIONAL OPERATIONS CENTRE / JOINT
-  COORDINATION DESK*, and a top-right *RESTRICTED // CENTRAL DESK* marker.
-  Neutral routine-patrol wording throughout (no attack/outbreak/coup
-  narrative).
-- **Berlin Spatial Satellite Projection Map** — a Leaflet map on Esri World
-  Imagery (attributed) centred on the Bundestag (52.5186N, 13.3762E) at zoom
-  16, with a generated offline fallback. The centre marker is a round badge
-  with a German flag and a *BUNDESTAG* label. Two original top-down helicopter
-  SVG markers continuously circle the building on a ~250 m orbit at offset
-  phases, rotating to their heading.
-- **Event Log / Standing Notice** (left) — green highlighted headings and
-  sub-headings, dotted dividers, `> ` log lines and bulleted notice items.
-- **Related Active Files / Notes & Remarks** (right) — file codes with
-  alternating green/navy highlighted tags and CET-timestamped routine notes.
-- **Live Audio Call** — a locked, authorised-personnel box with animated bars
-  below the map.
-- **Ticker** — a bottom red marquee of generic link/telemetry status messages
-  scrolling right-to-left with `///` separators.
-- **System alert** — a periodic generic overlay (every ~25 s, ~8 s on screen,
-  also triggered by clicking the header): a bordered black box titled
-  *// SYSTEM ALERT //* with three dark-red highlighted lines and blinking
-  keywords; the ticker shows a matching message while it is active.
-
-All invented and neutral apart from the user-approved German flag and
-*BUNDESTAG* label: no other real organisations, agencies, people or seals. Map tiles load from Esri with attribution and a generated
-offline fallback.
+(formerly `ops-centre-berlin`.) Routine air-patrol dashboard over the government district of the flag's
+capital. The map is a local, freely licensed satellite image per country (EOxCloudless 2016,
+Sentinel-2, CC BY 4.0, see vendor/imagery/LICENSE), shown with Leaflet, with a generated offline fallback.
+The centre badge shows the flag and the district name: *BUNDESTAG* under DE, neutral names such as
+*GOVERNMENT DISTRICT LONDON* elsewhere (no agency names). Two helicopter markers orbit at ~400 m.
+Notes carry the flag's zone label (GMT/BST, MEZ/MESZ, CET/CEST, HNEC/HAEC via uim_zone).
 
 ### public-broadcast-channel
 
@@ -355,7 +300,7 @@ A generic two-screen flight display with glowing cyan line graphics on dark navy
 
 A generic blueprint-style portrait display: a top-down wireframe schematic of an original small spacecraft design on a navy grid inside a bright cyan frame, with fuel cell and power bus panels below. Subsystems highlight in turn. Click a part or press Space to select one. All labels are generic.
 
-## Languages (v1.12.3)
+## Languages (v1.13.0)
 
 Pick a flag in the gallery (or add `?lang=de|es|fr|en` to any page). Every
 screen then shows its texts, numbers (`1.234,5`), 24 h clock, units and map

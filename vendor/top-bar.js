@@ -10,11 +10,11 @@
 
   // All mockups, by folder name (English, used internally).
   var MOCKUPS = [
-    "aether-os", "biometric-scan", "coastal-monitor", "cockpit-flight-display",
-    "conference-grid", "craft-schematic-display", "drone-console",
+    "aether-os", "biometric-scan", "capital-air-patrol", "coastal-monitor",
+    "cockpit-flight-display", "conference-grid", "continental-ops-centre",
+    "craft-schematic-display", "drone-console",
     "farm-weather-console", "field-data-viewer", "global-ops-hub",
-    "ops-centre-berlin", "ops-centre-europe", "ops-centre-france",
-    "public-broadcast-channel", "sdr-console", "secure-comms-portal",
+    "national-ops-centre", "public-broadcast-channel", "sdr-console", "secure-comms-portal",
     "secure-video-call", "self-organizing-system", "verdant-os",
     "voicemail-desktop"
   ];
@@ -46,7 +46,7 @@
     return folders[folders.length - 1] || "";
   }
 
-  // "ops-centre-berlin" -> "Ops Centre Berlin"
+  // "capital-air-patrol" -> "Capital Air Patrol"
   function prettyName(folder) {
     var words = folder.split("-");
     for (var i = 0; i < words.length; i++) {

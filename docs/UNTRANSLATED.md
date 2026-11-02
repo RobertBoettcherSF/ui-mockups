@@ -1,4 +1,4 @@
-# What stays untranslated (v1.12.3)
+# What stays untranslated (v1.13.0)
 
 The language flags (🇩🇪 🇬🇧 🇪🇸 🇫🇷) switch every on-screen text, number format,
 clock format, unit and map place through the Ada core (`ada/`). The things
@@ -18,7 +18,7 @@ below stay as they are **on purpose**.
 | The **Debug** button, its prompt and the version stamp | every page | Kept English so the debug files are easy to read; the report records the language. |
 | Machine process tables (`PID MODULE ADDR LOAD ST`, `0x… SYNC.L …` rows, module names and their `io.flush :: map` tags, status words OK/BUSY/WAIT/IDLE/DONE/MOVE/SYNC) | self-organizing-system | Generated machine output, like a hex dump. Its labels, hint and console lines (`Loading module... COMPLETE`, `> verify OK` …) are translated. |
 | Shell prompt `agri@verdant:~$` | verdant-os | It is a user@host prompt. |
-| `(C) 2025 Example Systems`, `Esri World Imagery` | secure-comms-portal, ops-centre-berlin | Copyright / map attribution names. |
+| `(C) 2025 Example Systems`, `EOxCloudless 2016 · CC BY 4.0` | secure-comms-portal, capital-air-patrol | Copyright / map attribution names. |
 | The bilingual word ticker (`INFORMATION RESEAU BULLETIN NETWORK …`) | public-broadcast-channel | Decorative English/French word mix by design. |
 | The Devanagari character rain on the gallery | gallery | Decoration, not text. |
 
@@ -26,9 +26,7 @@ below stay as they are **on purpose**.
 
 | Screen | Behaviour |
 |---|---|
-| `ops-centre-berlin` | Always Berlin (Bundestag). Texts are translated, the place is not moved. |
-| `ops-centre-france` | Always Paris. Texts translated. |
-| `ops-centre-europe` | Always Brussels / Europe. Texts translated. |
+| `capital-air-patrol` | District name `BUNDESTAG` under DE is a proper name (allowed), not translated. |
 | `global-ops-hub` | World view; no country to swap. |
 | `public-broadcast-channel` | Bilingual English/French by design. The English half follows the flag, the French half stays French. |
 
