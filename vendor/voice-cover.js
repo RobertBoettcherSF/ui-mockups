@@ -15,9 +15,10 @@
   function setSpk(i){var p=speaking;speaking=i;if(p!==i)ev('speaker',{from:p,to:i});dispatchEvent(new CustomEvent('vc:speaker',{detail:{index:i}}));}
   addEventListener('vc:highlight',function(e){lit={index:e.detail.index,label:e.detail.label};ev('highlight',{tile:e.detail.index,label:e.detail.label,speakerId:speaking,match:speaking<0||speaking===e.detail.index});});
   var btn=document.createElement('button');btn.setAttribute('data-dbg','1');btn.style.cssText='position:fixed;bottom:10px;left:10px;z-index:99999;font:11px monospace;padding:4px 8px;border-radius:4px;cursor:pointer;background:#000a;color:#ddd;border:1px solid #666';
+  function place(){if(innerWidth<600){btn.style.bottom='';btn.style.top='32px';btn.style.left='6px';}else{btn.style.top='';btn.style.bottom='10px';btn.style.left='10px';}}window.addEventListener('resize',place);
   function label(){var k=!synth?'Voice: unsupported':(muted?'🔇 Voice off (V)':'🔊 Voice on (V)');btn.textContent=(window.UIM&&UIM.t)?UIM.t(k):k;}
   document.addEventListener('uim-lang',function(){label();});
-  label(); (document.body||document.documentElement).appendChild(btn);
+  label(); place(); (document.body||document.documentElement).appendChild(btn);
   ev('load',{callers:n,muted:muted,speechSynthesis:!!synth});
   D.state('voice',function(){return {
       voice:{lang:lang,muted:muted,speechSynthesis:!!synth,unlocked:unlocked,speaking:synth?synth.speaking:false,currentSpeaker:speaking,

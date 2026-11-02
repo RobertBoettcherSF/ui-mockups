@@ -164,3 +164,7 @@ gallery) are unchanged.
 - **Gallery rain**: whole-grapheme array (क्ष, ज्ञ as single entries), so no lone virama / dotted circle.
 - **capital-air-patrol**: animations about 25 % slower; crew lines use radio callsigns and phrasing ("AIR PATROL 1: handover complete, over").
 - **Fictional places follow the flag**: secure-video-call's remote office is Westmarrow (EN), Talmersbrück (DE), Valmorena del Mar (ES), Port-Saumelle (FR) instead of the US-sounding Harbourton; acronyms in spoken lines are spelled letter by letter (M I T), displayed text unchanged.
+
+## v1.13.3
+- Header titles fit on one line (shrink spacing, then size; wrap only as last resort) via vendor/fit-title.js on the three ops screens.
+- Voicemail taskbar compacts below 600 px; the voice button moves to the top-left below 600 px so call controls no longer cover it.

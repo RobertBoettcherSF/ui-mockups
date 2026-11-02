@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.13.2"></script><script src="../vendor/lang.js?v=1.13.2"></script><title>Voicemail Desktop</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.13.3"></script><script src="../vendor/lang.js?v=1.13.3"></script><title>Voicemail Desktop</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -48,7 +48,8 @@ body{font:13px/1.4 -apple-system,"Segoe UI",Arial,sans-serif;overflow:hidden;bac
 #clock{position:absolute;left:50%;transform:translateX(-50%);font-variant-numeric:tabular-nums;letter-spacing:.5px}
 #tray{margin-left:auto;display:flex;gap:16px;align-items:center;padding-right:16px}
 #tray svg{width:17px;height:17px;cursor:pointer}
-</style><script src="../vendor/debug-cover.js?v=1.13.2"></script><script src="../vendor/top-bar.js?v=1.13.2"></script>
+@media(max-width:600px){.menus{gap:0;padding-left:62px}.menu>.lbl{padding:8px 7px;font-size:12px}#clock{position:static;transform:none;margin-left:auto;font-size:11px;white-space:nowrap}#tray{margin-left:10px;gap:9px;padding-right:8px}}
+</style><script src="../vendor/debug-cover.js?v=1.13.3"></script><script src="../vendor/top-bar.js?v=1.13.3"></script>
 </head><body>
 <div id="scene"></div>
 
