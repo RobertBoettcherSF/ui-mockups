@@ -143,3 +143,12 @@ gallery) are unchanged.
 | DE | Berlin | Länder, Berlin, Hamburg, Munich | Bundestag |
 | ES | Madrid | Comunidades, Madrid, Barcelona, Valencia | Government District Madrid |
 | FR | Paris | Régions, Paris, Lyon, Bordeaux | Government District Paris |
+
+## v1.13.1: QC fixes and a strict stray-English scan
+
+- Full-phrase rows in `ada/data/texts.tsv` for the ops screens (RELATED ACTIVE FILES, RECORDED COMMUNICATION, RESTRICTED // CENTRAL DESK, YES, HOLD), the Voice button (on/off/unsupported), solar-sustained, SIDE, the farm trend line, Region A/B, the Copernicus attribution and the map projection captions.
+- Word fixes: DE `NET` → NETZ (ES RED, FR RÉSEAU), DE `LOG` tab → PROTOKOLL, DE standalone "online" → verfügbar, ES "sys" → sis.
+- `CC BY 4.0` and `EOxCloudless 2016 · CC BY 4.0` are literal rows, so the version is not turned into "4,0"; dotted versions (1.13.0, v3.2) were already left alone.
+- Big titles on the three ops screens no longer slide under the top bar (`#wrap` starts 24 px down).
+- The public-broadcast word ticker is now `data-notr`, so it stays the same English/French mix in every language.
+- New `tools/strict_scan.py`: every visible DE/FR/ES string is split into words; a word counts as a hit if it occurs in the EN harvest, is not in that language's column of texts.tsv and is not in UNTRANSLATED.md. Names, slugs, machine tables, the French half of the broadcast and shared loanwords (Bus, Zoom, Sensor, nominal, regional …) are reported separately as allowed.

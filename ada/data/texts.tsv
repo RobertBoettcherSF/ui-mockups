@@ -27,7 +27,34 @@ Retro coastal monitoring terminal with camera views	Retro-Terminal zur Küstenü
 Twin-screen spacecraft cockpit flight display	Zwei-Bildschirm-Fluganzeige im Raumschiffcockpit	Pantalla de vuelo de cabina de nave espacial con dos pantallas	Affichage de vol de cockpit de vaisseau à deux écrans
 Interactive spacecraft subsystem schematic	Interaktiver Schaltplan der Raumschiff-Subsysteme	Esquema interactivo de subsistemas de nave espacial	Schéma interactif des sous-systèmes du vaisseau
 # --- voice lines (voice-cover.js keeps the English, Ada holds the rest)
+sys	sys	sis	sys
 Tap to hear	Tippen zum Anhören	Toca para escuchar	Touchez pour écouter
+Region A	Region A	Región A	Région A
+Region B	Region B	Región B	Région B
+offline · generated	offline · generiert	sin conexión · generado	hors ligne · généré
+generated · offline	generiert · offline	generado · sin conexión	généré · hors ligne
+regional · offline	regional · offline	regional · sin conexión	régional · hors ligne
+national · offline	national · offline	nacional · sin conexión	national · hors ligne
+national · world-atlas · regions	national · Weltatlas · Regionen	nacional · atlas mundial · regiones	national · atlas mondial · régions
+geoNaturalEarth1 · world-atlas	Natural-Earth-Projektion · Weltatlas	proyección Natural Earth · atlas mundial	projection Natural Earth · atlas mondial
+orthographic · offline	orthografische Projektion · offline	proyección ortográfica · sin conexión	projection orthographique · hors ligne
+orthographic · world-atlas	orthografische Projektion · Weltatlas	proyección ortográfica · atlas mundial	projection orthographique · atlas mondial
+CC BY 4.0	CC BY 4.0	CC BY 4.0	CC BY 4.0
+EOxCloudless 2016 · CC BY 4.0	EOxCloudless 2016 · CC BY 4.0	EOxCloudless 2016 · CC BY 4.0	EOxCloudless 2016 · CC BY 4.0
+EOxCloudless 2016 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2016 & 2017), CC BY 4.0	EOxCloudless 2016 von EOX IT Services GmbH (enthält veränderte Copernicus-Sentinel-Daten 2016 & 2017), CC BY 4.0	EOxCloudless 2016 de EOX IT Services GmbH (contiene datos modificados de Copernicus Sentinel 2016 y 2017), CC BY 4.0	EOxCloudless 2016 par EOX IT Services GmbH (contient des données Copernicus Sentinel modifiées 2016 et 2017), CC BY 4.0
+online ↓	verfügbar ↓	en línea ↓	en ligne ↓
+online ↑	verfügbar ↑	en línea ↑	en ligne ↑
+trend ▲ +# / #h	Trend ▲ +# / # h	tendencia ▲ +# / # h	tendance ▲ +# / # h
+SIDE	SEITE	LATERAL	PROFIL
+solar-sustained	solar-autark	sostenido por energía solar	autonomie solaire
+Voice: unsupported	Stimme: nicht unterstützt	Voz: no compatible	Voix : non prise en charge
+🔇 Voice off (V)	🔇 Stimme aus (V)	🔇 Voz desactivada (V)	🔇 Voix désactivée (V)
+🔊 Voice on (V)	🔊 Stimme an (V)	🔊 Voz activada (V)	🔊 Voix activée (V)
+HOLD	ANGEHALTEN	EN ESPERA	EN ATTENTE
+YES	JA	SÍ	OUI
+RELATED ACTIVE FILES	ZUGEHÖRIGE AKTIVE AKTEN	ARCHIVOS ACTIVOS RELACIONADOS	DOSSIERS ACTIFS ASSOCIÉS
+RECORDED COMMUNICATION	AUFGEZEICHNETE KOMMUNIKATION	COMUNICACIÓN GRABADA	COMMUNICATION ENREGISTRÉE
+RESTRICTED // CENTRAL DESK	VERTRAULICH // ZENTRALE	RESTRINGIDO // MESA CENTRAL	DIFFUSION RESTREINTE // BUREAU CENTRAL
 This is a mockup GUI. Feel free to use it. If you found it useful, consider giving this repo a star on GitHub.	Dies ist ein Mockup einer Benutzeroberfläche. Nutzen Sie es gern. Wenn es Ihnen geholfen hat, geben Sie diesem Repository einen Stern auf GitHub.	Esta es una maqueta de interfaz gráfica. Siéntase libre de usarla. Si le ha resultado útil, considere darle una estrella a este repositorio en GitHub.	Ceci est une maquette d'interface graphique. N'hésitez pas à l'utiliser. Si vous l'avez trouvée utile, pensez à donner une étoile à ce dépôt sur GitHub.
 I concur.	Ich stimme zu.	Estoy de acuerdo.	Je suis d'accord.
 Good idea.	Gute Idee.	Buena idea.	Bonne idée.
@@ -372,7 +399,7 @@ act	ist	real	réel
 delta	Delta	delta	delta
 done	fertig	hecho	fait
 queued	wartend	en cola	en attente
-online	online	en línea	en ligne
+online	verfügbar	en línea	en ligne
 active	aktiv	activo	actif
 menu	Menü	menú	menu
 mode auto	Modus auto	modo auto	mode auto
@@ -420,7 +447,7 @@ SOLAR %	SOLAR %	SOLAR %	SOLAIRE %
 SOLAR%	SOLAR%	SOLAR%	SOLAIRE%
 ALT m	HÖHE m	ALT m	ALT m
 SPD	GESCHW.	VEL.	VIT.
-NET	NETTO	NETO	NET
+NET	NETZ	RED	RÉSEAU
 Telemetry	Telemetrie	Telemetría	Télémétrie
 Telemetry Grid	Telemetrieraster	Cuadrícula de telemetría	Grille de télémétrie
 Target Track	Zielverfolgung	Seguimiento de objetivo	Suivi de cible
@@ -511,7 +538,7 @@ CLEAR · #°	KLAR · #°	DESPEJADO · #°	DÉGAGÉ · #°
 RADAR	RADAR	RADAR	RADAR
 SOIL	BODEN	SUELO	SOL
 WIND	WIND	VIENTO	VENT
-LOG	LOG	REGISTRO	JOURNAL
+LOG	PROTOKOLL	REGISTRO	JOURNAL
 RADAR: LIVE (RainViewer)	RADAR: LIVE (RainViewer)	RADAR: EN VIVO (RainViewer)	RADAR : EN DIRECT (RainViewer)
 RADAR: LIVE BASEMAP (no radar frames)	RADAR: LIVE-GRUNDKARTE (keine Radarbilder)	RADAR: MAPA BASE EN VIVO (sin imágenes de radar)	RADAR : FOND EN DIRECT (pas d'images radar)
 RADAR: LIVE BASEMAP	RADAR: LIVE-GRUNDKARTE	RADAR: MAPA BASE EN VIVO	RADAR : FOND EN DIRECT
@@ -679,7 +706,7 @@ Silent	Lautlos	Silencio	Silencieux
 > Region A	> Region A	> Región A	> Région A
 > Region B	> Region B	> Región B	> Région B
 Secure Call	Sicherer Anruf	Llamada segura	Appel sécurisé
-online	online	en línea	en ligne
+online	verfügbar	en línea	en ligne
 scale #:#	Maßstab #:#	escala #:#	échelle #:#
 lim #%	Grenze #%	lím. #%	lim. #%
 regional · ~# km · world-atlas	regional · ~# km · world-atlas	regional · ~# km · world-atlas	régional · ~# km · world-atlas
