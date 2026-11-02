@@ -90,11 +90,11 @@ procedure UIM.Translate (L : Language; Item : String;
    I : Natural := 1;
 begin
    Last := Result'First - 1;
+   Clock_24 (Item, Clocked, Text_Last);      --  24 h clock in every language
    if L = EN then
-      Put (Item);
+      Put (Clocked (1 .. Text_Last));
       return;
    end if;
-   Clock_24 (Item, Clocked, Text_Last);
 
    while I <= Text_Last loop
       declare

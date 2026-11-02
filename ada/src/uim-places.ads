@@ -1,6 +1,6 @@
 --  The place behind each flag. Maps centre on it, "home" markers sit on
 --  its capital and region outlines come from vendor/data-regions-eu.js.
---  English keeps the original US scenery of v1.11.0 (see docs/UNTRANSLATED.md).
+--  English is the United Kingdom (London) since v1.12.1, by Robert's choice.
 package UIM.Places is
 
    type Place is record
@@ -14,8 +14,8 @@ package UIM.Places is
    end record;
 
    Table : constant array (Language) of Place :=
-     (EN => ("en", "United States ", "Lincoln   ", 4081, -9670, 3950, -9850, 5,
-             "America/Chicago"),
+     (EN => ("en", "United Kingdom", "London    ", 5151, -13, 5400, -250, 5,
+             "Europe/London  "),
       DE => ("de", "Deutschland   ", "Berlin    ", 5252, 1340, 5120, 1040, 5,
              "Europe/Berlin  "),
       ES => ("es", "Espa" & Character'Val (16#C3#) & Character'Val (16#B1#) & "a       ", "Madrid    ", 4042, -370, 4020, -370, 5,

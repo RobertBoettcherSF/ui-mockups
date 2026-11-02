@@ -9,3 +9,9 @@ France (régions):
   https://github.com/gregoiredavid/france-geojson
 
 Simplified with mapshaper. Corsica, the Canary Islands, Ceuta and Melilla are left out so the mainland fills the map.
+
+United Kingdom regions (English flag): GB European electoral regions from the
+Office for National Statistics, via https://github.com/martinjc/UK-GeoJSON,
+plus Northern Ireland districts from click_that_hood, dissolved and simplified.
+Open Government Licence v3.0. Contains National Statistics and OS data
+© Crown copyright and database right.

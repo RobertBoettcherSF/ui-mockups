@@ -140,8 +140,10 @@ package body UIM.Format is
       Neg : constant Boolean := Item'Length > 0 and then Item (Item'First) = '-';
       Out_Milli : Long_Long_Integer;
    begin
-      if L = EN then
+      --  English is British: miles and mph stay, the rest goes metric.
+      if L = EN and then (U = Miles or else U = Miles_Per_Hour) then
          Put (Item, Result, Last);
+         Put ((if U = Miles then " mi" else " mph"), Result, Last);
          return;
       end if;
       for C of Item loop

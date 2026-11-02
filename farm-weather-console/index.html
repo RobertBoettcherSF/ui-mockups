@@ -27,7 +27,7 @@ header{grid-column:1/4;display:flex;align-items:center;justify-content:space-bet
 .blink{animation:b 1s steps(2) infinite}@keyframes b{50%{opacity:.2}}
 </style><script src="../vendor/debug-cover.js?v=1.12.1"></script><script src="../vendor/top-bar.js?v=1.12.1"></script>
 </head><body>
-<header><span>AGRI-MET // DUST STORM WATCH</span><span>GREAT PLAINS · CENTRAL SECTOR</span><span id="clk"></span></header>
+<header><span>AGRI-MET // DUST STORM WATCH</span><span>HOME COUNTIES · CENTRAL SECTOR</span><span id="clk"></span></header>
 <div id="side">
  <div class="p"><div class="h">System Status</div><div class="row">Radar link<span class="v" id="rstat">CONNECTING</span></div><div class="row">Soil probes<span class="v">48/50</span></div><div class="row">Irrigation<span class="v">STANDBY</span></div><div class="row">Silo vents<span class="v">SEALED</span></div></div>
  <div class="haz"><span class="blink">DUST ADVISORY</span></div>
@@ -72,7 +72,7 @@ function buildFallback(){
   {n:'MINNESOTA',lx:580,ly:140,d:'M470,80 L560,70 L640,120 L650,210 L500,200 L500,150 L470,150 Z'}];
  const sg=document.getElementById('states'),lg2=document.getElementById('labels');
  let home=[330,300];
- if(UIM.lang!=='en'&&window.__REGIONS){ // regions of the flag's country instead of the US states
+ if(window.__REGIONS&&__REGIONS[UIM.lang]){ // regions of the flag's country instead of the US states
   const fc=topojson.feature(__REGIONS[UIM.lang],__REGIONS[UIM.lang].objects.regions),box=[40,90,680,460];
   STATES.splice(0,STATES.length,...UIM.regionPaths(box,fc));home=UIM.project(box,fc,UIM.place().home);
  }
@@ -101,7 +101,7 @@ function useFallback(reason){
 /* ---------- Live Leaflet map: CARTO dark + us-atlas borders + RainViewer radar ---------- */
 async function initLive(){
  if(typeof L==='undefined')throw new Error('Leaflet CDN unavailable');
- const map=L.map('leaf',{zoomControl:true,attributionControl:true}).setView(UIM.lang==='en'?[39.5,-98.5]:UIM.place().center,UIM.lang==='en'?5:UIM.place().zoom); // Great Plains, or the flag's country
+ const map=L.map('leaf',{zoomControl:true,attributionControl:true}).setView(UIM.place()?UIM.place().center:[39.5,-98.5],UIM.place()?UIM.place().zoom:5); // the flag's country (EN = UK)
  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,attribution:'Basemap &copy; <a href="https://www.esri.com/">Esri</a> (dark canvas); &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
  // US state borders from us-atlas TopoJSON (public CDN)
  try{

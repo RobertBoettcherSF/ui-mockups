@@ -375,11 +375,11 @@ MISSION MAP · SOLAR HALE TRACK	EINSATZKARTE · SOLAR-HALE-KURS	MAPA DE MISIÓN 
 MISSION MAP · SOLAR HALE	EINSATZKARTE · SOLAR-HALE	MAPA DE MISIÓN · SOLAR HALE	CARTE DE MISSION · SOLAIRE HALE
 PHASE —	PHASE —	FASE —	PHASE —
 PHASE #	PHASE #	FASE #	PHASE #
-LOITER · Lincoln NE cornfields	KREISEN · Felder bei Berlin	ESPERA · campos cerca de Madrid	ATTENTE · champs près de Paris
+LOITER · fields near London	KREISEN · Felder bei Berlin	ESPERA · campos cerca de Madrid	ATTENTE · champs près de Paris
 TRANSIT CLIMB → India	STEIGFLUG → Indien	ASCENSO DE TRÁNSITO → India	MONTÉE DE TRANSIT → Inde
 STRAT CRUISE · India	STRAT-REISEFLUG · Indien	CRUCERO ESTRATOSFÉRICO · India	CROISIÈRE STRATO · Inde
-Lincoln NE → Delhi IN	Berlin DE → Delhi IN	Madrid ES → Delhi IN	Paris FR → Delhi IN
-Lincoln NE (loiter) -> great-circle -> Delhi IN (strat cruise)	Berlin DE (Kreisen) -> Großkreis -> Delhi IN (Strat-Reiseflug)	Madrid ES (espera) -> ortodrómica -> Delhi IN (crucero estratosférico)	Paris FR (attente) -> orthodromie -> Delhi IN (croisière strato)
+London UK → Delhi IN	Berlin DE → Delhi IN	Madrid ES → Delhi IN	Paris FR → Delhi IN
+London UK (loiter) -> great-circle -> Delhi IN (strat cruise)	Berlin DE (Kreisen) -> Großkreis -> Delhi IN (Strat-Reiseflug)	Madrid ES (espera) -> ortodrómica -> Delhi IN (crucero estratosférico)	Paris FR (attente) -> orthodromie -> Delhi IN (croisière strato)
 offline — generated terrain (	offline — generiertes Gelände (	sin conexión — terreno generado (	hors ligne — terrain généré (
 Airframe · SOLARIS HALE "Garuda"	Flugzeugzelle · SOLARIS HALE „Garuda“	Fuselaje · SOLARIS HALE «Garuda»	Cellule · SOLARIS HALE « Garuda »
 Airframe · Garuda	Flugzeugzelle · Garuda	Fuselaje · Garuda	Cellule · Garuda
@@ -458,7 +458,7 @@ Zoom out	Verkleinern	Alejar	Zoom arrière
 # --- farm weather console and verdant-os (region follows the flag)
 Farm Weather & Dust Storm Console	Konsole für Hofwetter & Staubsturm	Consola de meteorología agrícola y tormentas de polvo	Console météo agricole et tempêtes de poussière
 AGRI-MET // DUST STORM WATCH	AGRAR-WETTER // STAUBSTURM-BEOBACHTUNG	AGRO-MET // VIGILANCIA DE TORMENTA DE POLVO	AGRO-MÉTÉO // VEILLE TEMPÊTE DE POUSSIÈRE
-GREAT PLAINS · CENTRAL SECTOR	BRANDENBURG · ZENTRALSEKTOR	MESETA CENTRAL · SECTOR CENTRO	BASSIN PARISIEN · SECTEUR CENTRE
+HOME COUNTIES · CENTRAL SECTOR	BRANDENBURG · ZENTRALSEKTOR	MESETA CENTRAL · SECTOR CENTRO	BASSIN PARISIEN · SECTEUR CENTRE
 HOME FARM	HEIMATHOF	GRANJA PRINCIPAL	FERME PRINCIPALE
 ETA farm:	Ankunft Hof:	Llegada a la granja:	Arrivée à la ferme :
 Dust front crossing county line #	Staubfront überquert Kreisgrenze #	Frente de polvo cruza el límite comarcal #	Front de poussière franchit la limite du canton #
@@ -480,7 +480,7 @@ Alfalfa	Luzerne	Alfalfa	Luzerne
 Blight Index	Fäuleindex	Índice de plaga	Indice de mildiou
 Blight index	Fäuleindex	Índice de plaga	Indice de mildiou
 Avg canopy NDVI	Mittlerer Bestands-NDVI	NDVI medio del dosel	NDVI moyen du couvert
-Irrigated acres	Bewässerte Fläche	Superficie regada	Surface irriguée
+Irrigated area	Bewässerte Fläche	Superficie regada	Surface irriguée
 Field Sensors	Feldsensoren	Sensores de campo	Capteurs de terrain
 Humidity %	Luftfeuchte %	Humedad %	Humidité %
 Wind km/h	Wind km/h	Viento km/h	Vent km/h

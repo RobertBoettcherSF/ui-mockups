@@ -92,3 +92,7 @@ Robert's asks:
     English. A full smoke (20 screens + gallery, DE/ES/FR at 1280 px, DE/FR at
     390 px) was run on the final core; English previews were re-shot with the
     current stamp.
+12. English = United Kingdom. Robert chose that 🇬🇧 means the UK: EN centres on
+    London (Europe/London), uses the bundled UK regions, 24 h clocks, metric
+    units with UK miles/mph. From v1.12.1 English deliberately no longer
+    matches the v1.11.0 US maps (Lincoln, Nebraska).

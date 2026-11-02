@@ -1,5 +1,5 @@
 /* Region outlines for the map screens, following the language flag.
-   English: the US states of v1.11.0 (us-atlas). DE/ES/FR: the regions of
+   Every flag (EN = United Kingdom, DE, ES, FR): the regions of
    the flag's country from vendor/data-regions-eu.js (offline, see
    LICENSE-regions). Which country belongs to which flag comes from the
    Ada core (UIM.place()).
@@ -11,7 +11,7 @@
   UIM.regions = function () {
     var code = UIM.place() ? UIM.place().code : 'en';
     var topo = window.__REGIONS && window.__REGIONS[code];
-    if (code === 'en' || !topo) {
+    if (!topo) {  // fallback only: US states (us-atlas)
       return fetch(US).then(function (r) { return r.json(); })
         .then(function (t) { return topojson.feature(t, t.objects.states); });
     }

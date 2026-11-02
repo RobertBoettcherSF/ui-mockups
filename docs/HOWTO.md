@@ -8,7 +8,7 @@
   e.g. `drone-console/?lang=fr`. This also saves the choice.
 * Works from `file://` too: the compiled core is embedded as base64, nothing
   is fetched.
-* English (the default) looks exactly like v1.11.0.
+* English (the default) is British: London maps, UK regions, 24 h clocks, metric units with miles/mph.
 
 ## Test it (5 minutes)
 
@@ -21,7 +21,7 @@
 4. `verdant-os`: "Surface irriguée 502 ha" (English: "Irrigated acres 1,240").
 5. Press **Debug**: the report contains `uiLanguage`, `coreVersion` and a
    `state.language` block (core size, load time, place).
-6. Back to 🇬🇧: everything is as in v1.11.0.
+6. Back to 🇬🇧: maps centre on London with the UK regions.
 
 If the core cannot load, a red bar at the bottom says so, the page stays
 English and the Debug report has `coreError`.

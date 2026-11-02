@@ -63,8 +63,8 @@ MIT, see [LICENSE](LICENSE). All names, readings and messages are invented.
 Dark farm weather & dust-storm / crop monitoring console. Left sidebar (system status, striped dust-advisory hazard block, crop-health bars,
 blight index, button row); centre **live Weather Radar map** (Leaflet) with a dark basemap,
 US state borders from us-atlas TopoJSON, and a live radar overlay from the RainViewer public
-API, tinted cyan/yellow-green and centred on the Great Plains; if the network is unavailable it
-falls back to a procedural SVG map of the Great Plains states with simulated radar dust blobs.
+API, tinted cyan/yellow-green and centred on the flag's country (UK for English); if the network is unavailable it
+falls back to an offline map of that country's regions with simulated radar dust blobs.
 Bottom row of five live line-chart panels; right column of readouts and a rolling event log.
 Preview: `farm-weather-console/preview.png`
 
@@ -76,7 +76,7 @@ Data & attribution:
 ### drone-console
 UAV ground-control console, with all text in English. Left **Mission Map** (Leaflet, Esri World Imagery
 satellite tiles) tracking a simulated solar-powered HALE drone with an original SVG icon and
-trail: phase 1 loiters in slow loops over cornfields near Lincoln, Nebraska; phase 2 climbs to
+trail: phase 1 loiters in slow loops near the flag's capital (London for English); phase 2 climbs to
 stratospheric altitude and flies a great-circle route east to India; phase 3 cruises at high
 altitude over India. Solar/battery model drives the airframe and telemetry windows (array
 output varying with sun position along the route, battery %, charge/discharge rate, endurance).
@@ -360,7 +360,7 @@ A generic blueprint-style portrait display: a top-down wireframe schematic of an
 Pick a flag in the gallery (or add `?lang=de|es|fr|en` to any page). Every
 screen then shows its texts, numbers (`1.234,5`), 24 h clock, units and map
 place in that language: German → Germany/Berlin, Spanish → Spain/Madrid,
-French → France/Paris; English stays as in v1.11.0. All of it comes from a
+French → France/Paris; English → United Kingdom/London (since v1.12.1). All of it comes from a
 small core written in plain Ada (`ada/`), compiled to WebAssembly and
 embedded in `vendor/uim-core.js`, so it works from `file://` too.
 See [docs/HOWTO.md](docs/HOWTO.md), [docs/HOW_WE_GOT_HERE.md](docs/HOW_WE_GOT_HERE.md)

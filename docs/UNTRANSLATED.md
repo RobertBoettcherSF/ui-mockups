@@ -32,27 +32,19 @@ below stay as they are **on purpose**.
 | `global-ops-hub`, `coastal-monitor` | World / generic coast; no country to swap. |
 | `public-broadcast-channel` | Bilingual English/French by design. The English half follows the flag, the French half stays French. |
 
-## English keeps the v1.11.0 scenery (decision to confirm)
+## English is the United Kingdom (since v1.12.1)
 
-With 🇬🇧 English selected the map screens (`farm-weather-console`,
-`verdant-os`, `sdr-console`, `drone-console`, `aether-os`) still show the US
-Great Plains (Lincoln, Nebraska), exactly as in v1.11.0. This keeps the
-regression rule "English matches v1.11.0". The Ada core already has one line
-per language in `ada/src/uim-places.ads`; switching English to the UK
-(London) means changing that line and adding UK regions to
-`vendor/data-regions-eu.js`. UK region data is **not** bundled yet.
-
-German, Spanish and French move these screens to Germany/Berlin,
-Spain/Madrid and France/Paris with that country's regions (offline data in
-`vendor/data-regions-eu.js`, sources in `vendor/LICENSE-regions`). Corsica,
-the Canary Islands, Ceuta and Melilla are left out so the mainland fills the
-small map panels.
+By Robert's choice, 🇬🇧 English now means the United Kingdom: map screens
+centre on London, region outlines are the 12 UK regions (bundled offline in
+`vendor/data-regions-eu.js`), clocks are 24 h, acres/°F/ft are shown metric
+while miles and mph stay (UK road convention). English therefore no longer
+matches the v1.11.0 US maps. The US states file stays only as a fallback.
 
 ## Time zones
 
 Berlin, Madrid and Paris are all on Central European Time, the same zone as
 the browser clock the mockups use, so clocks show the browser's local time in
-24 h format. English keeps the 12 h clock where v1.11.0 had it.
+24 h format. English (UK, Europe/London) uses 24 h too; the clocks follow the browser's local time.
 
 ## Text that is generated at random
 

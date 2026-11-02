@@ -57,7 +57,7 @@ function fallback(){ // rough US outline
  const r=rand(7),pts=[];const inside=(x,y)=>{let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const[a,b]=P[i],[d,e]=P[j];if((b>y)!=(e>y)&&x<(d-a)*(y-b)/(e-b)+a)c=!c}return c};
  while(pts.length<55){const x=15+r()*170,y=95+r()*85;if(inside(x,y))pts.push([x,y])}drawNodes(pts)}
 (async()=>{try{if(!window.d3||!window.topojson)throw 0;
- const eu=UIM.lang!=='en'&&window.__REGIONS&&__REGIONS[UIM.lang]; // the flag's country, or the US
+ const eu=window.__REGIONS&&__REGIONS[UIM.lang]; // the flag's country, or the US
  const topo=eu||await(await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')).json();
  const obj=eu?topo.objects.regions:topo.objects.states;
  const ex=new Set(['02','15','60','66','69','72','78']);
