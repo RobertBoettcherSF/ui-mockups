@@ -18,7 +18,7 @@ for l,c in col.items():
     d=json.load(open(f'/tmp/h-{l}.json'));hits=collections.defaultdict(set)
     for slug,v in d.items():
         for s in v['strings']:
-            s=re.sub(r'\b[a-z]+\.[a-z]+\b|0x[0-9A-Fa-f]+|\b[0-9A-F]{4}\b|PID +MODULE +ADDR +LOAD +ST|:: *[a-z]+|\b(parse|proc|alloc|fork|sched|walk|lock|route|trace)\b\.?(?= +[0-9])','',s) # machine identifiers (UNTRANSLATED.md)
+            s=re.sub(r'\b[a-z]+\.[a-z]+\b|0x[0-9A-Fa-f]+|\b[0-9A-F]{4}\b|PID +MODULE +ADDR +LOAD +ST|:: *[a-z]+|\b(parse|proc|alloc|fork|sched|walk|lock|route|trace|kernel|kerne|mem|net|io|crypt|graph|cache|sync|vm|fs|sig|dma|bus|clk|flush|core|ast|lru|page|inode|trap|map|arb|pll)\b\.?(?= +[0-9])','',s) # machine identifiers (UNTRANSLATED.md)
             for w in W(s):
                 if w in enw and w not in native and w not in allow:
                     raw[l]=raw.get(l,0)+1
