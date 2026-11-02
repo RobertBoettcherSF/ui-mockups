@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.1"></script><script src="../vendor/lang.js?v=1.12.1"></script><title>VerdantOS</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.2"></script><script src="../vendor/lang.js?v=1.12.2"></script><title>VerdantOS</title>
 <link rel="stylesheet" href="../vendor/leaflet/leaflet.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -46,7 +46,7 @@ body{background:#05080a;color:#7fe3e0;font:12px/1.35 "Courier New",monospace;pos
 #tray{display:flex;gap:12px;align-items:center;color:#9fe8e4;font-size:11px}
 #tray .v{color:#d6ff3a}
 .blink{animation:b 1s steps(2) infinite}@keyframes b{50%{opacity:.2}}
-</style><script src="../vendor/debug-cover.js?v=1.12.1"></script><script src="../vendor/top-bar.js?v=1.12.1"></script>
+</style><script src="../vendor/debug-cover.js?v=1.12.2"></script><script src="../vendor/top-bar.js?v=1.12.2"></script>
 </head><body>
 <div id="desk">
  <div class="deskicons" id="deskicons"></div>
@@ -59,7 +59,7 @@ body{background:#05080a;color:#7fe3e0;font:12px/1.35 "Courier New",monospace;pos
 
 <script src="../vendor/offline-fetch.js"></script><script src="../vendor/data-states-10m.js"></script>
 <script src="../vendor/leaflet/leaflet.js"></script>
-<script src="../vendor/topojson-client.min.js"></script><script src="../vendor/data-regions-eu.js?v=1.12.1"></script><script src="../vendor/regions.js?v=1.12.1"></script>
+<script src="../vendor/topojson-client.min.js"></script><script src="../vendor/data-regions-eu.js?v=1.12.2"></script><script src="../vendor/regions.js?v=1.12.2"></script>
 <script>
 const R=(a,b)=>a+Math.random()*(b-a);
 /* ---------- icons ---------- */
@@ -96,7 +96,7 @@ function markOpen(){document.querySelectorAll('#dock .app').forEach(a=>{const id
 
 /* ---------- content builders ---------- */
 function statusHTML(){return `<div class="pad"><div class="row">Radar link<span class="v" id="rl">ONLINE</span></div><div class="row">Soil probes<span class="v">48/50</span></div><div class="row">Irrigation<span class="v">STANDBY</span></div><div class="row">Silo vents<span class="v">SEALED</span></div><div class="row">Grid power<span class="v">NOMINAL</span></div><div class="haz"><span class="blink">DUST ADVISORY</span></div><div class="row">Blight index<span class="v">0.37 &#9650;</span></div></div>`}
-function cropHTML(){return `<div class="pad">Corn<div class="bar"><i style="width:62%"></i></div>Wheat<div class="bar"><i style="width:41%"></i></div>Soybean<div class="bar"><i style="width:77%"></i></div>Sorghum<div class="bar"><i style="width:55%"></i></div>Alfalfa<div class="bar"><i style="width:68%"></i></div><div class="row">Avg canopy NDVI<span class="v">0.58</span></div><div class="row">Irrigated area<span class="v">${UIM.qty('1,240','acres')}</span></div></div>`}
+function cropHTML(){return `<div class="pad">${(UIM.place()||{crops:["Wheat","Barley","Oilseed rape","Potatoes","Grass ley"]}).crops.map((c,i)=>c+'<div class="bar"><i style="width:'+[62,41,77,55,68][i]+'%"></i></div>').join("")}<div class="row">Avg canopy NDVI<span class="v">0.58</span></div><div class="row">Irrigated area<span class="v">${UIM.qty('1,240','acres')}</span></div></div>`}
 
 /* ---------- live radar map (reused from mockup) ---------- */
 function mapHTML(){return `<div class="maproot"><div class="flag" id="rflag">RADAR: INIT</div><div class="leaf" id="leaf"></div><div class="fb" id="fb"><canvas id="mc"></canvas><svg id="usmap" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet"><g id="states"></g><g id="labels"></g></svg></div><div class="attr" id="attr">init</div></div>`}
@@ -110,7 +110,7 @@ function initMap(){
   try{const geo=await UIM.regions();map.createPane('b');map.getPane('b').classList.add('border-pane');map.getPane('b').style.zIndex=450;L.geoJSON(geo,{pane:'b',style:{color:'#2fd6cf',weight:1.1,fill:false,opacity:.85}}).addTo(map)}catch(e){}
   let radar=false;try{const meta=await (await fetch('https://api.rainviewer.com/public/weather-maps.json')).json();const fr=(meta.radar&&(meta.radar.past||[]).concat(meta.radar.nowcast||[]))||[];if(fr.length){const f=fr[fr.length-1];map.createPane('r');map.getPane('r').classList.add('radar-pane');map.getPane('r').style.zIndex=440;L.tileLayer(meta.host+f.path+'/256/{z}/{x}/{y}/8/1_1.png',{pane:'r',opacity:.75}).addTo(map);radar=true}}catch(e){}
   flag.textContent=radar?'RADAR: LIVE (RainViewer)':'RADAR: LIVE BASEMAP';flag.style.color='#d6ff3a';setNet('ONLINE');
-  attr.innerHTML='&copy; Esri / OpenStreetMap · borders us-atlas · radar &copy; <a href="https://www.rainviewer.com/">RainViewer</a>';
+  attr.innerHTML='&copy; Esri / OpenStreetMap · borders open data · radar &copy; <a href="https://www.rainviewer.com/">RainViewer</a>';
   setTimeout(()=>map.invalidateSize(),250);
  }
  let done=false;const g=setTimeout(()=>{if(!done){done=true;fb('timeout')}},3500);

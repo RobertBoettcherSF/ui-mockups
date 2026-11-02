@@ -122,9 +122,6 @@ North	Nord	Norte	Nord
 South	Süd	Sur	Sud
 # --- coastal monitor
 Coastal Monitor	Küstenmonitor	Monitor costero	Moniteur côtier
-Buoy # (Pacific): water temp # C	Boje # (Pazifik): Wassertemp. # °C	Boya # (Pacífico): temp. del agua # °C	Bouée # (Pacifique) : temp. de l'eau # °C
-Buoy # (Atlantic): wave ht # m	Boje # (Atlantik): Wellenhöhe # m	Boya # (Atlántico): altura de ola # m	Bouée # (Atlantique) : houle # m
-Buoy # (Indian): wind # kt NE	Boje # (Indik): Wind # kn NO	Boya # (Índico): viento # nudos NE	Bouée # (Indien) : vent # nd NE
 Buoy Telemetry Feed	Bojen-Telemetrie	Telemetría de boyas	Télémétrie des bouées
 EVENT: Scheduled calibration complete	EREIGNIS: Kalibrierung fertig	EVENTO: Calibración programada completada	ÉVÉNEMENT : Étalonnage planifié terminé
 INFO: All buoys reporting	INFO: Alle Bojen melden	INFO: Todas las boyas informan	INFO : Toutes les bouées répondent
@@ -132,10 +129,7 @@ DISPATCH: Daily summary generated	MELDUNG: Tagesbericht erstellt	DESPACHO: Resum
 NOTE: Systems nominal	HINWEIS: Systeme normal	NOTA: Sistemas normales	NOTE : Systèmes nominaux
 INFO: Webcam feeds refreshed	INFO: Webcam-Bilder aktualisiert	INFO: Imágenes de webcam actualizadas	INFO : Flux webcam actualisés
 EVENT: Tide gauge sync complete	EREIGNIS: Pegelabgleich abgeschlossen	EVENTO: Sincronización del mareógrafo completada	ÉVÉNEMENT : Synchro du marégraphe terminée
-NOTE: Next maintenance window #:# UTC	HINWEIS: Nächstes Wartungsfenster #:# UTC	NOTA: Próxima ventana de mantenimiento #:# UTC	NOTE : Prochaine maintenance #:# UTC
 INFO: Data archive backup finished	INFO: Datenarchiv gesichert	INFO: Copia del archivo de datos terminada	INFO : Sauvegarde de l'archive terminée
-NORTH ATLANTIC CAM	KAMERA NORDATLANTIK	CÁMARA ATLÁNTICO NORTE	CAMÉRA ATLANTIQUE NORD
-PACIFIC COASTAL WEBCAM	WEBCAM PAZIFIKKÜSTE	WEBCAM COSTA DEL PACÍFICO	WEBCAM CÔTE PACIFIQUE
 Tide & Wave Log	Gezeiten- und Wellenprotokoll	Registro de mareas y oleaje	Journal des marées et des vagues
 Station A	Station A	Estación A	Station A
 Station B	Station B	Estación B	Station B
@@ -512,8 +506,8 @@ RADAR: INIT	RADAR: START	RADAR: INICIO	RADAR : DÉMARRAGE
 RADAR NEXRAD · REFLECTIVITY dBZ (SIMULATED)	RADAR · REFLEKTIVITÄT dBZ (SIMULIERT)	RADAR · REFLECTIVIDAD dBZ (SIMULADA)	RADAR · RÉFLECTIVITÉ dBZ (SIMULÉE)
 Offline — procedural SVG map ·	Offline — prozedurale SVG-Karte ·	Sin conexión — mapa SVG procedural ·	Hors ligne — carte SVG procédurale ·
 Leaflet CDN unavailable	Leaflet-CDN nicht erreichbar	CDN de Leaflet no disponible	CDN Leaflet indisponible
-Map © OpenStreetMap / CARTO · borders us-atlas · radar ©	Karte © OpenStreetMap / CARTO · Grenzen click_that_hood · Radar ©	Mapa © OpenStreetMap / CARTO · límites click_that_hood · radar ©	Carte © OpenStreetMap / CARTO · limites france-geojson · radar ©
-© Esri / OpenStreetMap · borders us-atlas · radar ©	© Esri / OpenStreetMap · Grenzen click_that_hood · Radar ©	© Esri / OpenStreetMap · límites click_that_hood · radar ©	© Esri / OpenStreetMap · limites france-geojson · radar ©
+Map © OpenStreetMap / CARTO · borders open data · radar ©	Karte © OpenStreetMap / CARTO · Grenzen offene Daten · Radar ©	Mapa © OpenStreetMap / CARTO · límites datos abiertos · radar ©	Carte © OpenStreetMap / CARTO · frontières données ouvertes · radar ©
+© Esri / OpenStreetMap · borders open data · radar ©	© Esri / OpenStreetMap · Grenzen offene Daten · Radar ©	© Esri / OpenStreetMap · límites datos abiertos · radar ©	© Esri / OpenStreetMap · frontières données ouvertes · radar ©
 (dark canvas); ©	(dunkle Karte); ©	(lienzo oscuro); ©	(fond sombre) ; ©
 contributors	Mitwirkende	colaboradores	contributeurs
 A JavaScript library for interactive maps	Eine JavaScript-Bibliothek für interaktive Karten	Una biblioteca JavaScript para mapas interactivos	Une bibliothèque JavaScript pour cartes interactives
@@ -695,3 +689,49 @@ Loading module... COMPLETE	Modul wird geladen... FERTIG	Cargando módulo... COMP
 > flush	> leeren	> vaciar	> vidage
 > relink	> neu verknüpfen	> reenlazar	> réédition des liens
 NODE LINK WEIGHT	KNOTEN VERBINDUNG GEWICHT	NODO ENLACE PESO	NŒUD LIAISON POIDS
+# --- v1.12.2 local coast, crops (place data from uim-places.adb)
+Buoy # (North Sea): water temp # °C	Boje # (Nordsee): Wassertemp. # °C	Boya # (mar del Norte): temp. del agua # °C	Bouée # (mer du Nord) : temp. de l'eau # °C
+Buoy # (North Sea): wave ht # m	Boje # (Nordsee): Wellenhöhe # m	Boya # (mar del Norte): altura de ola # m	Bouée # (mer du Nord) : houle # m
+Buoy # (North Sea): wind # kt NE	Boje # (Nordsee): Wind # kn NO	Boya # (mar del Norte): viento # nudos NE	Bouée # (mer du Nord) : vent # nd NE
+Buoy # (Atlantic): water temp # °C	Boje # (Atlantik): Wassertemp. # °C	Boya # (Atlántico): temp. del agua # °C	Bouée # (Atlantique) : temp. de l'eau # °C
+Buoy # (Atlantic): wave ht # m	Boje # (Atlantik): Wellenhöhe # m	Boya # (Atlántico): altura de ola # m	Bouée # (Atlantique) : houle # m
+Buoy # (Atlantic): wind # kt NE	Boje # (Atlantik): Wind # kn NO	Boya # (Atlántico): viento # nudos NE	Bouée # (Atlantique) : vent # nd NE
+Buoy # (English Channel): water temp # °C	Boje # (Ärmelkanal): Wassertemp. # °C	Boya # (canal de la Mancha): temp. del agua # °C	Bouée # (Manche) : temp. de l'eau # °C
+Buoy # (English Channel): wave ht # m	Boje # (Ärmelkanal): Wellenhöhe # m	Boya # (canal de la Mancha): altura de ola # m	Bouée # (Manche) : houle # m
+Buoy # (English Channel): wind # kt NE	Boje # (Ärmelkanal): Wind # kn NO	Boya # (canal de la Mancha): viento # nudos NE	Bouée # (Manche) : vent # nd NE
+Buoy # (Baltic): water temp # °C	Boje # (Ostsee): Wassertemp. # °C	Boya # (Báltico): temp. del agua # °C	Bouée # (Baltique) : temp. de l'eau # °C
+Buoy # (Baltic): wave ht # m	Boje # (Ostsee): Wellenhöhe # m	Boya # (Báltico): altura de ola # m	Bouée # (Baltique) : houle # m
+Buoy # (Baltic): wind # kt NE	Boje # (Ostsee): Wind # kn NO	Boya # (Báltico): viento # nudos NE	Bouée # (Baltique) : vent # nd NE
+Buoy # (Wadden Sea): water temp # °C	Boje # (Wattenmeer): Wassertemp. # °C	Boya # (mar de Frisia): temp. del agua # °C	Bouée # (mer des Wadden) : temp. de l'eau # °C
+Buoy # (Wadden Sea): wave ht # m	Boje # (Wattenmeer): Wellenhöhe # m	Boya # (mar de Frisia): altura de ola # m	Bouée # (mer des Wadden) : houle # m
+Buoy # (Wadden Sea): wind # kt NE	Boje # (Wattenmeer): Wind # kn NO	Boya # (mar de Frisia): viento # nudos NE	Bouée # (mer des Wadden) : vent # nd NE
+Buoy # (Mediterranean): water temp # °C	Boje # (Mittelmeer): Wassertemp. # °C	Boya # (Mediterráneo): temp. del agua # °C	Bouée # (Méditerranée) : temp. de l'eau # °C
+Buoy # (Mediterranean): wave ht # m	Boje # (Mittelmeer): Wellenhöhe # m	Boya # (Mediterráneo): altura de ola # m	Bouée # (Méditerranée) : houle # m
+Buoy # (Mediterranean): wind # kt NE	Boje # (Mittelmeer): Wind # kn NO	Boya # (Mediterráneo): viento # nudos NE	Bouée # (Méditerranée) : vent # nd NE
+Buoy # (Balearic Sea): water temp # °C	Boje # (Balearenmeer): Wassertemp. # °C	Boya # (mar Balear): temp. del agua # °C	Bouée # (mer des Baléares) : temp. de l'eau # °C
+Buoy # (Balearic Sea): wave ht # m	Boje # (Balearenmeer): Wellenhöhe # m	Boya # (mar Balear): altura de ola # m	Bouée # (mer des Baléares) : houle # m
+Buoy # (Balearic Sea): wind # kt NE	Boje # (Balearenmeer): Wind # kn NO	Boya # (mar Balear): viento # nudos NE	Bouée # (mer des Baléares) : vent # nd NE
+Buoy # (Alboran Sea): water temp # °C	Boje # (Alborán-Meer): Wassertemp. # °C	Boya # (mar de Alborán): temp. del agua # °C	Bouée # (mer d’Alboran) : temp. de l'eau # °C
+Buoy # (Alboran Sea): wave ht # m	Boje # (Alborán-Meer): Wellenhöhe # m	Boya # (mar de Alborán): altura de ola # m	Bouée # (mer d’Alboran) : houle # m
+Buoy # (Alboran Sea): wind # kt NE	Boje # (Alborán-Meer): Wind # kn NO	Boya # (mar de Alborán): viento # nudos NE	Bouée # (mer d’Alboran) : vent # nd NE
+Buoy # (Bay of Biscay): water temp # °C	Boje # (Biskaya): Wassertemp. # °C	Boya # (golfo de Vizcaya): temp. del agua # °C	Bouée # (golfe de Gascogne) : temp. de l'eau # °C
+Buoy # (Bay of Biscay): wave ht # m	Boje # (Biskaya): Wellenhöhe # m	Boya # (golfo de Vizcaya): altura de ola # m	Bouée # (golfe de Gascogne) : houle # m
+Buoy # (Bay of Biscay): wind # kt NE	Boje # (Biskaya): Wind # kn NO	Boya # (golfo de Vizcaya): viento # nudos NE	Bouée # (golfe de Gascogne) : vent # nd NE
+NOTE: Next maintenance window #:#	HINWEIS: Nächstes Wartungsfenster #:#	NOTA: Próxima ventana de mantenimiento #:#	NOTE : Prochaine maintenance #:#
+NORTH SEA COASTAL WEBCAM	WEBCAM NORDSEEKÜSTE	WEBCAM COSTA DEL MAR DEL NORTE	WEBCAM CÔTE DE LA MER DU NORD
+ATLANTIC CLIFF CAM	KAMERA ATLANTIKKLIPPEN	CÁMARA ACANTILADOS ATLÁNTICOS	CAMÉRA FALAISES ATLANTIQUES
+BALTIC COASTAL WEBCAM	WEBCAM OSTSEEKÜSTE	WEBCAM COSTA DEL BÁLTICO	WEBCAM CÔTE BALTIQUE
+NORTH SEA DUNE CAM	KAMERA NORDSEEDÜNEN	CÁMARA DUNAS DEL MAR DEL NORTE	CAMÉRA DUNES MER DU NORD
+MEDITERRANEAN COASTAL WEBCAM	WEBCAM MITTELMEERKÜSTE	WEBCAM COSTA MEDITERRÁNEA	WEBCAM CÔTE MÉDITERRANÉENNE
+BALEARIC PALM BEACH CAM	KAMERA PALMENSTRAND BALEAREN	CÁMARA PLAYA DE PALMERAS BALEAR	CAMÉRA PLAGE DE PALMIERS BALÉARES
+ATLANTIC COASTAL WEBCAM	WEBCAM ATLANTIKKÜSTE	WEBCAM COSTA ATLÁNTICA	WEBCAM CÔTE ATLANTIQUE
+MEDITERRANEAN PINE COAST CAM	KAMERA PINIENKÜSTE MITTELMEER	CÁMARA COSTA DE PINOS MEDITERRÁNEA	CAMÉRA CÔTE DES PINS MÉDITERRANÉE
+Barley	Gerste	Cebada	Orge
+Oilseed rape	Raps	Colza	Colza
+Potatoes	Kartoffeln	Patatas	Pommes de terre
+Grass ley	Grünland	Pradera	Prairie temporaire
+Maize	Mais	Maíz	Maïs
+Sugar beet	Zuckerrüben	Remolacha	Betterave sucrière
+Olives	Oliven	Olivos	Oliviers
+Sunflower	Sonnenblumen	Girasol	Tournesol
+Vines	Reben	Viñedos	Vignes

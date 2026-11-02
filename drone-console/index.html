@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.1"></script><script src="../vendor/lang.js?v=1.12.1"></script><title>UAV Ground Control Console</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.2"></script><script src="../vendor/lang.js?v=1.12.2"></script><title>UAV Ground Control Console</title>
 <link rel="stylesheet" href="../vendor/leaflet/leaflet.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -53,7 +53,7 @@ table{border-collapse:collapse;width:100%}td,th{padding:2px 5px;text-align:left;
 .frow{display:flex;gap:8px;align-items:center;margin:5px 0}.frow label{width:84px;color:#ff7a3a}
 .blink{animation:bl 1s steps(2) infinite}@keyframes bl{50%{opacity:.25}}
 .dicon svg{filter:drop-shadow(0 0 4px #5fe8b0)}
-</style><script src="../vendor/debug-cover.js?v=1.12.1"></script><script src="../vendor/top-bar.js?v=1.12.1"></script>
+</style><script src="../vendor/debug-cover.js?v=1.12.2"></script><script src="../vendor/top-bar.js?v=1.12.2"></script>
 </head><body>
 <canvas id="terrain"></canvas><div id="globe"></div>
 <header><span>UAV GROUND CONTROL · STATION DELTA-9</span><span id="stat" class="warn">LINK: SECURE</span><span id="clk"></span></header>
@@ -249,7 +249,7 @@ requestAnimationFrame(tick);
 /* ---- terrain backdrop + clock ---- */
 const T=$('terrain'),x=T.getContext('2d');function fitT(){T.width=innerWidth;T.height=innerHeight}fitT();onresize=()=>{fitT();if(useLive&&map)map.invalidateSize()};
 (function(){x.fillStyle='#0a1510';x.fillRect(0,0,T.width,T.height);for(let i=0;i<60;i++){x.strokeStyle='#2a3a2055';x.beginPath();let y=Math.random()*T.height;x.moveTo(0,y);for(let px=0;px<T.width;px+=28)x.lineTo(px,y+Math.sin(px*.01+i)*20);x.stroke()}})();
-setInterval(()=>{$('clk').textContent=new Date(simMs).toUTCString().slice(17,25)+'Z'},500);
+setInterval(()=>{$('clk').textContent=UIM.time(new Date(simMs),true)},500);
 
 /* ---- login state cycle ---- */
 const dlg=$('dlg'),title=$('title'),sub=$('dsub'),pbar=$('pbar'),stat=$('stat');let step=0;

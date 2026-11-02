@@ -51,7 +51,21 @@ package body UIM.Places is
       Put_Degrees (P.Map_Lat); Put (","); Put_Degrees (P.Map_Lon);
       Put ("],""zoom"":");       Put ((1 => Character'Val (48 + P.Zoom)));
       Put (",""tz"":""");        Put_Trimmed (P.Time_Zone);
-      Put ("""}");
+      Put ("""");
+      --  Local details: locale, time zone labels (standard, summer, offset
+      --  in minutes), coast scenery, seas, coast cameras, sea temperature
+      --  and crops. Pages draw and label from these; texts.tsv translates.
+      case L is
+         when EN =>
+            Put (",""locale"":""en-GB"",""zone"":[""GMT"",""BST"",0],""coast"":""cliffs"",""seas"":[""North Sea"",""Atlantic"",""English Channel""],""cams"":[""NORTH SEA COASTAL WEBCAM"",""ATLANTIC CLIFF CAM""],""water"":11.2,""phone"":""+44 20 7946 0100"",""crops"":[""Wheat"",""Barley"",""Oilseed rape"",""Potatoes"",""Grass ley""]");
+         when DE =>
+            Put (",""locale"":""de-DE"",""zone"":[""CET"",""CEST"",60],""coast"":""dunes"",""seas"":[""Baltic"",""North Sea"",""Wadden Sea""],""cams"":[""BALTIC COASTAL WEBCAM"",""NORTH SEA DUNE CAM""],""water"":9.6,""phone"":""+49 30 23125 100"",""crops"":[""Wheat"",""Barley"",""Oilseed rape"",""Maize"",""Sugar beet""]");
+         when ES =>
+            Put (",""locale"":""es-ES"",""zone"":[""CET"",""CEST"",60],""coast"":""palms"",""seas"":[""Mediterranean"",""Balearic Sea"",""Alboran Sea""],""cams"":[""MEDITERRANEAN COASTAL WEBCAM"",""BALEARIC PALM BEACH CAM""],""water"":17.8,""phone"":""+34 910 000 100"",""crops"":[""Wheat"",""Barley"",""Olives"",""Sunflower"",""Vines""]");
+         when FR =>
+            Put (",""locale"":""fr-FR"",""zone"":[""CET"",""CEST"",60],""coast"":""pines"",""seas"":[""Atlantic"",""Bay of Biscay"",""Mediterranean""],""cams"":[""ATLANTIC COASTAL WEBCAM"",""MEDITERRANEAN PINE COAST CAM""],""water"":14.1,""phone"":""+33 1 99 00 01 00"",""crops"":[""Wheat"",""Maize"",""Oilseed rape"",""Sugar beet"",""Vines""]");
+      end case;
+      Put ("}");
    end To_JSON;
 
 end UIM.Places;

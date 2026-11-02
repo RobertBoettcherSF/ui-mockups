@@ -1,4 +1,4 @@
-# What stays untranslated (v1.12.1)
+# What stays untranslated (v1.12.2)
 
 The language flags (🇩🇪 🇬🇧 🇪🇸 🇫🇷) switch every on-screen text, number format,
 clock format, unit and map place through the Ada core (`ada/`). The things
@@ -29,7 +29,7 @@ below stay as they are **on purpose**.
 | `ops-centre-berlin` | Always Berlin (Bundestag). Texts are translated, the place is not moved. |
 | `ops-centre-france` | Always Paris. Texts translated. |
 | `ops-centre-europe` | Always Brussels / Europe. Texts translated. |
-| `global-ops-hub`, `coastal-monitor` | World / generic coast; no country to swap. |
+| `global-ops-hub` | World view; no country to swap. |
 | `public-broadcast-channel` | Bilingual English/French by design. The English half follows the flag, the French half stays French. |
 
 ## English is the United Kingdom (since v1.12.1)

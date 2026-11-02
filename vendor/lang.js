@@ -1,4 +1,4 @@
-/* Language layer for every page (v1.12.1).
+/* Language layer for every page (v1.12.2).
    All texts, number formats, units and places come from the Ada core
    (ada/src, compiled to WebAssembly and embedded in vendor/uim-core.js).
    This file only moves text between the page and the core:
@@ -68,6 +68,23 @@
     num: function (x) { return core ? call(core.uim_num, String(x)) : String(x); },
     qty: function (x, unit) { return core ? call(core.uim_qty, String(x), UNITS[unit] || 0) : String(x); },
     place: place,
+    // Clock in the flag's time zone, e.g. "15:04 GMT" / "16:04 CET" (zone and labels from the Ada core).
+    zone: function (d) {
+      var P = place(); if (!P) return 'UTC';
+      try {
+        var o = new Intl.DateTimeFormat('en', {timeZone: P.tz, timeZoneName: 'longOffset'}).formatToParts(d || new Date())
+          .filter(function (x) { return x.type === 'timeZoneName'; })[0].value.match(/([+-])(\d\d):?(\d\d)?/);
+        var m = o ? (o[1] === '-' ? -1 : 1) * (+o[2] * 60 + +(o[3] || 0)) : 0;
+        return m === P.zone[2] ? P.zone[0] : P.zone[1];
+      } catch (e) { return P.zone[0]; }
+    },
+    time: function (d, sec) {
+      d = d || new Date(); var P = place();
+      var s = d.toLocaleTimeString('en-GB', {timeZone: P ? P.tz : 'UTC', hour: '2-digit', minute: '2-digit', second: sec ? '2-digit' : undefined, hour12: false});
+      return s + ' ' + UIM.zone(d);
+    },
+    // Date in the flag's locale (mark the element data-notr; it is already local).
+    date: function (d, opts) { var P = place(); return (d || new Date()).toLocaleDateString(P ? P.locale : 'en-GB', Object.assign({timeZone: P ? P.tz : 'UTC'}, opts || {})); },
     setLang: function (code) {
       if (CODES.indexOf(code) < 0) return;
       try { localStorage.setItem('uim-lang', code); } catch (e) {}

@@ -96,3 +96,31 @@ Robert's asks:
     London (Europe/London), uses the bundled UK regions, 24 h clocks, metric
     units with UK miles/mph. From v1.12.1 English deliberately no longer
     matches the v1.11.0 US maps (Lincoln, Nebraska).
+
+## v1.12.2 — every screen follows the flag
+
+Robert found coastal-monitor still showing a Pacific webcam, palm trees and UTC
+under 🇬🇧. All 20 screens were audited for region-specific content. Local
+details now come from the Ada core (`ada/src/uim-places.adb`: locale, time-zone
+labels, coast type, seas, camera names, sea temperature, crops, a fictional
+phone number) and are translated through `ada/data/texts.tsv`. Pages only draw
+what the core names; there is no country logic in JavaScript.
+
+| Screen | Found | 🇬🇧 EN (UK) | 🇩🇪 DE | 🇪🇸 ES | 🇫🇷 FR |
+|---|---|---|---|---|---|
+| coastal-monitor | Pacific webcam, palms, Pacific/Atlantic/Indian buoys, UTC, US date 11/2, "18.4 C" | North Sea webcam, Atlantic chalk-cliff cam with grass; buoys North Sea / Atlantic / English Channel; GMT/BST; 2/11; °C | Baltic webcam, North Sea grass-dune cam; Baltic / North Sea / Wadden Sea; CET/CEST | Mediterranean webcam, Balearic palm beach; Mediterranean / Balearic / Alborán; CET/CEST | Atlantic webcam, Mediterranean pine coast with rocks; Atlantic / Biscay / Mediterranean; CET/CEST |
+| drone-console, aether-os | UTC "Z" clock, Lincoln NE | local clock + GMT/BST, London | CET/CEST, Berlin | CET/CEST, Madrid | CET/CEST, Paris |
+| farm-weather-console, verdant-os | Corn/Soybean/Sorghum/Alfalfa, "borders us-atlas", US map | wheat, barley, oilseed rape, potatoes, grass ley; UK regions | wheat, barley, rape, maize, sugar beet | wheat, barley, olives, sunflower, vines | wheat, maize, rape, sugar beet, vines |
+| voicemail-desktop | +1 555-0100, 12 h clock | +44 20 7946 0100 (fictional range), 24 h | +49 30 23125 100 (fictional range) | +34 910 000 100 | +33 1 99 00 01 00 (fictional range) |
+| secure-comms-portal | US date "November 2, 2026", unlabelled time | "2 November 2026", time + GMT | local date, CET | local date, CET | local date, CET |
+| public-broadcast-channel | US date order | date in the flag's locale | ← | ← | ← |
+| global-ops-hub | en-US weekday, unlabelled clock | clock + zone label in the flag's zone | ← | ← | ← |
+
+Left region-fixed on purpose: `ops-centre-berlin` (Berlin, CET), `ops-centre-france`
+(Paris), `ops-centre-europe` (Brussels; its world map keeps ocean names);
+the drone/aether route destination Delhi and the crew roster (the scenario is a
+transit to India); `secure-video-call` "Harbourton" (fictional name);
+public-broadcast-channel stays bilingual EN/FR by design; marine VHF 156.800 MHz
+(international). Screens with no place reference (biometric-scan, cockpit,
+craft, conference-grid, field-data-viewer, sdr-console, self-organizing,
+gallery) are unchanged.

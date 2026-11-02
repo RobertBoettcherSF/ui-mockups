@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.1"></script><script src="../vendor/lang.js?v=1.12.1"></script><title>Coastal Monitor</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.12.2"></script><script src="../vendor/lang.js?v=1.12.2"></script><title>Coastal Monitor</title>
 <style>
 html,body{margin:0;height:100%;background:#1b1c1a;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#cfe9da}
 body{background:#161716}
@@ -11,24 +11,28 @@ body{background:#161716}
 .small .lbl{font-size:1.5vh;font-weight:bold}
 canvas.view{display:block;width:100%;border:1px solid #c4f0cf;filter:contrast(1.05) saturate(.85) sepia(.12)}
 .log{font-family:"Courier New",monospace;font-size:1.55vh;line-height:1.35;color:#d6ece0;padding:.8vh .5vw;white-space:pre-wrap;overflow:hidden}
-</style><script src="../vendor/debug-cover.js?v=1.12.1"></script><script src="../vendor/top-bar.js?v=1.12.1"></script>
+</style><script src="../vendor/debug-cover.js?v=1.12.2"></script><script src="../vendor/top-bar.js?v=1.12.2"></script>
 </head><body>
 <div id="top"><div class="vl" style="left:39%"></div><div class="vl" style="left:59.5%"></div>
-<div id="clock"></div>
+<div id="clock"><span id="cd"></span> <span id="ct"></span></div>
 <svg id="logo" width="300" height="70" viewBox="0 0 300 70"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#7fe3c9"/><stop offset=".5" stop-color="#f3f7d0"/><stop offset="1" stop-color="#78c8e8"/></linearGradient></defs>
 <text x="150" y="52" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="bold" font-size="54" letter-spacing="6" fill="none" stroke="url(#g)" stroke-width="3">OCEANA</text></svg></div>
-<div class="panel" style="left:2%;top:25vh;width:45%"><div class="lbl">PACIFIC COASTAL WEBCAM</div><canvas id="wide" class="view" width="720" height="330"></canvas></div>
-<div class="panel" style="left:51%;top:27vh;width:18%"><div class="lbl">NORTH ATLANTIC CAM</div><canvas id="tall" class="view" width="290" height="500"></canvas></div>
+<div class="panel" style="left:2%;top:25vh;width:45%"><div class="lbl" id="cam1">COASTAL WEBCAM</div><canvas id="wide" class="view" width="720" height="330"></canvas></div>
+<div class="panel" style="left:51%;top:27vh;width:18%"><div class="lbl" id="cam2">COAST CAM</div><canvas id="tall" class="view" width="290" height="500"></canvas></div>
 <div class="panel small" style="left:4%;top:78vh;width:26%"><div class="lbl">Buoy Telemetry Feed</div><div class="log" id="buoy"></div></div>
 <div class="panel small" style="left:73%;top:33vh;width:25%"><div class="lbl">Tide &amp; Wave Log</div><div class="log" id="tide"></div></div>
 <div class="panel small" style="left:73%;top:58vh;width:25%"><div class="lbl">Command &amp; Data Log</div><div class="log" id="cmd" style="height:28vh"></div></div>
 
 <script>
 const p=n=>String(n).padStart(2,'0');
-function clk(){const d=new Date();document.getElementById('clock').textContent=`${d.getMonth()+1}/${d.getDate()} ${p(d.getHours())}:${p(d.getMinutes())}`}clk();setInterval(clk,1000);
-document.getElementById('tide').textContent="Station A   1.2 m  15:00 UTC\nStation B   0.8 m  15:00 UTC\nStation C   1.5 m  15:10 UTC";
-document.getElementById('buoy').textContent="Buoy 47205 (Pacific):  water temp 18.4 C\nBuoy 51320 (Atlantic): wave ht 0.9 m\nBuoy 45023 (Indian):   wind 12 kt NE";
-const lines=["EVENT: Scheduled calibration complete","INFO: All buoys reporting","DISPATCH: Daily summary generated","NOTE: Systems nominal","INFO: Webcam feeds refreshed","EVENT: Tide gauge sync complete","NOTE: Next maintenance window 02:00 UTC","INFO: Data archive backup finished"];
+// Seas, cameras, scenery, time zone and sea temperature follow the flag (Ada core, UIM.place()).
+const PL=UIM.place()||{seas:['North Sea','Atlantic','English Channel'],cams:['NORTH SEA COASTAL WEBCAM','ATLANTIC CLIFF CAM'],coast:'cliffs',water:11.2},Z=UIM.zone();
+const clock=document.getElementById('clock');
+function clk(){const d=new Date();document.getElementById('cd').textContent=UIM.date(d,{day:'numeric',month:'numeric'});document.getElementById('ct').textContent=UIM.time(d)}clk();setInterval(clk,1000);
+document.getElementById('cam1').textContent=PL.cams[0];document.getElementById('cam2').textContent=PL.cams[1];
+document.getElementById('tide').textContent=`Station A   1.2 m  15:00 ${Z}\nStation B   0.8 m  15:00 ${Z}\nStation C   1.5 m  15:10 ${Z}`;
+document.getElementById('buoy').textContent=`Buoy 62103 (${PL.seas[0]}): water temp ${PL.water} °C\nBuoy 62145 (${PL.seas[1]}): wave ht 0.9 m\nBuoy 62305 (${PL.seas[2]}): wind 12 kt NE`;
+const lines=["EVENT: Scheduled calibration complete","INFO: All buoys reporting","DISPATCH: Daily summary generated","NOTE: Systems nominal","INFO: Webcam feeds refreshed","EVENT: Tide gauge sync complete","NOTE: Next maintenance window 02:00 "+Z,"INFO: Data archive backup finished"];
 let t=15*3600,li=0;const cmd=document.getElementById('cmd');
 function addLine(){const s=`[${p(Math.floor(t/3600)%24)}:${p(Math.floor(t/60)%60)}:${p(t%60)}] ${lines[li++%lines.length]}\n`;cmd.textContent+=s;t+=7+Math.floor(Math.random()*20);let ls=cmd.textContent.split('\n');if(ls.length>11)cmd.textContent=ls.slice(-11).join('\n')}
 for(let i=0;i<4;i++)addLine();setInterval(addLine,3500);
@@ -43,6 +47,18 @@ function palm(x,y,hh,lean){T.strokeStyle='#111';T.lineWidth=5;T.beginPath();T.mo
 function tall(f){const w=290,h=500;let g=T.createLinearGradient(0,0,0,h);g.addColorStop(0,'#9fc3d8');g.addColorStop(.6,'#f1dcc0');g.addColorStop(1,'#e8c99a');T.fillStyle=g;T.fillRect(0,0,w,h);
 for(let c=0;c<3;c++){const x=((c*140+f*.2)%420)-60;T.fillStyle='rgba(255,255,255,.55)';T.beginPath();T.ellipse(x,60+c*45,45,12,0,0,7);T.fill()}
 T.fillStyle='#5f8ea6';T.fillRect(0,330,w,40);T.strokeStyle='rgba(255,255,255,.6)';T.beginPath();for(let x=0;x<=w;x+=6)T.lineTo(x,368+Math.sin(x*.05+f*.06)*3);T.stroke();
-T.fillStyle='#d9b98a';T.fillRect(0,370,w,130);palm(200,500,330,-25);palm(70,500,230,20);palm(250,500,190,15)}
+coastScene[PL.coast]?coastScene[PL.coast]():coastScene.cliffs()}
+// One drawing per coast type named by the Ada core: palms (sandy beach), cliffs (chalk cliff + grass), dunes (grass dunes), pines (rocks + maritime pines)
+function grassTufts(y0,col){T.strokeStyle=col;T.lineWidth=1.5;for(let i=0;i<60;i++){const x=(i*37)%290,y=y0+((i*53)%40);T.beginPath();T.moveTo(x,y);T.lineTo(x-3+(i%7),y-10-(i%5)*2);T.stroke()}}
+function pine(x,y,hh){T.strokeStyle='#2a1d14';T.lineWidth=5;T.beginPath();T.moveTo(x,y);T.quadraticCurveTo(x+10,y-hh*.6,x+18,y-hh);T.stroke();T.fillStyle='#1f3a24';for(let k=0;k<3;k++){T.beginPath();T.ellipse(x+18+(k-1)*22,y-hh-6+k%2*8,34,12,0,0,7);T.fill()}}
+const coastScene={
+ palms(){T.fillStyle='#d9b98a';T.fillRect(0,370,290,130);palm(200,500,330,-25);palm(70,500,230,20);palm(250,500,190,15)},
+ cliffs(){T.fillStyle='#e9e4d6';T.beginPath();T.moveTo(110,330);T.lineTo(290,300);T.lineTo(290,500);T.lineTo(150,500);T.lineTo(125,420);T.closePath();T.fill();
+  T.fillStyle='#4f7a3a';T.beginPath();T.moveTo(105,332);T.lineTo(290,296);T.lineTo(290,318);T.lineTo(112,345);T.closePath();T.fill();
+  T.fillStyle='#8a8170';T.fillRect(0,440,150,60);T.strokeStyle='rgba(120,110,95,.6)';for(let i=0;i<6;i++){T.beginPath();T.moveTo(140+i*25,330-i*4);T.lineTo(150+i*24,500);T.stroke()}},
+ dunes(){T.fillStyle='#e6d3a8';T.beginPath();T.moveTo(0,400);T.quadraticCurveTo(80,340,160,392);T.quadraticCurveTo(230,350,290,380);T.lineTo(290,500);T.lineTo(0,500);T.fill();
+  grassTufts(372,'#6f8f3e');T.fillStyle='#d8c497';T.fillRect(0,455,290,45)},
+ pines(){T.fillStyle='#d9c6a0';T.fillRect(0,385,290,115);T.fillStyle='#6d6a64';T.beginPath();T.moveTo(0,372);T.lineTo(60,355);T.lineTo(95,380);T.lineTo(40,400);T.lineTo(0,398);T.fill();
+  pine(190,500,300);pine(60,500,220);pine(245,500,180)}};
 let f=0;(function loop(){wide(f);tall(f);f++;requestAnimationFrame(loop)})();
 </script></body></html>
