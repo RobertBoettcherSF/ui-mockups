@@ -57,7 +57,7 @@
 
   // Phones: shorter names so the dropdown never truncates.
   var PHONE = window.matchMedia && window.matchMedia("(max-width:600px)").matches;
-  var DROP = ["Centre", "Console", "Display", "System", "Channel", "Desktop", "Portal", "Viewer", "Hub", "Grid", "Call", "Scan"];
+  var DROP = ["Centre", "Console", "Display", "System", "Channel", "Desktop", "Portal", "Viewer", "Hub", "Grid", "Call", "Scan", "Air"];
   function shortName(folder) {
     var full = prettyName(folder).split(" ");
     var kept = full.filter(function (w) { return DROP.indexOf(w) < 0; });
