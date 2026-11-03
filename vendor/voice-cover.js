@@ -15,8 +15,13 @@
   function setSpk(i){var p=speaking;speaking=i;if(p!==i)ev('speaker',{from:p,to:i});dispatchEvent(new CustomEvent('vc:speaker',{detail:{index:i}}));}
   addEventListener('vc:highlight',function(e){lit={index:e.detail.index,label:e.detail.label};ev('highlight',{tile:e.detail.index,label:e.detail.label,speakerId:speaking,match:speaking<0||speaking===e.detail.index});});
   var btn=document.createElement('button');btn.setAttribute('data-dbg','1');btn.style.cssText='position:fixed;bottom:10px;left:10px;z-index:99999;font:11px monospace;padding:4px 8px;border-radius:4px;cursor:pointer;background:#000a;color:#ddd;border:1px solid #666';
-  function place(){if(innerWidth<600){btn.style.bottom='';btn.style.top='32px';btn.style.left='6px';}else{btn.style.top='';btn.style.bottom='10px';btn.style.left='10px';}}window.addEventListener('resize',place);
-  function label(){var k=!synth?'Voice: unsupported':(muted?'🔇 Voice off (V)':'🔊 Voice on (V)');btn.textContent=(window.UIM&&UIM.t)?UIM.t(k):k;}
+  var narrow=false;
+  function place(){var bar=document.getElementById('uim-topbar');narrow=innerWidth<600&&!!bar;
+    if(narrow){if(btn.parentNode!==bar)bar.appendChild(btn);btn.style.position='static';btn.style.top=btn.style.left=btn.style.bottom='';btn.style.marginLeft='auto';btn.style.padding='1px 6px';btn.style.flex='0 0 auto';}
+    else{if(btn.parentNode!==document.body&&document.body)document.body.appendChild(btn);btn.style.position='fixed';btn.style.top='';btn.style.bottom='10px';btn.style.left='10px';btn.style.marginLeft='';btn.style.padding='4px 8px';}
+    label();}
+  window.addEventListener('resize',place);window.addEventListener('load',place);setTimeout(place,300);
+  function label(){var k=!synth?'Voice: unsupported':(muted?'🔇 Voice off (V)':'🔊 Voice on (V)');var tx=(window.UIM&&UIM.t)?UIM.t(k):k;btn.title=tx;btn.setAttribute('aria-label',tx);btn.textContent=(typeof narrow!=='undefined'&&narrow)?(muted?'🔇':'🔊'):tx;}
   document.addEventListener('uim-lang',function(){label();});
   label(); place(); (document.body||document.documentElement).appendChild(btn);
   ev('load',{callers:n,muted:muted,speechSynthesis:!!synth});

@@ -168,3 +168,8 @@ gallery) are unchanged.
 ## v1.13.3
 - Header titles fit on one line (shrink spacing, then size; wrap only as last resort) via vendor/fit-title.js on the three ops screens.
 - Voicemail taskbar compacts below 600 px; the voice button moves to the top-left below 600 px so call controls no longer cover it.
+
+## v1.13.4
+- Voice button: below 600 px it sits inside the top bar as a compact icon (translated tooltip), so it no longer covers content.
+- Voicemail taskbar fits at 390 px with no sideways scroll.
+- fit-title.js also fits the right-hand header label and any [data-fit] text (secure-comms-portal title).

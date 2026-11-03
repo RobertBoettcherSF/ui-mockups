@@ -1,4 +1,4 @@
-# What stays untranslated (v1.13.3)
+# What stays untranslated (v1.13.4)
 
 The language flags (🇩🇪 🇬🇧 🇪🇸 🇫🇷) switch every on-screen text, number format,
 clock format, unit and map place through the Ada core (`ada/`). The things
@@ -17,7 +17,7 @@ below stay as they are **on purpose**.
 | Brand / product names (VerdantOS, AetherOS, Leaflet, Esri, OpenStreetMap, RainViewer, GitHub) | maps, terminals | Names. |
 | Units that are already international (km/h, °C, hPa, µg/m³, NTU, MHz, dBZ, kt for air speed) | everywhere | Already metric / standard. |
 | The **Debug** button, its prompt and the version stamp | every page | Kept English so the debug files are easy to read; the report records the language. |
-| Machine process tables (`PID MODULE ADDR LOAD ST`, `0x… SYNC.L …` rows, module names and their `io.flush :: map` tags) | self-organizing-system | Generated machine output, like a hex dump. Its status words (OK/BUSY/IDLE/SYNC/MOVE/WAIT/DONE) now translate through Ada `texts.tsv` (since v1.13.3); its labels, hint and console lines (`Loading module... COMPLETE`, `> verify OK` …) are translated. |
+| Machine process tables (`PID MODULE ADDR LOAD ST`, `0x… SYNC.L …` rows, module names and their `io.flush :: map` tags) | self-organizing-system | Generated machine output, like a hex dump. Its status words (OK/BUSY/IDLE/SYNC/MOVE/WAIT/DONE) now translate through Ada `texts.tsv` (since v1.13.4); its labels, hint and console lines (`Loading module... COMPLETE`, `> verify OK` …) are translated. |
 | Shell prompt `agri@verdant:~$` | verdant-os | It is a user@host prompt. |
 | `(C) 2025 Example Systems`, `EOxCloudless 2016 · CC BY 4.0` | secure-comms-portal, capital-air-patrol | Copyright / map attribution names. |
 | The French half of the word ticker (`NOUVELLES RESEAU METEO DIFFUSION`) | public-broadcast-channel | Bilingual by design: the English half (INFORMATION, NETWORK, ADVISORY …) follows the flag through Ada `texts.tsv`; the French half stays French. |

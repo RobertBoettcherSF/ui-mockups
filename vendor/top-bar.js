@@ -61,12 +61,15 @@
     }
   }
 
+  (function(){var st=document.createElement("style");st.textContent="@media(max-width:600px){html,body{max-width:100vw}html,body{overflow-x:clip!important}body>*{max-width:100vw}}";(document.head||document.documentElement).appendChild(st);})();
+
   function buildBar() {
     var version = appVersion();
     var here = currentMockup();
 
     var bar = document.createElement("div");
     bar.setAttribute("data-dbg", "1");
+    bar.id = "uim-topbar";
     bar.style.cssText =
       "position:fixed;top:0;left:0;right:0;height:" + BAR_HEIGHT + "px;" +
       "z-index:99999;display:flex;align-items:center;gap:10px;" +
@@ -88,7 +91,7 @@
     select.title = label("Jump to mockup");
     select.style.cssText =
       "background:#1a1d24;color:#ddd;border:1px solid #444;" +
-      "font:12px monospace;padding:1px 4px";
+      "font:12px monospace;padding:1px 4px;min-width:0;flex:0 1 auto;max-width:48vw";
     for (var i = 0; i < MOCKUPS.length; i++) {
       var option = document.createElement("option");
       option.value = MOCKUPS[i];

@@ -1,4 +1,4 @@
-/* Language layer for every page (v1.13.3).
+/* Language layer for every page (v1.13.4).
    All texts, number formats, units and places come from the Ada core
    (ada/src, compiled to WebAssembly and embedded in vendor/uim-core.js).
    This file only moves text between the page and the core:
