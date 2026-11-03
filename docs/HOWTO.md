@@ -1,4 +1,4 @@
-# How to: languages, the Ada core and the maps (v1.13.4)
+# How to: languages, the Ada core and the maps (v1.13.5)
 
 ## Use it
 
@@ -124,4 +124,4 @@ Chromium at 1600×900 after visible changes.
 ## Version
 
 `version.txt`, `APPV` in `vendor/debug-cover.js`, `Version` in
-`ada/src/uim.ads` and the `?v=` in links must match (currently 1.13.4).
+`ada/src/uim.ads` and the `?v=` in links must match (currently 1.13.5).

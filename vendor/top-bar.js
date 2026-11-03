@@ -52,7 +52,16 @@
     for (var i = 0; i < words.length; i++) {
       words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
     }
-    return words.join(" ");
+    return words.join(" ").replace(/\bOs\b/g, "OS").replace(/\bSdr\b/g, "SDR");
+  }
+
+  // Phones: shorter names so the dropdown never truncates.
+  var PHONE = window.matchMedia && window.matchMedia("(max-width:600px)").matches;
+  var DROP = ["Centre", "Console", "Display", "System", "Channel", "Desktop", "Portal", "Viewer", "Hub", "Grid", "Call", "Scan"];
+  function shortName(folder) {
+    var full = prettyName(folder).split(" ");
+    var kept = full.filter(function (w) { return DROP.indexOf(w) < 0; });
+    return (kept.length ? kept : full).join(" ");
   }
 
   function logEvent(type, data) {
@@ -73,12 +82,14 @@
     bar.style.cssText =
       "position:fixed;top:0;left:0;right:0;height:" + BAR_HEIGHT + "px;" +
       "z-index:99999;display:flex;align-items:center;gap:10px;" +
-      "padding:0 120px 0 10px;background:rgba(10,12,16,0.92);" +
+      (PHONE ? "padding:0 88px 0 8px;gap:6px;" : "padding:0 120px 0 10px;") + "background:rgba(10,12,16,0.92);" +
       "border-bottom:1px solid #333;font:12px monospace;color:#ccc";
 
     // Gallery link
     var link = document.createElement("a");
-    link.textContent = "\u2190 " + label("Gallery");
+    link.textContent = PHONE ? "\u2190" : "\u2190 " + label("Gallery");
+    link.title = label("Gallery"); link.setAttribute("aria-label", label("Gallery"));
+    if (PHONE) link.style.cssText = "color:#8ecbff;text-decoration:none;font-size:18px;padding:4px 6px";
     link.href = "../?v=" + version;
     link.style.cssText = "color:#8ecbff;text-decoration:none";
     link.onclick = function () {
@@ -91,11 +102,11 @@
     select.title = label("Jump to mockup");
     select.style.cssText =
       "background:#1a1d24;color:#ddd;border:1px solid #444;" +
-      "font:12px monospace;padding:1px 4px;min-width:0;flex:0 1 auto;max-width:48vw";
+      (PHONE ? "font:11px monospace;padding:1px 2px;min-width:0;flex:0 1 auto" : "font:12px monospace;padding:1px 4px;min-width:0;flex:0 1 auto;max-width:48vw");
     for (var i = 0; i < MOCKUPS.length; i++) {
       var option = document.createElement("option");
       option.value = MOCKUPS[i];
-      option.textContent = prettyName(MOCKUPS[i]);
+      option.textContent = PHONE ? shortName(MOCKUPS[i]) : prettyName(MOCKUPS[i]);
       if (MOCKUPS[i] === here) {
         option.selected = true;
       }

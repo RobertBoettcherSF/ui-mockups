@@ -173,3 +173,8 @@ gallery) are unchanged.
 - Voice button: below 600 px it sits inside the top bar as a compact icon (translated tooltip), so it no longer covers content.
 - Voicemail taskbar fits at 390 px with no sideways scroll.
 - fit-title.js also fits the right-hand header label and any [data-fit] text (secure-comms-portal title).
+
+## v1.13.5
+- Viewport meta on every page; mobile checks now run in phone emulation (390x844, dpr 3, mobile, touch).
+- Phone top bar: arrow-only gallery link, short screen names in the dropdown, voice button with icon + translated label and a 44 px tall tap area.
+- national/continental ops centre animations about 25% slower.

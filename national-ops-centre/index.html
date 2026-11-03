@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.13.4"></script><script src="../vendor/lang.js?v=1.13.4"></script>
-<script src="../vendor/fit-title.js?v=1.13.4"></script><title>National Operations Centre</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="../vendor/uim-core.js?v=1.13.5"></script><script src="../vendor/lang.js?v=1.13.5"></script>
+<script src="../vendor/fit-title.js?v=1.13.5"></script><title>National Operations Centre</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -37,7 +37,7 @@ header .ttl{flex:1;min-width:0;overflow:hidden}
 .lbar i{display:block;height:100%;background:#7fcf8c}
 .lbar{margin-right:34px}.lbar span{position:absolute;right:-32px;top:-2px;color:#eaf3ee}
 .flick{transition:opacity .1s}
-</style><script src="../vendor/debug-cover.js?v=1.13.4"></script><script src="../vendor/top-bar.js?v=1.13.4"></script>
+</style><script src="../vendor/debug-cover.js?v=1.13.5"></script><script src="../vendor/top-bar.js?v=1.13.5"></script>
 </head><body>
 <div id="wrap">
  <header>
@@ -161,11 +161,11 @@ function worldFallback(){const cv=$('world');cv.width=cv.clientWidth;cv.height=c
 
 /* ---------- audio bars ---------- */
 function audio(id,active){const cv=$(id),ctx=cv.getContext('2d');cv.width=cv.clientWidth;cv.height=cv.clientHeight;
- (function loop(){const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);ctx.fillStyle='#030806';ctx.fillRect(0,0,W,H);const n=28,bw=W/n;for(let i=0;i<n;i++){const env=Math.sin(i/n*Math.PI);const h=active?(4+Math.random()*env*H*.8):(1+Math.random()*2);ctx.fillStyle=active?'#8fe0a0':'#2a5234';ctx.fillRect(i*bw+1,(H-h)/2,bw-2,h)}requestAnimationFrame(loop)})();}
+ let fc=0;(function loop(){if((++fc)%4===0){requestAnimationFrame(loop);return;}const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);ctx.fillStyle='#030806';ctx.fillRect(0,0,W,H);const n=28,bw=W/n;for(let i=0;i<n;i++){const env=Math.sin(i/n*Math.PI);const h=active?(4+Math.random()*env*H*.8):(1+Math.random()*2);ctx.fillStyle=active?'#8fe0a0':'#2a5234';ctx.fillRect(i*bw+1,(H-h)/2,bw-2,h)}requestAnimationFrame(loop)})();}
 
 /* ---------- status flicker ---------- */
-function flicker(){const els=[...document.querySelectorAll('.flick')];setInterval(()=>{const e=els[Math.random()*els.length|0];e.style.opacity='.25';setTimeout(()=>e.style.opacity='1',90)},700);
- setInterval(()=>{const c=96+Math.random()*3|0;$('cmdbar').style.width=c+'%';$('cmdpct').textContent=c+'%';const o=94+Math.random()*4|0;$('opbar').style.width=o+'%';$('oppct').textContent=o+'%'},1500);}
+function flicker(){const els=[...document.querySelectorAll('.flick')];setInterval(()=>{const e=els[Math.random()*els.length|0];e.style.opacity='.25';setTimeout(()=>e.style.opacity='1',110)},875);
+ setInterval(()=>{const c=96+Math.random()*3|0;$('cmdbar').style.width=c+'%';$('cmdpct').textContent=c+'%';const o=94+Math.random()*4|0;$('opbar').style.width=o+'%';$('oppct').textContent=o+'%'},1875);}
 
 (async()=>{
  const ok=await loadData();

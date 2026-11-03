@@ -6,7 +6,7 @@
 package UIM is
    pragma Pure;
 
-   Version : constant String := "1.13.4";
+   Version : constant String := "1.13.5";
 
    --  The four flags. English is first and is the fallback.
    type Language is (EN, DE, ES, FR);

@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script src="../vendor/uim-core.js?v=1.13.4"></script><script src="../vendor/lang.js?v=1.13.4"></script>
-<script src="../vendor/fit-title.js?v=1.13.4"></script><title>Continental Operations Centre</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="../vendor/uim-core.js?v=1.13.5"></script><script src="../vendor/lang.js?v=1.13.5"></script>
+<script src="../vendor/fit-title.js?v=1.13.5"></script><title>Continental Operations Centre</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -37,7 +37,7 @@ header .ttl{flex:1;min-width:0;overflow:hidden}
 .lbar i{display:block;height:100%;background:#7fcf8c}
 .lbar{margin-right:34px}.lbar span{position:absolute;right:-32px;top:-2px;color:#eaf3ee}
 .flick{transition:opacity .1s}
-</style><script src="../vendor/debug-cover.js?v=1.13.4"></script><script src="../vendor/top-bar.js?v=1.13.4"></script>
+</style><script src="../vendor/debug-cover.js?v=1.13.5"></script><script src="../vendor/top-bar.js?v=1.13.5"></script>
 </head><body>
 <div id="wrap">
  <header>
@@ -117,7 +117,7 @@ function drawGlobe(){
  const proj=d3.geoOrthographic().fitExtent([[12,12],[W-12,H-12]],{type:'Sphere'}).rotate([-HQ[0],-HQ[1]]);
  const path=d3.geoPath(proj,ctx);const grat=d3.geoGraticule10();
  let rot=0;
- function frame(){ctx.clearRect(0,0,W,H);rot+=0.12;proj.rotate([-HQ[0]+rot,-HQ[1]]);
+ function frame(){ctx.clearRect(0,0,W,H);rot+=0.09;proj.rotate([-HQ[0]+rot,-HQ[1]]);
   // ocean sphere
   ctx.beginPath();path({type:'Sphere'});ctx.fillStyle='#05101c';ctx.fill();
   // subtle ocean shading
@@ -141,7 +141,7 @@ function drawGlobe(){
 function globeFallback(){ // simple generated globe if no data
  const cv=$('globe');cv.width=cv.clientWidth;cv.height=cv.clientHeight;const W=cv.width,H=cv.height,ctx=cv.getContext('2d');
  const proj=d3.geoOrthographic?d3.geoOrthographic().fitExtent([[12,12],[W-12,H-12]],{type:'Sphere'}).rotate([-HQ[0],-HQ[1]]):null;
- let rot=0;function frame(){ctx.clearRect(0,0,W,H);const cx=W/2,cy=H/2,r=Math.min(W,H)/2-14;rot+=0.4;
+ let rot=0;function frame(){ctx.clearRect(0,0,W,H);const cx=W/2,cy=H/2,r=Math.min(W,H)/2-14;rot+=0.3;
   ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.fillStyle='#05101c';ctx.fill();ctx.strokeStyle='#4f9a66';ctx.lineWidth=1;ctx.stroke();
   ctx.save();ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.clip();ctx.strokeStyle='rgba(120,180,140,.2)';for(let a=-80;a<=80;a+=20){const yy=cy+r*Math.sin(a*Math.PI/180);ctx.beginPath();ctx.ellipse(cx,cy,r,Math.abs(r*Math.cos(a*Math.PI/180))*.2+2,0,0,7);ctx.stroke()}for(let k=0;k<12;k++){const off=(rot+k*30)%360*Math.PI/180;ctx.beginPath();ctx.ellipse(cx,cy,Math.abs(r*Math.cos(off))+1,r,0,0,7);ctx.stroke()}ctx.restore();
   ctx.beginPath();ctx.moveTo(cx,cy-7);ctx.lineTo(cx-6,cy+5);ctx.lineTo(cx+6,cy+5);ctx.closePath();ctx.fillStyle='#e23b2e';ctx.fill();
@@ -171,11 +171,11 @@ function worldFallback(){const cv=$('world');cv.width=cv.clientWidth;cv.height=c
 
 /* ---------- audio bars ---------- */
 function audio(id,active){const cv=$(id),ctx=cv.getContext('2d');function fit(){cv.width=cv.clientWidth;cv.height=cv.clientHeight}fit();
- (function loop(){const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);ctx.fillStyle='#030806';ctx.fillRect(0,0,W,H);const n=28,bw=W/n;for(let i=0;i<n;i++){const env=Math.sin(i/n*Math.PI);const h=active?(4+Math.random()*env*H*.8):(1+Math.random()*2);ctx.fillStyle=active?'#8fe0a0':'#2a5234';ctx.fillRect(i*bw+1,(H-h)/2,bw-2,h)}requestAnimationFrame(loop)})();}
+ let fc=0;(function loop(){if((++fc)%4===0){requestAnimationFrame(loop);return;}const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);ctx.fillStyle='#030806';ctx.fillRect(0,0,W,H);const n=28,bw=W/n;for(let i=0;i<n;i++){const env=Math.sin(i/n*Math.PI);const h=active?(4+Math.random()*env*H*.8):(1+Math.random()*2);ctx.fillStyle=active?'#8fe0a0':'#2a5234';ctx.fillRect(i*bw+1,(H-h)/2,bw-2,h)}requestAnimationFrame(loop)})();}
 
 /* ---------- status flicker ---------- */
-function flicker(){const els=[...document.querySelectorAll('.flick')];setInterval(()=>{const e=els[Math.random()*els.length|0];e.style.opacity='.25';setTimeout(()=>e.style.opacity='1',90)},700);
- setInterval(()=>{const c=96+Math.random()*3|0;$('cmdbar').style.width=c+'%';$('cmdpct').textContent=c+'%';const o=94+Math.random()*4|0;$('opbar').style.width=o+'%';$('oppct').textContent=o+'%'},1500);}
+function flicker(){const els=[...document.querySelectorAll('.flick')];setInterval(()=>{const e=els[Math.random()*els.length|0];e.style.opacity='.25';setTimeout(()=>e.style.opacity='1',110)},875);
+ setInterval(()=>{const c=96+Math.random()*3|0;$('cmdbar').style.width=c+'%';$('cmdpct').textContent=c+'%';const o=94+Math.random()*4|0;$('opbar').style.width=o+'%';$('oppct').textContent=o+'%'},1875);}
 
 (async()=>{
  const ok=await loadData();

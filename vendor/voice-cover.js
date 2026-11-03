@@ -15,13 +15,13 @@
   function setSpk(i){var p=speaking;speaking=i;if(p!==i)ev('speaker',{from:p,to:i});dispatchEvent(new CustomEvent('vc:speaker',{detail:{index:i}}));}
   addEventListener('vc:highlight',function(e){lit={index:e.detail.index,label:e.detail.label};ev('highlight',{tile:e.detail.index,label:e.detail.label,speakerId:speaking,match:speaking<0||speaking===e.detail.index});});
   var btn=document.createElement('button');btn.setAttribute('data-dbg','1');btn.style.cssText='position:fixed;bottom:10px;left:10px;z-index:99999;font:11px monospace;padding:4px 8px;border-radius:4px;cursor:pointer;background:#000a;color:#ddd;border:1px solid #666';
-  var narrow=false;
+  var narrow=false;btn.id='vc-btn';(function(){var st=document.createElement('style');st.textContent='#vc-btn::after{content:"";position:absolute;left:0;right:0;top:-9px;bottom:-9px}';(document.head||document.documentElement).appendChild(st);})();
   function place(){var bar=document.getElementById('uim-topbar');narrow=innerWidth<600&&!!bar;
-    if(narrow){if(btn.parentNode!==bar)bar.appendChild(btn);btn.style.position='static';btn.style.top=btn.style.left=btn.style.bottom='';btn.style.marginLeft='auto';btn.style.padding='1px 6px';btn.style.flex='0 0 auto';}
+    if(narrow){if(btn.parentNode!==bar)bar.appendChild(btn);btn.style.position='static';btn.style.top=btn.style.left=btn.style.bottom='';btn.style.marginLeft='auto';btn.style.padding='0 8px';btn.style.flex='0 0 auto';btn.style.minWidth='44px';btn.style.height='26px';btn.style.font='bold 12px sans-serif';btn.style.color='#fff';btn.style.background='#1d3b5c';btn.style.border='1px solid #8ecbff';btn.style.borderRadius='6px';btn.style.position='relative';}
     else{if(btn.parentNode!==document.body&&document.body)document.body.appendChild(btn);btn.style.position='fixed';btn.style.top='';btn.style.bottom='10px';btn.style.left='10px';btn.style.marginLeft='';btn.style.padding='4px 8px';}
     label();}
   window.addEventListener('resize',place);window.addEventListener('load',place);setTimeout(place,300);
-  function label(){var k=!synth?'Voice: unsupported':(muted?'🔇 Voice off (V)':'🔊 Voice on (V)');var tx=(window.UIM&&UIM.t)?UIM.t(k):k;btn.title=tx;btn.setAttribute('aria-label',tx);btn.textContent=(typeof narrow!=='undefined'&&narrow)?(muted?'🔇':'🔊'):tx;}
+  function label(){var k=!synth?'Voice: unsupported':(muted?'🔇 Voice off (V)':'🔊 Voice on (V)');var tx=(window.UIM&&UIM.t)?UIM.t(k):k;btn.title=tx;btn.setAttribute('aria-label',tx);btn.textContent=(typeof narrow!=='undefined'&&narrow)?(muted?'🔇 ':'🔊 ')+((window.UIM&&UIM.t)?UIM.t('Voice'):'Voice'):tx;}
   document.addEventListener('uim-lang',function(){label();});
   label(); place(); (document.body||document.documentElement).appendChild(btn);
   ev('load',{callers:n,muted:muted,speechSynthesis:!!synth});
